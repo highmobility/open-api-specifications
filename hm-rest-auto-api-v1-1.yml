@@ -1,0 +1,4540 @@
+info:
+  title: HM REST Auto API
+  description: "High Mobility REST Auto API Level 7 specification"
+  version: 1.1.0
+
+swagger: '2.0'
+
+host: rest-api.high-mobility.com
+
+basePath: /auto/v1
+
+paths:
+  /capabilities:
+    get:
+      tags:
+        - Capabilities
+      summary: Get the vehicle capabilities
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: An array of Capabilities
+          schema:
+            type: object
+            properties:
+              capabilities:
+                type: array
+                items:
+                  $ref: '#/definitions/Capability'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - capabilities.read
+  /vehicle_status:
+    get:
+      tags:
+        - Vehicle Status
+      summary: Get the vehicle status
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Vehicle Status
+          schema:
+            $ref: '#/definitions/VehicleStatus'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - vehicle-status.read
+  /diagnostics:
+    get:
+      tags:
+        - Diagnostics
+      summary: Get the vehicle diagnostics state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Diagnostics State
+          schema:
+            $ref: '#/definitions/DiagnosticsState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - diagnostics.read
+  /maintenance:
+    get:
+      tags:
+        - Maintenance
+      summary: Get the vehicle maintenance state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Maintenance State
+          schema:
+            $ref: '#/definitions/MaintenanceState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - diagnostics.read
+  /race:
+    get:
+      tags:
+        - Race
+      summary: Get the racing data state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Race State
+          schema:
+            $ref: '#/definitions/RaceState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - race.read
+  /offroad:
+    get:
+      tags:
+        - Offroad
+      summary: Get the offroad data state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Offroad State
+          schema:
+            $ref: '#/definitions/OffroadState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - offroad.read
+  /doors:
+    get:
+      tags:
+        - Door Locks
+      summary: Get the vehicle doors state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Doors state
+          schema:
+            $ref: '#/definitions/LockState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - door-locks.read
+  /doors/unlock:
+    put:
+      tags:
+        - Door Locks
+      summary: Lock the vehicle doors
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Doors state
+          schema:
+            $ref: '#/definitions/LockState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - door-locks.write
+  /doors/lock:
+    put:
+      tags:
+        - Door Locks
+      summary: Lock the vehicle doors
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Doors state
+          schema:
+            $ref: '#/definitions/LockState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - door-locks.write
+  /engine:
+    get:
+      tags:
+        - Engine
+      summary: Get the engine ignition state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Ignition State
+          schema:
+            $ref: '#/definitions/IgnitionState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - engine.read
+  /engine/on:
+    put:
+      tags:
+        - Engine
+      summary: Turn on engine ignition
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Ignition State
+          schema:
+            $ref: '#/definitions/IgnitionState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - engine.write
+  /engine/off:
+    put:
+      tags:
+        - Engine
+      summary: Turn off engine ignition
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Ignition State
+          schema:
+            $ref: '#/definitions/IgnitionState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - engine.write
+  /trunk:
+    get:
+      tags:
+        - Trunk Access
+      summary: Get the vehicle trunk state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - trunk-access.read
+  /trunk/unlock:
+    put:
+      tags:
+        - Trunk Access
+      summary: Unlock the trunk
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - trunk-access.write
+  /trunk/lock:
+    put:
+      tags:
+        - Trunk Access
+      summary: Lock the trunk
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - trunk-access.write
+  /trunk/open:
+    put:
+      tags:
+        - Trunk Access
+      summary: Open the trunk
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - trunk-access.write
+  /trunk/close:
+    put:
+      tags:
+        - Trunk Access
+      summary: Close the trunk
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - trunk-access.write
+  /chassis_settings:
+    get:
+      tags:
+        - Chassis Settings
+      summary: Get the chassis settings
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.read
+  /chassis_settings/driving_mode:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Update the chassis driving mode
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Driving Mode
+          schema:
+            $ref: '#/definitions/SetDrivingMode'
+          required: true
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/sport_chrono/start:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Start Sport Chrono
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/sport_chrono/stop:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Stop Sport Chrono
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/sport_chrono/reset:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Reset Sport Chrono
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/spring_rates/front_axle:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Set the front axle spring rate
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: SpringRate to be set
+          schema:
+            $ref: '#/definitions/SetSpringRate'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/spring_rates/rear_axle:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Set the rear axle spring rate
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: SpringRate to be set
+          schema:
+            $ref: '#/definitions/SetSpringRate'
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /chassis_settings/position:
+    put:
+      tags:
+        - Chassis Settings
+      summary: Set the chassis position
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Chassis Position
+          schema:
+            $ref: '#/definitions/SetChassisPosition'
+          required: true
+      responses:
+        '200':
+          description: Chassis Settings
+          schema:
+            $ref: '#/definitions/ChassisSettings'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - chassis-settings.write
+  /climate:
+    get:
+      tags:
+        - Climate
+      summary: Get the vehicle climate state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Climate State
+          schema:
+            $ref: '#/definitions/ClimateState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - climate.read
+  /climate/profile:
+    put:
+      tags:
+        - Climate
+      summary: Update the climate profile
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: SetAutoHVACProfile
+          schema:
+            $ref: '#/definitions/SetAutoHVACProfile'
+          required: true
+      responses:
+        '200':
+          description: Climate State
+          schema:
+            $ref: '#/definitions/ClimateState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - climate.write
+  /lights:
+    get:
+      tags:
+        - Lights
+      summary: Get the vehicle lights state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Lights State
+          schema:
+            $ref: '#/definitions/LightsState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - lights.read
+  /lights/control:
+    put:
+      tags:
+        - Lights
+      summary: Control the lights
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Lights State
+          schema:
+            $ref: '#/definitions/LightsState'
+          required: true
+      responses:
+        '200':
+          description: Climate State
+          schema:
+            $ref: '#/definitions/ClimateState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - lights.write
+  /charging:
+    get:
+      tags:
+        - Charging
+      summary: Get the vehicle charge state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.read
+  /charging/start:
+    put:
+      tags:
+        - Charging
+      summary: Start the charging process
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/stop:
+    put:
+      tags:
+        - Charging
+      summary: Stop the charging process
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/limit:
+    put:
+      tags:
+        - Charging
+      summary: Set the vehicle charging limit
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Charge Limit
+          schema:
+            $ref: '#/definitions/SetChargeLimit'
+          required: true
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/port/open:
+    put:
+      tags:
+        - Charging
+      summary: Open the vehicle charge port
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/port/close:
+    put:
+      tags:
+        - Charging
+      summary: Close the vehicle charge port
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/mode:
+    put:
+      tags:
+        - Charging
+      summary: Set the vehicle charge mode
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: chargeMode
+          schema:
+            type: string
+            enum:
+              - immediate
+              - timer_based
+          required: true
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /charging/timer:
+    put:
+      tags:
+        - Charging
+      summary: Set the vehicle charge timer
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Charge Timer
+          schema:
+            $ref: '#/definitions/ChargeTimer'
+          required: true
+      responses:
+        '200':
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - charge.write
+  /honk_horn_flash_lights/flashers:
+    get:
+      tags:
+        - Honk Horn & Flash Lights
+      summary: Get the flashers state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Flashers State
+          schema:
+            $ref: '#/definitions/FlashersState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - honk-horn-flash-lights.read
+  /honk_horn_flash_lights:
+    put:
+      tags:
+        - Honk Horn & Flash Lights
+      summary: Honk the horn or flash the lights
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - honk-horn-flash-lights.write
+  /honk_horn_flash_lights/emergency/activate:
+    put:
+      tags:
+        - Honk Horn & Flash Lights
+      summary: Activate the emergency flashers
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Flashers State
+          schema:
+            $ref: '#/definitions/FlashersState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - honk-horn-flash-lights.write
+  /honk_horn_flash_lights/emergency/deactivate:
+    put:
+      tags:
+        - Honk Horn & Flash Lights
+      summary: Dectivate the emergency flashers
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Flashers State
+          schema:
+            $ref: '#/definitions/FlashersState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - honk-horn-flash-lights.write
+  /windows:
+    get:
+      tags:
+        - Windows
+      summary: Get the windows state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: An array of Windows
+          schema:
+            type: object
+            properties:
+              windows:
+                type: array
+                items:
+                  $ref: '#/definitions/Window'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - windows.read
+  /windows/control:
+    put:
+      tags:
+        - Windows
+      summary: Control the vehicle windows
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Array of Windows to be controlled
+          schema:
+            type: object
+            properties:
+              windows:
+                type: array
+                items:
+                  $ref: '#/definitions/Window'
+      responses:
+        '200':
+          description: An array of Windows
+          schema:
+            type: object
+            properties:
+              windows:
+                type: array
+                items:
+                  $ref: '#/definitions/Window'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - windows.write
+  /seats:
+    get:
+      tags:
+        - Seats
+      summary: Get the seats state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: An array of Seats
+          schema:
+            type: object
+            properties:
+              seats:
+                type: array
+                items:
+                  $ref: '#/definitions/Seat'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - seats.read
+  /rooftop:
+    get:
+      tags:
+        - Rooftop Control
+      summary: Get the rooftop state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Rooftop State
+          schema:
+            $ref: '#/definitions/RooftopState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - rooftop-control.read
+  /rooftop/control:
+    put:
+      tags:
+        - Rooftop Control
+      summary: Control the rooftop dimming and open position
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Control RooftopState
+          schema:
+            $ref: '#/definitions/RooftopState'
+          required: true
+      responses:
+        '200':
+          description: Rooftop State
+          schema:
+            $ref: '#/definitions/RooftopState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - rooftop-control.write
+  /windscreen:
+    get:
+      tags:
+        - Windscreen
+      summary: Get the windscreen state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Windscreen State
+          schema:
+            $ref: '#/definitions/WindscreenState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - windscreen.read
+  /messages/received:
+    post:
+      tags:
+        - Messaging
+      summary: Notify the vehicle about a received message
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: TextMessage
+          schema:
+            $ref: '#/definitions/TextMessage'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /browser/load:
+    post:
+      tags:
+        - Browser
+      summary: Load an URL in the headunit browser
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: URL
+          schema:
+            $ref: '#/definitions/LoadURL'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /graphics/display:
+    post:
+      tags:
+        - Graphics
+      summary: Display an image in the headunit
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: ImageURL
+          schema:
+            $ref: '#/definitions/DisplayImage'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /notifications/send:
+    post:
+      tags:
+        - Notifications
+      summary: Send a notification to be displayed
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Notification
+          schema:
+            $ref: '#/definitions/Notification'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /notifications/clear:
+    post:
+      tags:
+        - Notifications
+      summary: Clear the latest notification
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /video_handover:
+    post:
+      tags:
+        - Video Handover
+      summary: Hand over video playback to the vehicle screen
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: VideoHandover
+          schema:
+            $ref: '#/definitions/VideoHandover'
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - headunit.write
+  /wifi:
+    get:
+      tags:
+        - Wi-Fi
+      summary: Get the vehicle Wi-Fi state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Wi-Fi State
+          schema:
+            $ref: '#/definitions/WiFiState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - wi-fi.read
+  /wifi/connect:
+    put:
+      tags:
+        - Wi-Fi
+      summary: Connect vehicle to a Wi-Fi network
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Connect Wi-Fi
+          schema:
+            $ref: '#/definitions/ConnectNetwork'
+          required: true
+      responses:
+        '200':
+          description: Wi-Fi State
+          schema:
+            $ref: '#/definitions/WiFiState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - wi-fi.write
+  /wifi/forget:
+    put:
+      tags:
+        - Wi-Fi
+      summary: Forget a Wi-Fi network
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Forget Wi-Fi Network
+          schema:
+            $ref: '#/definitions/ForgetNetwork'
+          required: true
+      responses:
+        '200':
+          description: Wi-Fi State
+          schema:
+            $ref: '#/definitions/WiFiState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - wi-fi.write
+  /wifi/enable:
+    put:
+      tags:
+        - Wi-Fi
+      summary: Enable Wi-Fi
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Wi-Fi State
+          schema:
+            $ref: '#/definitions/WiFiState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - wi-fi.write
+  /wifi/disable:
+    put:
+      tags:
+        - Wi-Fi
+      summary: Disable Wi-Fi
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Wi-Fi State
+          schema:
+            $ref: '#/definitions/WiFiState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - wi-fi.write
+  /theft_alarm:
+    get:
+      tags:
+        - Theft Alarm
+      summary: Get the theft alarm state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Theft Alarm State
+          schema:
+            $ref: '#/definitions/TheftAlarmState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - theft-alarm.read
+  /theft_alarm/unarm:
+    put:
+      tags:
+        - Theft Alarm
+      summary: Unarm the vehicle theft alarm
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Theft Alarm State
+          schema:
+            $ref: '#/definitions/TheftAlarmState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - theft-alarm.write
+  /theft_alarm/arm:
+    put:
+      tags:
+        - Theft Alarm
+      summary: Arm the vehicle theft alarm
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Theft Alarm State
+          schema:
+            $ref: '#/definitions/TheftAlarmState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - theft-alarm.write
+  /theft_alarm/trigger:
+    put:
+      tags:
+        - Theft Alarm
+      summary: Trigger the vehicle theft alarm
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Theft Alarm State
+          schema:
+            $ref: '#/definitions/TheftAlarmState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - theft-alarm.write
+  /parking_brake:
+    get:
+      tags:
+        - Parking Brake
+      summary: Get the parking brake state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Parking Brake State
+          schema:
+            $ref: '#/definitions/ParkingBrakeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-brake.read
+  /parking_brake/activate:
+    put:
+      tags:
+        - Parking Brake
+      summary: Activate the parking brake
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Parking Brake State
+          schema:
+            $ref: '#/definitions/ParkingBrakeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-brake.write
+  /parking_brake/inactivate:
+    put:
+      tags:
+        - Parking Brake
+      summary: Inactivate the parking brake
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Parking Brake State
+          schema:
+            $ref: '#/definitions/ParkingBrakeState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-brake.write
+  /parking_ticket:
+    get:
+      tags:
+        - Parking Ticket
+      summary: Get the current parking ticket
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Parking Ticket
+          schema:
+            $ref: '#/definitions/ParkingTicket'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-ticket.read
+  /parking_ticket/start:
+    put:
+      tags:
+        - Parking Ticket
+      summary: Start parking with a new ticket
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Start Parking
+          schema:
+            $ref: '#/definitions/StartParking'
+          required: true
+      responses:
+        '200':
+          description: Parking Ticket
+          schema:
+            $ref: '#/definitions/ParkingTicket'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-ticket.write
+  /parking_ticket/end:
+    put:
+      tags:
+        - Parking Ticket
+      summary: End the current parking ticket
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Parking Ticket
+          schema:
+            $ref: '#/definitions/ParkingTicket'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - parking-ticket.write
+  /valet_mode:
+    get:
+      tags:
+        - Valet Mode
+      summary: Get the vehicle valet mode
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Valet Mode
+          schema:
+            $ref: '#/definitions/ValetMode'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - valet-mode.read
+  /valet_mode/activate:
+    put:
+      tags:
+        - Valet Mode
+      summary: Activate the valet mode
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Valet Mode
+          schema:
+            $ref: '#/definitions/ValetMode'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - valet-mode.write
+  /valet_mode/deactivate:
+    put:
+      tags:
+        - Valet Mode
+      summary: Deactivate the valet mode
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Valet Mode
+          schema:
+            $ref: '#/definitions/ValetMode'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - valet-mode.write
+  /fueling/gas_flap:
+    get:
+      tags:
+        - Fueling
+      summary: Get the gas flap state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Gas Flap State
+          schema:
+            $ref: '#/definitions/GasFlapState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - fueling.read
+  /fueling/gas_flap/open:
+    put:
+      tags:
+        - Fueling
+      summary: Open the gas flap
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Gas Flap State
+          schema:
+            $ref: '#/definitions/GasFlapState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - fueling.write
+  /location:
+    get:
+      tags:
+        - Vehicle Location
+      summary: Get the vehicle location
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Vehicle Location
+          schema:
+            $ref: '#/definitions/VehicleLocation'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - vehicle-location.read
+  /navi/destination:
+    get:
+      tags:
+        - Navi Destination
+      summary: Get the navigation system destination
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Navi Destination
+          schema:
+            $ref: '#/definitions/NaviDestination'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - navi-destination.read
+    put:
+      tags:
+        - Navi Destination
+      summary: Set the destination of the navigation system
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Navi Destination
+          schema:
+            $ref: '#/definitions/NaviDestination'
+          required: true
+      responses:
+        '200':
+          description: Navi Destination
+          schema:
+            $ref: '#/definitions/NaviDestination'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - navi-destination.write
+  /time:
+    get:
+      tags:
+        - Vehicle Time
+      summary: Get the vehicle local time
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Vehicle Time
+          schema:
+            $ref: '#/definitions/VehicleTime'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - vehicle-time.read
+  /light_conditions:
+    get:
+      tags:
+        - Light Conditions
+      summary: Get the vehicle measured light conditions
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Light Conditions
+          schema:
+            $ref: '#/definitions/LightConditions'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - environment.read
+  /weather_conditions:
+    get:
+      tags:
+        - Weather Conditions
+      summary: Get the vehicle measured weather conditions
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Weather Conditions
+          schema:
+            $ref: '#/definitions/WeatherConditions'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - environment.read
+  /home_charger:
+    get:
+      tags:
+        - Home Charger
+      summary: Get the home charger state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.read
+  /home_charger/charge_current:
+    put:
+      tags:
+        - Home Charger
+      summary: Set the charger charge current
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Charge Current
+          schema:
+            $ref: '#/definitions/SetChargeCurrent'
+          required: true
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /home_charger/price_tariffs:
+    put:
+      tags:
+        - Home Charger
+      summary: Set the charger price tariffs
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          description: An array of Price Tariffs
+          schema:
+            type: object
+            properties:
+              priceTariffs:
+                type: array
+                items:
+                  $ref: '#/definitions/PriceTariff'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /home_charger/solar/activate:
+    put:
+      tags:
+        - Home Charger
+      summary: Activate solar charging
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /home_charger/solar/deactivate:
+    put:
+      tags:
+        - Home Charger
+      summary: Deactivate solar charging
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /home_charger/wifi_hotspot/enable:
+    put:
+      tags:
+        - Home Charger
+      summary: Enable the charger Wi-Fi hotspot
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /home_charger/wifi_hotspot/disable:
+    put:
+      tags:
+        - Home Charger
+      summary: Disable the charger Wi-Fi hotspot
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Home Charger State
+          schema:
+            $ref: '#/definitions/HomeChargerState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+      security:
+        - owner_auth:
+            - home-charger.write
+  /firmware_version:
+    get:
+      tags:
+        - Firmware Version
+      summary: Get the vehicle firmware version
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Firmware Version
+          schema:
+            $ref: '#/definitions/FirmwareVersion'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /dashboard_lights:
+    get:
+      tags:
+        - Dashboard Lights
+      summary: Get the dashboard lights state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Dashboard Lights state
+          schema:
+            $ref: '#/definitions/DashboardLights'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /start_stop:
+    get:
+      tags:
+        - Start-Stop
+      summary: Get the start-stop state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Start-Stop State
+          schema:
+            $ref: '#/definitions/StartStopState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /start_stop/activate:
+    put:
+      tags:
+        - Start-Stop
+      summary: Activate the Start-Stop system of the engine
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Start-Stop State
+          schema:
+            $ref: '#/definitions/StartStopState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /start_stop/deactivate:
+    put:
+      tags:
+        - Start-Stop
+      summary: Deactivate the Start-Stop system of the engine
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Start-Stop State
+          schema:
+            $ref: '#/definitions/StartStopState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /cruise_control:
+    get:
+      tags:
+        - Cruise Control
+      summary: Get the cruise control state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Cruise Control State
+          schema:
+            $ref: '#/definitions/CruiseControlState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /cruise_control/activate:
+    put:
+      tags:
+        - Cruise Control
+      summary: Activate cruise control
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+        - in: body
+          name: body
+          description: Target speed to be set
+          schema:
+            $ref: '#/definitions/SetCruiseControlSpeed'
+      responses:
+        '200':
+          description: Cruise Control State
+          schema:
+            $ref: '#/definitions/CruiseControlState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /cruise_control/deactivate:
+    put:
+      tags:
+        - Cruise Control
+      summary: Deactivate cruise control
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Cruise Control State
+          schema:
+            $ref: '#/definitions/CruiseControlState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /power_takeoff:
+    get:
+      tags:
+        - Power Take-Off
+      summary: Get the power take-off state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Power Take-Off State
+          schema:
+            $ref: '#/definitions/PowerTakeoffState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /power_takeoff/activate:
+    put:
+      tags:
+        - Power Take-Off
+      summary: Activate power take-off
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Power Take-Off State
+          schema:
+            $ref: '#/definitions/PowerTakeoffState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /power_takeoff/deactivate:
+    put:
+      tags:
+        - Power Take-Off
+      summary: Deactivate power take-off
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Power Take-Off State
+          schema:
+            $ref: '#/definitions/PowerTakeoffState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+  /tachograph:
+    get:
+      tags:
+        - Tachograph
+      summary: Get the tachograph state
+      produces:
+        - application/json
+      parameters:
+        - $ref: '#/parameters/authorizationParam'
+      responses:
+        '200':
+          description: Tachograph State
+          schema:
+            $ref: '#/definitions/TachographState'
+        '400':
+          $ref: '#/definitions/Error400'
+        '401':
+          $ref: '#/definitions/Error401'
+        '403':
+          $ref: '#/definitions/Error403'
+        '408':
+          $ref: '#/definitions/Error408'
+definitions:
+  VehicleStatus:
+    type: object
+    properties:
+      vin:
+        type: string
+        example: JF2SHBDC7CH451869
+        description: The unique Vehicle Identification Number
+      powertrain:
+        type: string
+        enum:
+          - unknown
+          - all_electric
+          - combustion_engine
+          - phev
+          - hydrogen
+          - hydrogen_hybrid
+        example: unknown
+      modelName:
+        type: string
+        example: Type X
+        description: The car model name bytes formatted in UTF-8
+      name:
+        type: string
+        example: My Car
+        description: The car name (nickname) bytes formatted in UTF-8
+      licensePlate:
+        type: string
+        example: ABC123
+        description: The license plate bytes formatted in UTF-8
+      salesDesignation:
+        type: string
+        example: Package+
+        description: The sales designation of the model formatted in UTF-8
+      modelYear:
+        type: number
+        format: integer
+        example: 2017
+        description: The car model manufacturing year number
+      colorName:
+        type: string
+        example: Estoril Blau
+        description: The color name formatted in UTF-8
+      powerInKw:
+        type: number
+        format: integer
+        example: 220
+        description: The power of the car measured in kw
+      numberOfDoors:
+        type: number
+        format: integer
+        example: 5
+        description: The number of doors
+      numberOfSeats:
+        type: number
+        format: integer
+        example: 5
+        description: The number of seats
+      engineVolume:
+        type: number
+        format: float
+        example: 2.5
+        description: The engine volume displacement in liters per IEEE 754 formatting
+      engineMaxTorque:
+        type: number
+        format: integer
+        example: 245
+        description: The maximum engine torque in Nm
+      gearbox:
+        type: string
+        enum:
+          - manual
+          - automatic
+          - semi_automatic
+        example: manual
+      states:
+        type: array
+        items:
+          description: State
+          $ref: '#/definitions/State'
+  ParkingTicket:
+    type: object
+    properties:
+      parkingTicketState:
+        type: string
+        enum:
+          - ended
+          - started
+        example: ended
+      operatorName:
+        type: string
+        example: Berlin Parking
+        description: Operator Name bytes formatted in UTF-8
+      operatorTicketID:
+        type: string
+        example: '64894233'
+        description: Operator Ticket ID bytes formatted in UTF-8
+      ticketStartTime:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:20:50.52Z'
+        description: The time that parking was started
+      ticketEndTime:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:21:50.52Z'
+        description: The time that parking was ended
+  Window:
+    type: object
+    properties:
+      windowPosition:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+          - hatch
+        example: front_left
+      windowState:
+        type: string
+        enum:
+          - closed
+          - open
+        example: closed
+  WindowsState:
+    type: object
+    properties:
+      window:
+        description: Window
+        $ref: '#/definitions/Window'
+  VehicleTime:
+    type: object
+    properties:
+      vehicleTime:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:20:50.52Z'
+        description: The vehicle local time
+  StartStopState:
+    type: object
+    properties:
+      startStop:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+  GasFlapState:
+    type: object
+    properties:
+      gasFlap:
+        type: string
+        enum:
+          - closed
+          - open
+        example: closed
+  Coordinates:
+    type: object
+    properties:
+      latitude:
+        type: number
+        format: float
+        example: 52.5200080871582
+        description: Latitude in 4-bytes per IEEE 754
+      longitude:
+        type: number
+        format: float
+        example: 13.404953956604004
+        description: Longitude in 4-bytes per IEEE 754
+  NaviDestination:
+    type: object
+    properties:
+      coordinates:
+        description: Coordinates
+        $ref: '#/definitions/Coordinates'
+      destinationName:
+        type: string
+        example: Berlin
+        description: Destination name bytes formatted in UTF-8
+  LightConditions:
+    type: object
+    properties:
+      outsideLight:
+        type: number
+        format: float
+        example: 111000
+        description: 'Measured outside illuminance in lux, formatted as IEEE 754 decimal'
+      insideLight:
+        type: number
+        format: float
+        example: 0.25
+        description: 'Measured inside illuminance in lux, formatted as IEEE 754 decimal'
+  OffroadState:
+    type: object
+    properties:
+      routeIncline:
+        type: number
+        format: integer
+        example: 10
+        description: >-
+          The route elevation incline in degrees, which is a negative number for
+          decline
+      wheelSuspension:
+        type: number
+        format: integer
+        example: 50
+        description: >-
+          The wheel suspension level percentage, whereas 0% is no suspension and
+          100% maximum suspension
+  TrunkState:
+    type: object
+    properties:
+      trunkLock:
+        type: string
+        enum:
+          - unlocked
+          - locked
+        example: unlocked
+      trunkPosition:
+        type: string
+        enum:
+          - closed
+          - open
+        example: closed
+  ValetMode:
+    type: object
+    properties:
+      valetMode:
+        type: string
+        enum:
+          - deactivated
+          - activated
+        example: deactivated
+  DashboardLight:
+    type: object
+    properties:
+      lightName:
+        type: string
+        enum:
+          - high_beam
+          - low_beam
+          - hazard_warning
+          - brake_failure
+          - hatch_open
+          - fuel_level
+          - engine_coolant_temperature
+          - battery_charging_condition
+          - engine_oil
+          - position_lights
+          - front_fog_light
+          - rear_fog_light
+          - park_heating
+          - engine_indicator
+          - service_call
+          - transmission_fluid_temperature
+          - transmission_failure
+          - anti_lock_brake_failure
+          - worn_brake_linings
+          - windscreen_washer_fluid
+          - tire_failure
+          - engine_oil_level
+          - engine_coolant_level
+          - steering_failure
+          - esc_indication
+          - brake_lights
+          - adblue_level
+          - fuel_filter_diff_pressure
+          - seat_belt
+          - advanced_braking
+          - acc
+          - trailer_connected
+          - airbag
+          - esc_switched_off
+          - lane_departure_warning_off
+        example: high_beam
+      state:
+        type: string
+        enum:
+          - inactive
+          - info
+          - yellow
+          - red
+        example: inactive
+  DashboardLights:
+    type: object
+    properties:
+      dashboardLights:
+        type: array
+        items:
+          description: DashboardLight
+          $ref: '#/definitions/DashboardLight'
+  LightsState:
+    type: object
+    properties:
+      frontExteriorLight:
+        type: string
+        enum:
+          - inactive
+          - active
+          - active_with_full_beam
+        example: inactive
+      rearExteriorLight:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      interiorLight:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      ambientLight:
+        type: string
+        example: '#ccff88'
+        description: The ambient light hex string
+      reverseLight:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      emergencyBrakeLight:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+  SpringRate:
+    type: object
+    properties:
+      axle:
+        type: string
+        enum:
+          - front_axle
+          - rear_axle
+        example: front_axle
+      springRate:
+        type: number
+        format: integer
+        example: 21
+        description: The suspension spring rate in N/mm
+      maximumValue:
+        type: number
+        format: integer
+        example: 37
+        description: The maximum possible value for the spring rate
+      minimumValue:
+        type: number
+        format: integer
+        example: 21
+        description: The minimum value for the spring rate
+  ChassisPosition:
+    type: object
+    properties:
+      chassisPosition:
+        type: number
+        format: integer
+        example: 25
+        description: The chassis position in mm calculated from the lowest point
+      maximumValue:
+        type: number
+        format: integer
+        example: 55
+        description: The maximum possible value for the chassis position
+      minimumValue:
+        type: number
+        format: integer
+        example: 228
+        description: The minimum value for the chassis position
+  ChassisSettings:
+    type: object
+    properties:
+      drivingMode:
+        type: string
+        enum:
+          - regular
+          - eco
+          - sport
+          - sport_plus
+        example: regular
+      sportChrono:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      springRates:
+        type: array
+        items:
+          description: SpringRate
+          $ref: '#/definitions/SpringRate'
+      chassisPosition:
+        description: ChassisPosition
+        $ref: '#/definitions/ChassisPosition'
+  ChargeState:
+    type: object
+    properties:
+      charging:
+        type: string
+        enum:
+          - disconnected
+          - plugged_in
+          - charging
+          - charging_complete
+        example: disconnected
+      estimatedRange:
+        type: number
+        format: integer
+        example: 255
+        description: Estimated range in km
+      batteryLevel:
+        type: number
+        format: integer
+        example: 50
+        description: Battery level percentage between 0-100
+      batteryCurrentAC:
+        type: number
+        format: float
+        example: -0.6000000238418579
+        description: Battery current in 4-bytes per IEEE 754
+      batteryCurrentDC:
+        type: number
+        format: float
+        example: -0.6000000238418579
+        description: Battery current in 4-bytes per IEEE 754
+      batteryVoltageAC:
+        type: number
+        format: float
+        example: 400
+        description: Charger voltage in 4-bytes per IEEE 754
+      batteryVoltageDC:
+        type: number
+        format: float
+        example: 410
+        description: Charger voltage in 4-bytes per IEEE 754
+      chargeLimit:
+        type: number
+        format: integer
+        example: 90
+        description: Charge limit percentage between 0-100
+      timeToCompleteCharge:
+        type: number
+        format: integer
+        example: 60
+        description: Time until charging completed in minutes
+      chargingRateKW:
+        type: number
+        format: float
+        example: 0
+        description: 'Charge rate in kW represented as 4-bytes per IEEE 754, when charging'
+      chargePortState:
+        type: string
+        enum:
+          - closed
+          - open
+        example: closed
+      chargeMode:
+        type: string
+        enum:
+          - immediate
+          - timer_based
+          - inductive
+        example: immediate
+      chargeTimer:
+        description: ChargeTimer
+        $ref: '#/definitions/ChargeTimer'
+  Location:
+    type: object
+    properties:
+      latitude:
+        type: number
+        format: float
+        example: 52.5200080871582
+        description: Latitude in 4-bytes per IEEE 754
+      longitude:
+        type: number
+        format: float
+        example: 13.404953956604004
+        description: Longitude in 4-bytes per IEEE 754
+  ChargeCurrent:
+    type: object
+    properties:
+      chargeCurrent:
+        type: number
+        format: float
+        example: 0.5
+        description: Charge current in 4-bytes per IEEE 754
+      maximumValue:
+        type: number
+        format: float
+        example: 1
+        description: The maximum possible value for the charge current
+      minimumValue:
+        type: number
+        format: float
+        example: 0
+        description: The minimum possible value for the charge current
+  PriceTariff:
+    type: object
+    properties:
+      pricingType:
+        type: string
+        enum:
+          - starting_fee
+          - per_minute
+          - per_kwh
+        example: starting_fee
+      currency:
+        type: string
+        example: EUR
+        description: The currency alphabetic code per ISO 4217
+      price:
+        type: number
+        format: float
+        example: 4.5
+        description: The price in 4-bytes per IEEE 754
+  HomeChargerState:
+    type: object
+    properties:
+      charging:
+        type: string
+        enum:
+          - disconnected
+          - plugged_in
+          - charging
+        example: disconnected
+      authenticationMechanism:
+        type: string
+        enum:
+          - pin
+          - app
+        example: pin
+      plugType:
+        type: string
+        enum:
+          - type_1
+          - type_2
+          - ccs
+          - chademo
+        example: type_1
+      chargingPower:
+        type: number
+        format: float
+        example: 11.5
+        description: Charging power in kW formatted in 4-bytes per IEEE 754
+      solarCharging:
+        type: string
+        enum:
+          - deactivated
+          - activated
+        example: deactivated
+      location:
+        description: Location
+        $ref: '#/definitions/Location'
+      chargeCurrent:
+        description: ChargeCurrent
+        $ref: '#/definitions/ChargeCurrent'
+      hotspotEnabled:
+        type: string
+        enum:
+          - disabled
+          - enabled
+        example: disabled
+      hotspotSSID:
+        type: string
+        example: Charger 7612
+        description: The Wi-Fi Hotspot SSID formatted in UTF-8
+      wiFiHotspotSecurity:
+        type: string
+        enum:
+          - none
+          - wep
+          - wpa
+          - wpa2_personal
+        example: none
+      wiFiHotspotPassword:
+        type: string
+        example: ZW3vARNUBe
+        description: The Wi-Fi Hotspot password formatted in UTF-8
+      priceTariffs:
+        type: array
+        items:
+          description: PriceTariff
+          $ref: '#/definitions/PriceTariff'
+  Tire:
+    type: object
+    properties:
+      tirePosition:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+        example: front_left
+      tirePressure:
+        type: number
+        format: float
+        example: 2.309999942779541
+        description: Tire pressure in BAR formatted in 4-bytes per IEEE 754
+      tireTemperature:
+        type: number
+        format: float
+        example: 40
+        description: Tire temperature in celsius formatted in 4-bytes per IEEE 754
+      wheelRPM:
+        type: number
+        format: integer
+        example: 746
+        description: The RPM measured at this wheel
+  DiagnosticsState:
+    type: object
+    properties:
+      mileage:
+        type: number
+        format: integer
+        example: 150000
+        description: The car mileage (odometer) in km
+      engineOilTemperature:
+        type: number
+        format: integer
+        example: 99
+        description: 'Engine oil temperature in Celsius, whereas can be negative'
+      speed:
+        type: number
+        format: integer
+        example: 60
+        description: 'The vehicle speed in km/h, whereas can be negative'
+      engineRPM:
+        type: number
+        format: integer
+        example: 2500
+        description: Engine RPM (revolutions per minute)
+      fuelLevel:
+        type: number
+        format: integer
+        example: 90
+        description: Fuel level percentage between 0-100
+      estimatedRange:
+        type: number
+        format: integer
+        example: 265
+        description: Estimated range (with combustion engine)
+      currentFuelConsumption:
+        type: number
+        format: float
+        example: 8.75
+        description: Current fuel consumption in liters/100km per IEEE 754 formatting
+      averageFuelConsumption:
+        type: number
+        format: float
+        example: 6.199999809265137
+        description: Average fuel consumption in liters/100km per IEEE 754 formatting
+      washerFluidLevel:
+        type: string
+        enum:
+          - low
+          - filled
+        example: low
+      tires:
+        type: array
+        items:
+          description: Tire
+          $ref: '#/definitions/Tire'
+      batteryVoltage:
+        type: number
+        format: float
+        example: 12
+        description: Battery voltage per IEEE 754 formatting
+      adblueLevel:
+        type: number
+        format: float
+        example: 0.5
+        description: AdBlue level in liters formatted in 4-bytes per IEEE 754 formatting
+      distanceSinceReset:
+        type: number
+        format: integer
+        example: 1500
+        description: The distance driven in km since reset
+      distanceSinceStart:
+        type: number
+        format: integer
+        example: 10
+        description: The distance driven in km since trip start
+      fuelVolume:
+        type: number
+        format: float
+        example: 35.5
+        description: >-
+          The fuel volume measured in liters formatted in 4-bytes per IEEE 754
+          formatting
+      antiLockBraking:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      engineCoolantTemperature:
+        type: number
+        format: integer
+        example: 20
+        description: 'Engine coolant temperature in Celsius, whereas can be negative'
+      engineTotalOperatingHours:
+        type: number
+        format: float
+        example: 1500.6500244140625
+        description: The accumulated time of engine operation per IEEE 754 formatting
+      engineTotalFuelConsumption:
+        type: number
+        format: float
+        example: 27587
+        description: >-
+          The accumulated lifespan fuel consumption in liters per IEEE 754
+          formatting
+      brakeFluidLevel:
+        type: string
+        enum:
+          - low
+          - filled
+        example: low
+      engineTorque:
+        type: number
+        format: integer
+        example: 20
+        description: Current engine torque percentage between 0-100
+      engineLoad:
+        type: number
+        format: integer
+        example: 10
+        description: Current engine load percentage between 0-100
+      wheelBasedSpeed:
+        type: number
+        format: integer
+        example: 65
+        description: >-
+          The vehicle speed in km/h measured at the wheel base, whereas can be
+          negative
+  PowerTakeoffState:
+    type: object
+    properties:
+      powerTakeoff:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      powerTakeoffEngaged:
+        type: string
+        enum:
+          - not_engaged
+          - engaged
+        example: not_engaged
+  WiFiState:
+    type: object
+    properties:
+      wifiEnabled:
+        type: string
+        enum:
+          - disabled
+          - enabled
+        example: disabled
+      networkConnected:
+        type: string
+        enum:
+          - disconnected
+          - connected
+        example: disconnected
+      networkSSID:
+        type: string
+        example: HOME
+        description: The network SSID formatted in UTF-8
+      networkSecurity:
+        type: string
+        enum:
+          - none
+          - wep
+          - wpa
+          - wpa2_personal
+        example: none
+  VehicleLocation:
+    type: object
+    properties:
+      coordinates:
+        description: Coordinates
+        $ref: '#/definitions/Coordinates'
+      heading:
+        type: number
+        format: float
+        example: 52.5200080871582
+        description: Heading in 4-bytes per IEEE 754
+      altitude:
+        type: number
+        format: float
+        example: 133.5
+        description: >-
+          Altitude in meters above the WGS 84 reference ellipsoid per IEEE 754
+          formatting
+  Acceleration:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+          - longitudinal_acceleration
+          - lateral_acceleration
+          - front_lateral_acceleration
+          - rear_lateral_acceleration
+        example: longitudinal_acceleration
+      gForce:
+        type: number
+        format: float
+        example: 0.8640000224113464
+        description: The accelaration in g-force per IEEE 754
+  BrakeTorqueVectoring:
+    type: object
+    properties:
+      axle:
+        type: string
+        enum:
+          - front_axle
+          - rear_axle
+        example: front_axle
+      vectoring:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+  RaceState:
+    type: object
+    properties:
+      accelerations:
+        type: array
+        items:
+          description: Acceleration
+          $ref: '#/definitions/Acceleration'
+      understeering:
+        type: number
+        format: integer
+        example: 19
+        description: >-
+          The understeering percentage between 0-100% whereas up to 20% is
+          considered OK, up to 30% marginal, over 30% critical
+      oversteering:
+        type: number
+        format: integer
+        example: 0
+        description: >-
+          The oversteering percentage between 0-100% whereas up to 20% is
+          considered OK, up to 30% marginal, over 30% critical
+      gasPedalPosition:
+        type: number
+        format: integer
+        example: 98
+        description: 'The gas pedal position between 0-100%, whereas 100% is full throttle'
+      steeringAngle:
+        type: number
+        format: integer
+        example: 0
+        description: >-
+          The steering angle in degrees, whereas 0 degrees is straight ahead,
+          positive number to the left and negative number to the right
+      brakePressure:
+        type: number
+        format: float
+        example: 0
+        description: 'Brake pressure in bar, whereas 100bar is max value, full brake'
+      yawRate:
+        type: number
+        format: float
+        example: 6.659999847412109
+        description: 'Yaw rate in degrees per second [°/s] per IEEE 754 formatting'
+      rearSuspensionSteering:
+        type: number
+        format: integer
+        example: 3
+        description: Rear suspension steering in degrees
+      electronicStabilityProgram:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      brakeTorqueVectorings:
+        type: array
+        items:
+          description: BrakeTorqueVectoring
+          $ref: '#/definitions/BrakeTorqueVectoring'
+      gearMode:
+        type: string
+        enum:
+          - manual
+          - park
+          - reverse
+          - neutral
+          - drive
+          - low_gear
+          - sport
+        example: manual
+      selectedGear:
+        type: number
+        format: integer
+        example: 4
+        description: 'The selected gear value, if any'
+      brakePedalPosition:
+        type: number
+        format: integer
+        example: 0
+        description: 'The brake pedal position between 0-100%, wheras 100% is full brakes'
+      brakePedalSwitch:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      clutchPedalSwitch:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      acceleratorPedalIdleSwitch:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      acceleratorPedalKickdownSwitch:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+  CarSdkVersion:
+    type: object
+    properties:
+      versionMajor:
+        type: number
+        format: integer
+        example: 1
+        description: Car SDK version major number
+      versionMinor:
+        type: number
+        format: integer
+        example: 15
+        description: Car SDK version minor number
+      versionPatch:
+        type: number
+        format: integer
+        example: 33
+        description: Car SDK version patch number
+  FirmwareVersion:
+    type: object
+    properties:
+      carSDKVersion:
+        description: CarSdkVersion
+        $ref: '#/definitions/CarSdkVersion'
+      carSDKBuildName:
+        type: string
+        example: btstack-uart
+        description: Car SDK version build name bytes formatted in UTF-8
+      applicationVersion:
+        type: string
+        example: v1.5-prod
+        description: Application version bytes formatted in UTF-8
+  TheftAlarmState:
+    type: object
+    properties:
+      theftAlarm:
+        type: string
+        enum:
+          - not_armed
+          - armed
+          - triggered
+        example: not_armed
+  Seat:
+    type: object
+    properties:
+      seatPosition:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+          - rear_center
+        example: front_left
+      personDetected:
+        type: string
+        enum:
+          - not_detected
+          - detected
+        example: not_detected
+      seatbeltFastened:
+        type: string
+        enum:
+          - not_fastened
+          - fastened
+        example: not_fastened
+  SeatsState:
+    type: object
+    properties:
+      seat:
+        description: Seat
+        $ref: '#/definitions/Seat'
+  DriverWorkingState:
+    type: object
+    properties:
+      driverNumber:
+        type: number
+        format: integer
+        example: 1
+        description: The driver number
+      workingState:
+        type: string
+        enum:
+          - resting
+          - driver_available
+          - working
+          - driving
+        example: resting
+  DriverTimeState:
+    type: object
+    properties:
+      driverNumber:
+        type: number
+        format: integer
+        example: 1
+        description: The driver number
+      timeState:
+        type: string
+        enum:
+          - normal
+          - 15_min_before_4
+          - 4_reached
+          - 15_min_before_9
+          - 9_reached
+          - 15_min_before_16
+          - 16_reached
+        example: normal
+  DriverCard:
+    type: object
+    properties:
+      driverNumber:
+        type: number
+        format: integer
+        example: 1
+        description: The driver number
+      card:
+        type: string
+        enum:
+          - not_present
+          - present
+        example: not_present
+  TachographState:
+    type: object
+    properties:
+      driverWorkingStates:
+        type: array
+        items:
+          description: DriverWorkingState
+          $ref: '#/definitions/DriverWorkingState'
+      driverTimeStates:
+        type: array
+        items:
+          description: DriverTimeState
+          $ref: '#/definitions/DriverTimeState'
+      driverCards:
+        type: array
+        items:
+          description: DriverCard
+          $ref: '#/definitions/DriverCard'
+      vehicleMotion:
+        type: string
+        enum:
+          - not_detected
+          - detected
+        example: not_detected
+      vehicleOverspeed:
+        type: string
+        enum:
+          - no_overspeed
+          - overspeed
+        example: no_overspeed
+      vehicleDirection:
+        type: string
+        enum:
+          - forward
+          - reverse
+        example: forward
+      vehicleSpeed:
+        type: number
+        format: integer
+        example: 80
+        description: The tachograph vehicle speed in km/h
+  ParkingBrakeState:
+    type: object
+    properties:
+      parkingBrake:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+  Capability:
+    type: object
+    properties:
+      capabilityIdentifier:
+        type: string
+        enum:
+          - vehicle_status
+          - parking_ticket
+          - browser
+          - windows
+          - vehicle_time
+          - start_stop
+          - fueling
+          - navi_destination
+          - light_conditions
+          - offroad
+          - trunk
+          - valet_mode
+          - dashboard_lights
+          - text_input
+          - lights
+          - chassis_settings
+          - notifications
+          - charging
+          - home_charger
+          - diagnostics
+          - power_takeoff
+          - wake_up
+          - video_handover
+          - wi_fi
+          - vehicle_location
+          - graphics
+          - race
+          - firmware_version
+          - theft_alarm
+          - seats
+          - tachograph
+          - parking_brake
+          - capabilities
+          - maintenance
+          - rooftop_control
+          - windscreen
+          - cruise_control
+          - honk_horn_flash_lights
+          - engine
+          - weather_conditions
+          - messaging
+          - climate
+          - door_locks
+        example: charging
+      supportedMessageTypes:
+        type: array
+        items:
+          description: Array of message type identifiers
+          type: enum
+          enum:
+            - get_vehicle_status
+            - get_parking_ticket
+            - start_parking
+            - end_parking
+            - load_url
+            - get_windows_state
+            - open_close_windows
+            - get_vehicle_time
+            - get_start_stop_state
+            - activate_deactivate_start_stop
+            - get_gas_flap_state
+            - open_gas_flap
+            - get_navi_destination
+            - set_navi_destination
+            - get_light_conditions
+            - get_offroad_state
+            - get_trunk_state
+            - open_close_trunk
+            - get_valet_mode
+            - activate_deactivate_valet_mode
+            - get_dashboard_lights
+            - text_input
+            - get_lights_state
+            - control_lights
+            - get_chassis_settings
+            - set_driving_mode
+            - start_stop_sport_chrono
+            - set_spring_rate
+            - set_chassis_position
+            - notification
+            - clear_notification
+            - get_charge_state
+            - start_stop_charging
+            - set_charge_limit
+            - open_close_charge_port
+            - set_charge_mode
+            - set_charge_timer
+            - get_home_charger_state
+            - set_charge_current
+            - set_price_tariffs
+            - activate_deactivate_solar_charging
+            - enable_disable_wi_fi_hotspot
+            - get_diagnostics_state
+            - get_power_takeoff_state
+            - activate_deactivate_power_takeoff
+            - wake_up
+            - video_handover
+            - get_wi_fi_state
+            - connect_to_network
+            - forget_network
+            - enable_disable_wi_fi
+            - get_vehicle_location
+            - display_image
+            - get_race_state
+            - get_firmware_version
+            - get_theft_alarm_state
+            - set_theft_alarm_state
+            - get_seats_state
+            - get_tachograph_state
+            - get_parking_brake_state
+            - set_parking_brake
+            - get_capabilities
+            - get_capability
+            - get_maintenance_state
+            - get_rooftop_state
+            - control_rooftop
+            - get_windscreen_state
+            - set_windscreen_damage
+            - get_cruise_control_state
+            - activate_deactivate_cruise_control
+            - get_flashers_state
+            - honk_flash
+            - activate_deactivate_emergency_flashers
+            - get_ignition_state
+            - turn_engine_on_off
+            - get_weather_conditions
+            - message_received
+            - get_climate_state
+            - set_climate_profile
+            - start_stop_hvac
+            - start_stop_defogging
+            - start_stop_defrosting
+            - start_stop_ionising
+            - get_lock_state
+            - lock_unlock_doors
+          example: get_charge_state
+  Capabilities:
+    type: object
+    properties:
+      capability:
+        description: Capability
+        $ref: '#/definitions/Capability'
+  MaintenanceState:
+    type: object
+    properties:
+      daysToNextService:
+        type: number
+        format: integer
+        example: 501
+        description: >-
+          Number of days until next servicing of the car, whereas negative is
+          overdue
+      kilometersToNextService:
+        type: number
+        format: integer
+        example: 3681
+        description: The amount of kilometers until next servicing of the car
+  RooftopState:
+    type: object
+    properties:
+      dimming:
+        type: number
+        format: integer
+        example: 100
+        description: Percentage value between 0-100 whereas 100 is opaque
+      position:
+        type: number
+        format: integer
+        example: 0
+        description: Percentage value between 0-100 whereas 100 is fully open
+  WindscreenState:
+    type: object
+    properties:
+      wipers:
+        type: string
+        enum:
+          - inactive
+          - active
+          - automatic
+        example: inactive
+      wipersIntensity:
+        type: string
+        enum:
+          - level_0
+          - level_1
+          - level_2
+          - level_3
+        example: level_0
+      windscreenDamage:
+        type: string
+        enum:
+          - no_impact_detected
+          - impact_but_no_damage_detected
+          - damage_smaller_than_1_inch
+          - damage_larger_than_1_inch
+        example: no_impact_detected
+      windscreenZoneMatrix:
+        description: WindscreenSizeMatrix
+        $ref: '#/definitions/WindscreenSizeMatrix'
+      windscreenDamageZone:
+        description: WindscreenPositionMatrix
+        $ref: '#/definitions/WindscreenPositionMatrix'
+      windscreenNeedsReplacement:
+        type: string
+        enum:
+          - unknown
+          - no_replacement_needed
+          - replacement_needed
+        example: unknown
+      windscreenDamageConfidence:
+        type: number
+        format: integer
+        example: 95
+        description: >-
+          Percentage between 0-100%, confidence of damage detection. Zero if no
+          impact detected.
+      windscreenDamageDetectionTime:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:20:50.52Z'
+        description: The time that the damage was detected
+  CruiseControlState:
+    type: object
+    properties:
+      cruiseControl:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      limiter:
+        type: string
+        enum:
+          - not_set
+          - higher_speed_requested
+          - lower_speed_requested
+          - speed_fixed
+        example: not_set
+      targetSpeed:
+        type: number
+        format: integer
+        example: 60
+        description: The target speed in km/h
+      acc:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      accTargetSpeed:
+        type: number
+        format: integer
+        example: 60
+        description: The target speed in km/h of the Adaptive Cruise Control
+  FlashersState:
+    type: object
+    properties:
+      flashers:
+        type: string
+        enum:
+          - inactive
+          - emergency_flasher_active
+          - left_flasher_active
+          - right_flasher_active
+        example: inactive
+  IgnitionState:
+    type: object
+    properties:
+      ignition:
+        type: string
+        enum:
+          - engine_off
+          - engine_on
+        example: engine_off
+      accessoriesIgnition:
+        type: string
+        enum:
+          - powered_off
+          - powered_on
+        example: powered_off
+  WeatherConditions:
+    type: object
+    properties:
+      rainIntensity:
+        type: number
+        format: integer
+        example: 100
+        description: >-
+          Measured raining intensity percentage, whereas 0% is no rain and 100%
+          is maximum rain
+  ClimateState:
+    type: object
+    properties:
+      insideTemperature:
+        type: number
+        format: float
+        example: 19
+        description: The inside temperature in celsius per IEEE 754 formatting
+      outsideTemperature:
+        type: number
+        format: float
+        example: 12
+        description: The outside temperature in celsius per IEEE 754 formatting
+      driverTemperatureSetting:
+        type: number
+        format: float
+        example: 21.5
+        description: The driver temperature setting in celsius per IEEE 754 formatting
+      passengerTemperatureSetting:
+        type: number
+        format: float
+        example: 21.5
+        description: The passenger temperature setting in celsius per IEEE 754 formatting
+      hvacState:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      defoggingState:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      defrostingState:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      ionisingState:
+        type: string
+        enum:
+          - inactive
+          - active
+        example: inactive
+      defrostingTemperature:
+        type: number
+        format: float
+        example: 21.5
+        description: The defrosting temperature setting in celsius per IEEE 754 formatting
+      autoHvacProfile:
+        description: AutoHVACProfile
+        $ref: '#/definitions/AutoHVACProfile'
+  Door:
+    type: object
+    properties:
+      doorLocation:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+        example: front_left
+      doorPosition:
+        type: string
+        enum:
+          - closed
+          - open
+        example: closed
+      doorLock:
+        type: string
+        enum:
+          - unlocked
+          - locked
+        example: unlocked
+  InsideDoorLock:
+    type: object
+    properties:
+      doorLocation:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+        example: front_left
+      insideLock:
+        type: string
+        enum:
+          - unlocked
+          - locked
+        example: unlocked
+  OutsideDoorLock:
+    type: object
+    properties:
+      doorLocation:
+        type: string
+        enum:
+          - front_left
+          - front_right
+          - rear_right
+          - rear_left
+        example: front_left
+      outsideLock:
+        type: string
+        enum:
+          - unlocked
+          - locked
+        example: unlocked
+  LockState:
+    type: object
+    properties:
+      doors:
+        type: array
+        items:
+          description: Door
+          $ref: '#/definitions/Door'
+      insideDoorLocks:
+        type: array
+        items:
+          description: InsideDoorLock
+          $ref: '#/definitions/InsideDoorLock'
+      outsideDoorLocks:
+        type: array
+        items:
+          description: OutsideDoorLock
+          $ref: '#/definitions/OutsideDoorLock'
+  VideoHandover:
+    type: object
+    properties:
+      videoURL:
+        type: string
+        example: 'https://www.youtube.com/watch?v=yWVB7U6mX2Y'
+        description: 'The URL of the video stream, formatted in UTF-8'
+      startingSecond:
+        type: number
+        format: integer
+        example: 90
+        description: The second from where the video should be started from
+      screen:
+        type: string
+        enum:
+          - front
+          - rear
+        example: rear
+  TextMessage:
+    type: object
+    properties:
+      handle:
+        type: string
+        example: '@twitter'
+        description: The sender handle like username or phone number
+      text:
+        type: string
+        example: Keep your eyes on the road at all times.
+        description: The text content in UTF-8
+  Notification:
+    type: object
+    properties:
+      text:
+        type: string
+        example: 'Your plans for the evening: free'
+        description: The text to be displayed or read to the driver
+  ChargeTimer:
+    type: object
+    properties:
+      timerType:
+        type: string
+        enum:
+          - preferred_start_time
+          - preferred_end_time
+          - departure_time
+        example: preferred_start_time
+      time:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:20:50.52Z'
+        description: The time for this timer
+  SetDrivingMode:
+    type: object
+    properties:
+      drivingMode:
+        type: string
+        enum:
+          - regular
+          - eco
+          - sport
+          - sport_plus
+        example: sport
+  SetSpringRate:
+    type: object
+    properties:
+      springRate:
+        type: number
+        format: integer
+        example: 25
+        description: The suspension spring rate in N/mm
+  WindscreenSizeMatrix:
+    type: object
+    properties:
+      rows:
+        type: number
+        format: integer
+        example: 4
+        description: The row number
+      columns:
+        type: number
+        format: integer
+        example: 3
+        description: The column number
+  WindscreenPositionMatrix:
+    type: object
+    properties:
+      row:
+        type: number
+        format: integer
+        example: 4
+        description: The row number
+      column:
+        type: number
+        format: integer
+        example: 3
+        description: The column number
+  StartParking:
+    type: object
+    properties:
+      operatorName:
+        type: string
+        example: Berlin Parking
+        description: 'The parking operator name, formatted in UTF-8'
+      operatorTicketID:
+        type: string
+        example: '64894233'
+        description: 'The parking operator ticket ID, formatted in UTF-8'
+      ticketStartTime:
+        type: string
+        format: date-time
+        example: '2018-04-12T23:20:50.52Z'
+        description: The start time of the ticket
+  ConnectNetwork:
+    type: object
+    properties:
+      networkSSID:
+        type: string
+        example: HOME
+        description: The network SSID
+      networkSecurity:
+        type: string
+        enum:
+          - none
+          - wep
+          - wpa
+          - wpa2_personal
+        example: wpa
+        description: The network security being used
+      networkPassword:
+        type: string
+        example: '********'
+        description: The network password
+  ForgetNetwork:
+    type: object
+    properties:
+      networkSSID:
+        type: string
+        example: HOME
+        description: The network SSID
+  LoadURL:
+    type: object
+    properties:
+      url:
+        type: string
+        example: 'https://google.com'
+        description: 'The URL to be loaded, formatted in UTF-8'
+  DisplayImage:
+    type: object
+    properties:
+      imageURL:
+        type: string
+        example: 'https://goo.gl/VyU1ip'
+        description: 'The image URL to be displayed, formatted in UTF-8'
+  SetChargeCurrent:
+    type: object
+    properties:
+      chargeCurrent:
+        type: number
+        format: float
+        example: 0.5
+        description: The charger current
+  SetChassisPosition:
+    type: object
+    properties:
+      chassisPosition:
+        type: number
+        format: integer
+        example: 25
+        description: The chassis position in mm calculated from the lowest point
+  SetChargeLimit:
+    type: object
+    properties:
+      chargeLimit:
+        type: number
+        format: integer
+        example: 90
+        description: The charge limit as percentage between 0-100%
+  AutoHVACActive:
+    type: object
+    properties:
+      hour:
+        type: number
+        format: integer
+        example: 7
+        description: Starting hour
+      minute:
+        type: number
+        format: integer
+        example: 30
+        description: Starting minute
+      state:
+        type: string
+        enum:
+          - active
+          - inactive
+  AutoHVACProfile:
+    type: object
+    properties:
+      mondays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      tuesdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      wednesdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      thursdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      fridays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      saturdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      sundays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      constant:
+        type: string
+        enum:
+          - active
+          - inactive
+  SetAutoHVACProfile:
+    type: object
+    properties:
+      mondays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      tuesdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      wednesdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      thursdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      fridays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      saturdays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      sundays:
+        description: AutoHVACActive
+        $ref: '#/definitions/AutoHVACActive'
+      constant:
+        type: string
+        enum:
+          - active
+          - inactive
+      driverTemperatureSetting:
+        type: number
+        format: float
+        example: 20.5
+      passengerTemperatureSetting:
+        type: number
+        format: float
+        example: 20.5
+  SetCruiseControlSpeed:
+    type: object
+    properties:
+      targetSpeed:
+        type: number
+        format: integer
+        example: 60
+        description: The target speed in km/h
+  State:
+    type: object
+    properties:
+      capabilityIdentifier:
+        type: string
+        example: charging
+      state:
+        type: object
+        description: The state of the capability
+  Error400:
+    type: object
+    properties:
+      errorCode:
+        type: number
+        format: integer
+        example: 400
+      failureType:
+        type: string
+        enum:
+          - unsupported_capability
+          - incorrect_state
+          - invalid_command
+          - other
+        example: unsupported_capability
+      failureDescription:
+        type: string
+        example: Capability not supported by this vehicle
+        description: Failure description formatted in UTF-8
+  Error401:
+    type: object
+    properties:
+      errorCode:
+        type: number
+        format: integer
+        example: 401
+      failureType:
+        type: string
+        enum:
+          - auth_header_missing
+          - other
+        example: auth_header_missing
+      failureDescription:
+        type: string
+        example: Missing authentication header
+        description: Failure description formatted in UTF-8
+  Error403:
+    type: object
+    properties:
+      errorCode:
+        type: number
+        format: integer
+        example: 403
+      failureType:
+        type: string
+        enum:
+          - auth_header_invalid
+          - other
+        example: auth_header_invalid
+      failureDescription:
+        type: string
+        example: Invalid authentication header
+        description: Failure description formatted in UTF-8
+  Error408:
+    type: object
+    properties:
+      errorCode:
+        type: number
+        format: integer
+        example: 408
+      failureType:
+        type: string
+        enum:
+          - request_timeout
+          - vehicle_asleep
+          - charger_asleep
+          - other
+        example: vehicle_asleep
+      failureDescription:
+        type: string
+        example: Vehicle Asleep
+        description: Failure description formatted in UTF-8
+responses: {}
+parameters:
+  authorizationParam:
+    name: Authorization
+    in: header
+    required: true
+    type: string
+securityDefinitions:
+  owner_auth:
+    type: oauth2
+    authorizationUrl: 'https://developers.high-mobility.com/hm_cloud/o/{org_oem}/oauth'
+    flow: implicit
+    scopes:
+      capabilities.read: Allowed to get car capabilities
+      vehicle-status.read: Allowed to get vehicle status
+      diagnostics.read: Allowed to get diagnostics and maintenance state
+      door-locks.read: Allowed to get the lock state
+      door-locks.write: Allowed to lock or unlock the car
+      engine.read: Allowed to get the ignition state
+      engine.write: Allowed to turn on/off the engine
+      trunk-access.read: Allowed to get the trunk state
+      trunk-access.write: Allowed to open/close or lock/unlock the trunk
+      trunk-access.limited: >-
+        If the access to the trunk is limited to one time, whereas a 0 means
+        unlimited
+      wake-up.write: Allowed to wake up the car
+      charge.read: Allowed to get the charge state
+      charge.write: >-
+        Allowed to start/stop charging, set the charge limit, open/close charge
+        port
+      climate.read: Allowed to get the climate state
+      climate.write: Allowed to set climate profile and start/stop HVAC
+      lights.read: Allowed to get the lights state
+      lights.write: Allowed to control lights
+      windows.write: Allowed to open/close windows
+      rooftop-control.read: Allowed to get the rooftop state
+      rooftop-control.write: Allowed to control the rooftop
+      windscreen.read: Allowed to get the windscreen state
+      windscreen.write: Allowed to set the windscreen damage
+      honk-horn-flash-lights.write: Allowed to honk the horn and flash lights and activate emergency flasher
+      headunit.write: >-
+        Allowed to send notifications, messages, videos, URLs, images and text
+        input to the headunit
+      remote-control.read: Allowed to get the control mode
+      remote-control.write: Allowed to remote control the car
+      valet-mode.read: Allowed to get the valet mode
+      valet-mode.write: Allowed to set the valet mode
+      valet-mode.active: Only allowed to use the car in valet mode
+      fueling.write: Allowed to open the car gas flap
+      heart-rate.write: Allowed to send the heart rate to the car
+      driver-fatigue.read: Allowed to get driver fatigue warnings
+      vehicle-location.read: Allowed to get the vehicle location
+      navi-destination.write: Allowed to set the navigation destination
+      theft-alarm.read: Allowed to get the theft alarm state
+      theft-alarm.write: Allowed to set the theft alarm
+      parking-ticket.read: Allowed to get the parking ticket
+      parking-ticket.write: Allowed to start/end parking
+      keyfob-position.read: Allowed to get the keyfob position
+      headunit.read: Allowed to receive notifications and messages from the headunit
+      vehicle-time.read: Allowed to get the vehicle local time
+      windows.read: Allowed to get the windows state
+      honk-horn-flash-lights.read: Allowed to get the flasher state
+      navi-destination.read: Allowed to get the navigation destination
+      race.read: Allowed to get the race state
+      offroad.read: Allowed to get the offroad state
+      chassis-settings.read: Allowed to get the chassis settings
+      chassis-settings.write: Allowed to set the chassis settings
+      seats.read: Allowed to get the seats state
+      seats.write: Allowed to control the seats
+      parking-brake.read: Allowed to get the parking brake state
+      parking-brake.write: Allowed to set the parking brake
+      environment.read: Allowed to get light and weather conditions
+      fueling.read: Allowed to get the gas flap state
+      wi-fi.read: Allowed to get the Wi-Fi state
+      wi-fi.write: Allowed to enable/disable Wi-Fi and manage networks
+      home-charger.read: Allowed to get the home charger state
+      home-charger.write: Allowed to control the home charger
+      dashboard-lights.read: Allowed to get the dashboard lights
+      cruise-control.read: Allowed to get the cruise control state
+      cruise-control.write: Allowed to set the cruise control
+      start-stop.read: Allowed to get the start-stop state
+      start-stop.write: Allowed to set the start-stop state
+      tachograph.read: Allowed to get the tachograph state
+      power-takeoff.read: Allowed to get the power take-off state
+      power-takeoff.write: Allowed to set the power take-off
+tags: []

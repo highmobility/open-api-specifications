@@ -1,0 +1,122 @@
+tags:
+  - name: OAuth2
+    description: Operations about OAuth2
+host: sandbox.api.high-mobility.com
+swagger: '2.0'
+paths:
+  /api/v1/access_tokens:
+    post:
+      tags:
+        - OAuth2
+      summary: ''
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/AccessTokensReponse'
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/AccessTokensError'
+          description: Error
+        '500':
+          description: Server Errors
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/AccessTokensRequest'
+      operationId: ApiWeb.OAuthAccessTokenController.create
+      description: Creates AccessTokens.
+info:
+  version: '1.0'
+  title: High Mobility OAuth2 Spec
+definitions:
+  AccessTokensReponse:
+    type: object
+    title: AccessTokensReponse
+    required:
+      - expires_in
+      - access_token
+      - token_type
+    properties:
+      validity_start_date:
+        type: string
+        description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+      validity_end_date:
+        type: string
+        description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+      token_type:
+        type: string
+        description: Token type
+      scope:
+        type: string
+        description: List of scopes
+      refresh_token:
+        type: string
+        description: Refresh token should be used after the access token is expired to fetch a new access token
+      expires_in:
+        type: integer
+        description: Expiration time in seconds
+      access_token:
+        type: string
+        description: Access token
+      status:
+        type: string
+        description: In BMW and MINI case, the status is pending until the car owner grants access in BMW ConnectedDrive Portal
+        enum:
+          - pending
+          - approved
+    example:
+      validity_start_date: '2018-11-01T00:01:02.094533Z'
+      validity_end_date: '2020-12-31T10:20:37.094533Z'
+      token_type: bearer
+      scope: diagnostics.mileage door_locks.locks windows.windows_positions
+      refresh_token: 7f7a9be0-04c9-4202-a59f-35d55079b6ba
+      expires_in: 600
+      access_token: a50e89e5-093c-4727-8101-4c6e81addabe
+      status: pending
+    description: Access Tokens
+  AccessTokensRequest:
+    type: object
+    properties:
+      grant_type:
+        type: string
+        enum:
+          - authorization_code
+          - refresh_token
+        description: Grant Type.
+      code:
+        type: string
+        description: Authorization code that the client previously received from the authorization server. Required when grant_type is authorization_code.
+      redirect_uri:
+        type: string
+        description: The redirect URI in the token request must be an exact match of the redirect URI that was used when generating the authorization code. Required for when grant_type is authorization_code.
+      refresh_token:
+        type: string
+        description: Refresh token that the client previously received from the authorization server. Required when grant_type is refresh_token.
+      client_id:
+        type: string
+        description: Client ID used for authentication.
+      client_secret:
+        type: string
+        description: Client Secret used for authentication, only used in Server-Side Apps
+      code_verifier:
+        type: string
+        description: Code verifier(PKCE), only used in Mobile and Native Apps
+    required:
+      - grant_type
+      - client_id
+  AccessTokensError:
+    type: object
+    title: AccessTokensError
+    required:
+      - error
+    properties:
+      error_description:
+        type: string
+        description: Error description
+      error:
+        type: string
+        description: Error code
+    description: Error details
+

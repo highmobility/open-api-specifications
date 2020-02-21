@@ -1,0 +1,459 @@
+swagger: '2.0'
+info:
+  description: It's possible to interact with the Car Emulators in the High-Mobility Developer Center using a REST API. All of the APIs require an Authorization header, which is obtained using the OAuth flow.
+  version: "1.0.0"
+  title: High-Mobility REST API
+
+host: code.mercedes-benz-challenge.com
+basePath: /hm_cloud/api/v1/rest/{vehicle_serial_number}
+schemes:
+ - https
+ 
+ 
+
+
+paths:
+  /vehicles:
+    get:
+      summary: Get Vehicles connected to this token
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string
+      responses:
+        200:
+          description: List of Vehicles
+          schema:
+            $ref: '#/definitions/VechilesList'
+        422:
+          description: application logic error
+        500:
+          description: server error 
+          
+  /{vehicle_serial_number}/doors:
+    get:
+      summary: Get Door Lock State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string  
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true
+      responses:
+        200:
+          description: Lock State
+          schema:
+            $ref: '#/definitions/LockStates'
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error
+  "/{vehicle_serial_number}/doors/lock":
+    put:
+      summary: Lock doors
+      produces: 
+        - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Door Lock State
+          schema:
+            $ref: '#/definitions/LockStates'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error
+
+  "/{vehicle_serial_number}/doors/unlock":
+    put:
+      summary: Unlock doors
+      produces: 
+        - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Door Lock State
+          schema:
+            $ref: '#/definitions/LockStates'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error
+          
+  /{vehicle_serial_number}/vehicle_location:
+    get:
+      summary: Get Vehicle Location
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string           
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Vehicle Location
+          schema:
+            $ref: '#/definitions/VehicleLocation'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error            
+  /{vehicle_serial_number}/diagnostics:
+    get:
+      summary: Get Diagnostics State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string           
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Diagnostics State
+          schema:
+            $ref: '#/definitions/DiagnosticsState'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error            
+  /{vehicle_serial_number}/maintenance:
+    get:
+      summary: Get Maintenance State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string     
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Maintenance State
+          schema:
+            $ref: '#/definitions/MaintenanceState'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error            
+            
+  /{vehicle_serial_number}/engine:
+    get:
+      summary: Get Engine State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string       
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Engine State
+          schema:
+            $ref: '#/definitions/EngineState'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error            
+  /{vehicle_serial_number}/trunk:
+    get:
+      summary: Get Trunk State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Trunk State
+          schema:
+            $ref: '#/definitions/TrunkState'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error            
+  /{vehicle_serial_number}/charge:
+    get:
+      summary: Get Charge State
+      produces: 
+      - application/json
+      parameters:
+        - name: "Authentication"
+          in: header
+          required: true
+          type: string
+        - in: path
+          name: vehicle_serial_number
+          type: string
+          required: true          
+      responses:
+        200:
+          description: Charge State
+          schema:
+            $ref: '#/definitions/ChargeState'
+        404:
+          description: Vehicle not found
+        400:
+          description: Auth token doesn't match the car            
+        408:
+          description: car is sleeping
+        422:
+          description: application logic error
+        500:
+          description: server error 
+          
+definitions:
+
+  ChargeState:
+    type: object
+    properties:
+      estimated_range:
+        type: number
+        format: integer
+        example: 30
+      charging_state:
+        type: string
+        format: :disconnected | :plugged_in | :charging | :completed
+        example: :disconnected
+      charging_rate:
+        type: number
+        format: float
+        example: 1.0
+      charger_voltage:
+        type: number
+        format: integer
+        example: 10
+      charge_port:
+        type: string
+        format: :closed | :open | :unavailable
+        example: :closed
+      charge_limit:
+        type: string
+        format: integer
+        example: 100
+      charge_in:
+        type: number
+        format: integer
+        example: 0
+      battery_level:
+        type: number
+        format: integer
+        example: 80
+      battery_current:
+        type: number
+        format: float
+        example: -0.6
+  VechilesList:
+    type: array
+    items:
+      $ref: '#/definitions/VechileItem'
+
+  
+  VechileItem:
+    type: object
+    properties:
+      id:
+        type: string
+        example: AC46189D909D7CE9CF
+      vin:
+        type: string
+        example: 1HM88B62XHB6DE947
+      license_plate:
+        type: string
+        example: S-GG-7527
+        
+  TrunkState:
+    type: object
+    properties:
+      position:
+        type: string
+        format: closed|open
+        example: closed
+      lock:
+        type: string
+        format: locked|unlocked
+        example: unlocked
+  EngineState:
+    type: object
+    properties:
+      engine:
+        type: string
+        format: on|off
+        example: on
+        
+  MaintenanceState:
+    type: object
+    properties:
+      next_service_in_km:
+        type: number
+        format: integer
+        example: 31020
+      next_service_in_days:
+        type: number
+        format: integer
+        example: 400  
+  DiagnosticsState:
+    type: object
+    properties:
+      washer_fluid_level:
+        type: string
+        format: filled|low
+        example: filled
+      tires:
+        type: array
+        items:
+          $ref: '#/definitions/Tire'
+      speed:
+        type: number
+        format: integer
+        example: 90
+      mileage:
+        type: number
+        format: integer
+        example: 3000
+      fuel_level:
+        type: number
+        format: integer
+        example: 20
+      engine_rpm:
+        type: number
+        format: integer
+        example: 3000
+      engine_oil_temperature:
+        type: number
+        format: integer
+        example: 18
+  Tire:
+    type: object
+    properties:
+      pressure:
+        type: number
+        format: float
+        example: 2.29
+      position:
+        type: string
+        format: front_left|front_right|rear_right|rear_left
+        example: rear_right
+  VehicleLocation:
+    type: object
+    properties:
+      longitude:
+        type: number
+        format: float
+        example: 13.381814956665039
+      latitude:
+        type: number
+        format: float
+        example: 52.51650619506836
+  LockStates:
+    type: array
+    items:
+      $ref: '#/definitions/LockState'
+    
+  LockState:
+    type: object
+    properties:
+      position:
+        type: string
+        format: open|closed
+        example: closed
+      lock:
+        type: string
+        format: locked|unlocked
+        example: unlocked
+      location:
+        type: string
+        format: front_left|front_right|rear_right|rear_left
+        example: rear_left
