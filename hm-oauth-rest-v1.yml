@@ -26,7 +26,7 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRequest'
       operationId: ApiWeb.OAuthAccessTokenController.create
-      description: Creates AccessTokens.
+      description: Creates and renews AccessTokens.
 info:
   version: '1.0'
   title: High Mobility OAuth2 Spec
