@@ -18,12 +18,14 @@ parameters:
 definitions:
     browser.url:
         description: 'The URL'
-        example: 'https://about.high-mobility.com'
+        example:
+            value: 'https://about.high-mobility.com'
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: string
     capabilities.capabilities:
         example:
-            - {capability_id: 32, supported_property_ids: [2, 3, 4, 5, 6]}
-            - {capability_id: 35, supported_property_ids: [2, 8, 17]}
+            - {value: {capability_id: 32, supported_property_ids: [2, 3, 4, 5, 6]}, timestamp: '2020-02-26T09:59:40.289Z'}
+            - {value: {capability_id: 35, supported_property_ids: [2, 8, 17]}, timestamp: '2020-02-26T09:59:40.289Z'}
         type: array
         items:
             type: object
@@ -34,57 +36,79 @@ definitions:
             capabilities: {$ref: '#/definitions/capabilities.capabilities'}
     charging.estimatedRange:
         description: 'Estimated range in km'
-        example: 432
+        example:
+            value: 432
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: integer
     charging.batteryLevel:
         description: 'Battery level percentage between 0.0-1.0'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: double
     charging.batteryCurrentAC:
         description: 'Battery active current'
-        example: -0.6
+        example:
+            value: -0.6
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.batteryCurrentDC:
         description: 'Battery direct current'
-        example: -0.6
+        example:
+            value: -0.6
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.chargerVoltageAC:
         description: 'Charger voltage'
-        example: 400
+        example:
+            value: 400
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.chargerVoltageDC:
         description: 'Charger voltage'
-        example: 400
+        example:
+            value: 400
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.chargeLimit:
         description: 'Charge limit percentage between 0.0-1.0'
-        example: 0.9
+        example:
+            value: 0.9
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: double
     charging.timeToCompleteCharge:
         description: 'Time until charging completed in minutes'
-        example: 60
+        example:
+            value: 60
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: integer
     charging.chargingRateKW:
         description: 'Charge rate in kW when charging'
-        example: 3.5
+        example:
+            value: 3.5
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.chargePortState:
-        example: open
+        example:
+            value: open
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: string
         enum:
             - closed
             - open
     charging.chargeMode:
-        example: timer_based
+        example:
+            value: timer_based
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: string
         enum:
             - immediate
@@ -92,11 +116,15 @@ definitions:
             - inductive
     charging.maxChargingCurrent:
         description: 'Maximum charging current'
-        example: 25
+        example:
+            value: 25
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.plugType:
-        example: type_2
+        example:
+            value: type_2
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: string
         enum:
             - type_1
@@ -104,49 +132,57 @@ definitions:
             - ccs
             - chademo
     charging.chargingWindowChosen:
-        example: not_chosen
+        example:
+            value: not_chosen
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: string
         enum:
             - not_chosen
             - chosen
     charging.departureTimes:
         example:
-            - {state: active, time: {hour: 16, minute: 32}}
-            - {state: inactive, time: {hour: 11, minute: 51}}
+            - {value: {state: active, time: {hour: 16, minute: 32}}, timestamp: '2020-02-26T09:59:40.289Z'}
+            - {value: {state: inactive, time: {hour: 11, minute: 51}}, timestamp: '2020-02-26T09:59:40.289Z'}
         type: array
         items:
             type: object
             properties: {state: {type: string, enum: [inactive, active]}, time: {type: object, properties: {hour: {description: 'Value between 0 and 23', type: number, format: integer}, minute: {description: 'Value between 0 and 59', type: number, format: integer}}}}
     charging.reductionTimes:
         example:
-            - {start_stop: start, time: {hour: 17, minute: 33}}
-            - {start_stop: stop, time: {hour: 12, minute: 52}}
+            - {value: {start_stop: start, time: {hour: 17, minute: 33}}, timestamp: '2020-02-26T09:59:40.289Z'}
+            - {value: {start_stop: stop, time: {hour: 12, minute: 52}}, timestamp: '2020-02-26T09:59:40.289Z'}
         type: array
         items:
             type: object
             properties: {startStop: {type: string, enum: [start, stop]}, time: {type: object, properties: {hour: {description: 'Value between 0 and 23', type: number, format: integer}, minute: {description: 'Value between 0 and 59', type: number, format: integer}}}}
     charging.batteryTemperature:
         description: 'Battery temperature in Celsius'
-        example: 38.4
+        example:
+            value: 38.4
+            timestamp: '2020-02-26T09:59:40.289Z'
         type: number
         format: float
     charging.timers:
         example:
-            - {timer_type: preferred_start_time, date: '2017-01-10T16:32:05.000Z'}
-            - {timer_type: preferred_end_time, date: '2017-01-10T16:36:05.000Z'}
-            - {timer_type: departure_date, date: '2017-01-10T16:36:05.000Z'}
+            - {value: {timer_type: preferred_start_time, date: '2017-01-10T16:32:05.000Z'}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {timer_type: preferred_end_time, date: '2017-01-10T16:36:05.000Z'}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {timer_type: departure_date, date: '2017-01-10T16:36:05.000Z'}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {timerType: {type: string, enum: [preferred_start_time, preferred_end_time, departure_date]}, date: {description: 'Milliseconds since UNIX Epoch time', type: string, format: date-time}}
     charging.pluggedIn:
-        example: plugged_in
+        example:
+            value: plugged_in
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - disconnected
             - plugged_in
     charging.status:
-        example: charging
+        example:
+            value: charging
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - not_charging
@@ -179,7 +215,9 @@ definitions:
             pluggedIn: {$ref: '#/definitions/charging.pluggedIn'}
             status: {$ref: '#/definitions/charging.status'}
     chassisSettings.drivingMode:
-        example: eco
+        example:
+            value: eco
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - regular
@@ -189,7 +227,9 @@ definitions:
             - ecoPlus
             - comfort
     chassisSettings.sportChrono:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
@@ -198,8 +238,8 @@ definitions:
     chassisSettings.currentSpringRates:
         description: 'The current values for the spring rates'
         example:
-            - {axle: front, spring_rate: 21}
-            - {axle: rear, spring_rate: 23}
+            - {value: {axle: front, spring_rate: 21}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {axle: rear, spring_rate: 23}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
@@ -207,8 +247,8 @@ definitions:
     chassisSettings.maximumSpringRates:
         description: 'The maximum possible values for the spring rates'
         example:
-            - {axle: front, spring_rate: 37}
-            - {axle: rear, spring_rate: 39}
+            - {value: {axle: front, spring_rate: 37}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {axle: rear, spring_rate: 39}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
@@ -216,25 +256,31 @@ definitions:
     chassisSettings.minimumSpringRates:
         description: 'The minimum possible values for the spring rates'
         example:
-            - {axle: front, spring_rate: 16}
-            - {axle: rear, spring_rate: 18}
+            - {value: {axle: front, spring_rate: 16}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {axle: rear, spring_rate: 18}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {axle: {type: string, enum: [front, rear]}, springRate: {description: 'The suspension spring rate in N/mm', type: number, format: integer}}
     chassisSettings.currentChassisPosition:
         description: 'The chassis position in mm calculated from the lowest point'
-        example: 25
+        example:
+            value: 25
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     chassisSettings.maximumChassisPosition:
         description: 'The maximum possible value for the chassis position'
-        example: 55
+        example:
+            value: 55
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     chassisSettings.minimumChassisPosition:
         description: 'The minimum possible value for the chassis position'
-        example: -28
+        example:
+            value: -28
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     chassisSettings:
@@ -250,70 +296,90 @@ definitions:
             minimumChassisPosition: {$ref: '#/definitions/chassisSettings.minimumChassisPosition'}
     climate.insideTemperature:
         description: 'The inside temperature in celsius'
-        example: 19
+        example:
+            value: 19
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate.outsideTemperature:
         description: 'The outside temperature in celsius'
-        example: 12
+        example:
+            value: 12
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate.driverTemperatureSetting:
         description: 'The driver temperature setting in celsius'
-        example: 21.5
+        example:
+            value: 21.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate.passengerTemperatureSetting:
         description: 'The passenger temperature setting in celsius'
-        example: 21.5
+        example:
+            value: 21.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate.hvacState:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
             - active
     climate.defoggingState:
-        example: inactive
+        example:
+            value: inactive
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
             - active
     climate.defrostingState:
-        example: inactive
+        example:
+            value: inactive
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
             - active
     climate.ionisingState:
-        example: inactive
+        example:
+            value: inactive
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
             - active
     climate.defrostingTemperatureSetting:
         description: 'The defrosting temperature setting in celsius'
-        example: 21.5
+        example:
+            value: 21.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate.hvacWeekdayStartingTimes:
         example:
-            - {weekday: monday, time: {hour: 16, minute: 0}}
-            - {weekday: tuesday, time: {hour: 16, minute: 0}}
-            - {weekday: wednesday, time: {hour: 16, minute: 0}}
-            - {weekday: thursday, time: {hour: 16, minute: 0}}
-            - {weekday: friday, time: {hour: 16, minute: 0}}
-            - {weekday: saturday, time: {hour: 18, minute: 30}}
-            - {weekday: sunday, time: {hour: 19, minute: 31}}
-            - {weekday: automatic, time: {hour: 16, minute: 0}}
+            - {value: {weekday: monday, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: tuesday, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: wednesday, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: thursday, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: friday, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: saturday, time: {hour: 18, minute: 30}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: sunday, time: {hour: 19, minute: 31}}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {weekday: automatic, time: {hour: 16, minute: 0}}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {weekday: {type: string, enum: [monday, tuesday, wednesday, thursday, friday, saturday, sunday, automatic]}, time: {type: object, properties: {hour: {description: 'Value between 0 and 23', type: number, format: integer}, minute: {description: 'Value between 0 and 59', type: number, format: integer}}}}
     climate.rearTemperatureSetting:
         description: 'The rear temperature in celsius'
-        example: 21.5
+        example:
+            value: 21.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     climate:
@@ -332,41 +398,41 @@ definitions:
             rearTemperatureSetting: {$ref: '#/definitions/climate.rearTemperatureSetting'}
     dashboardLights.dashboardLights:
         example:
-            - {name: high_beam, state: inactive}
-            - {name: low_beam, state: inactive}
-            - {name: hazard_warning, state: info}
-            - {name: brake_failure, state: inactive}
-            - {name: hatch_open, state: inactive}
-            - {name: fuel_level, state: inactive}
-            - {name: engine_coolant_temperature, state: inactive}
-            - {name: battery_charging_condition, state: inactive}
-            - {name: engine_oil, state: inactive}
-            - {name: position_lights, state: inactive}
-            - {name: front_fog_light, state: inactive}
-            - {name: rear_fog_light, state: inactive}
-            - {name: park_heating, state: inactive}
-            - {name: engine_indicator, state: inactive}
-            - {name: service_call, state: inactive}
-            - {name: transmission_fluid_temperature, state: red}
-            - {name: transmission_failure, state: inactive}
-            - {name: anti_lock_brake_failure, state: inactive}
-            - {name: worn_brake_linings, state: inactive}
-            - {name: windscreen_washer_fluid, state: inactive}
-            - {name: tire_failure, state: inactive}
-            - {name: engine_oil_level, state: yellow}
-            - {name: engine_coolant_level, state: inactive}
-            - {name: steering_failure, state: inactive}
-            - {name: esc_indication, state: inactive}
-            - {name: brake_lights, state: inactive}
-            - {name: adblue_level, state: inactive}
-            - {name: fuel_filter_diff_pressure, state: inactive}
-            - {name: seat_belt, state: inactive}
-            - {name: advanced_braking, state: inactive}
-            - {name: acc, state: inactive}
-            - {name: trailer_connected, state: inactive}
-            - {name: airbag, state: inactive}
-            - {name: esc_switched_off, state: inactive}
-            - {name: lane_departure_warning_off, state: inactive}
+            - {value: {name: high_beam, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: low_beam, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: hazard_warning, state: info}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: brake_failure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: hatch_open, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: fuel_level, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: engine_coolant_temperature, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: battery_charging_condition, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: engine_oil, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: position_lights, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: front_fog_light, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: rear_fog_light, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: park_heating, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: engine_indicator, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: service_call, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: transmission_fluid_temperature, state: red}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: transmission_failure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: anti_lock_brake_failure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: worn_brake_linings, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: windscreen_washer_fluid, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: tire_failure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: engine_oil_level, state: yellow}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: engine_coolant_level, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: steering_failure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: esc_indication, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: brake_lights, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: adblue_level, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: fuel_filter_diff_pressure, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: seat_belt, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: advanced_braking, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: acc, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: trailer_connected, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: airbag, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: esc_switched_off, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {name: lane_departure_warning_off, state: inactive}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
@@ -377,160 +443,204 @@ definitions:
             dashboardLights: {$ref: '#/definitions/dashboardLights.dashboardLights'}
     diagnostics.mileage:
         description: 'The car mileage (odometer) in km'
-        example: 150000
+        example:
+            value: 150000
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.engineOilTemperature:
         description: 'Engine oil temperature in Celsius, whereas can be negative'
-        example: 99
+        example:
+            value: 99
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.speed:
         description: 'The vehicle speed in km/h, whereas can be negative'
-        example: 60
+        example:
+            value: 60
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.engineRPM:
         description: 'Engine RPM (revolutions per minute)'
-        example: 2500
+        example:
+            value: 2500
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.fuelLevel:
         description: 'Fuel level percentage between 0.0-1.0'
-        example: 0.9
+        example:
+            value: 0.9
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: double
     diagnostics.estimatedRange:
         description: 'Estimated range (with combustion engine)'
-        example: 265
+        example:
+            value: 265
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.washerFluidLevel:
-        example: filled
+        example:
+            value: filled
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - low
             - filled
     diagnostics.batteryVoltage:
         description: 'Battery voltage'
-        example: 12
+        example:
+            value: 12
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     diagnostics.adBlueLevel:
         description: 'AdBlue level in liters'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     diagnostics.distanceSinceReset:
         description: 'The distance driven in km since reset'
-        example: 1500
+        example:
+            value: 1500
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.distanceSinceStart:
         description: 'The distance driven in km since trip start'
-        example: 10
+        example:
+            value: 10
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.fuelVolume:
         description: 'The fuel volume measured in liters'
-        example: 35.5
+        example:
+            value: 35.5
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     diagnostics.antiLockBraking:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
             - active
     diagnostics.engineCoolantTemperature:
         description: 'Engine coolant temperature in Celsius, whereas can be negative'
-        example: 20
+        example:
+            value: 20
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.engineTotalOperatingHours:
         description: 'The accumulated time of engine operation'
-        example: 1500.65
+        example:
+            value: 1500.65
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     diagnostics.engineTotalFuelConsumption:
         description: 'The accumulated lifespan fuel consumption in liters'
-        example: 27587
+        example:
+            value: 27587
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: float
     diagnostics.brakeFluidLevel:
-        example: low
+        example:
+            value: low
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - low
             - filled
     diagnostics.engineTorque:
         description: 'Current engine torque percentage between 0.0-1.0'
-        example: 0.2
+        example:
+            value: 0.2
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: double
     diagnostics.engineLoad:
         description: 'Current engine load percentage between 0.0-1.0'
-        example: 0.1
+        example:
+            value: 0.1
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: double
     diagnostics.wheelBasedSpeed:
         description: 'The vehicle speed in km/h measured at the wheel base, whereas can be negative'
-        example: 65
+        example:
+            value: 65
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics.batteryLevel:
         description: 'Battery level in %, value between 0.0 and 1.0'
-        example: 0.56
+        example:
+            value: 0.56
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: double
     diagnostics.checkControlMessages:
         example:
-            - {id: 1, remaining_minutes: 105592, text: 'Check engine', status: Alert}
+            - {value: {id: 1, remaining_minutes: 105592, text: 'Check engine', status: Alert}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {ID: {description: 'Check Control Message identifier', type: number, format: integer}, remainingMinutes: {description: 'Remaining time of the message in minutes', type: number, format: integer}, text: {description: 'CCM text', type: string}, status: {description: 'CCM status', type: string}}
     diagnostics.tirePressures:
         example:
-            - {location: front_left, pressure: 2.31}
-            - {location: front_right, pressure: 2.31}
-            - {location: rear_right, pressure: 2.24}
-            - {location: rear_left, pressure: 2.24}
+            - {value: {location: front_left, pressure: 2.31}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, pressure: 2.31}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, pressure: 2.24}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, pressure: 2.24}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left]}, pressure: {description: 'Tire pressure in BAR', type: number, format: float}}
     diagnostics.tireTemperatures:
         example:
-            - {location: front_left, temperature: 40}
-            - {location: front_right, temperature: 40}
-            - {location: rear_right, temperature: 40}
-            - {location: rear_left, temperature: 40}
+            - {value: {location: front_left, temperature: 40}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, temperature: 40}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, temperature: 40}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, temperature: 40}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left]}, temperature: {description: 'Tire temperature in Celsius', type: number, format: float}}
     diagnostics.wheelRPMs:
         example:
-            - {location: front_left, rpm: 746}
-            - {location: front_right, rpm: 746}
-            - {location: rear_right, rpm: 746}
-            - {location: rear_left, rpm: 746}
+            - {value: {location: front_left, rpm: 746}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, rpm: 746}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, rpm: 746}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, rpm: 746}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {location: {description: 'Wheel location', type: string, enum: [front_left, front_right, rear_right, rear_left]}, RPM: {description: 'The RPM measured at this wheel', type: number, format: integer}}
     diagnostics.troubleCodes:
         example:
-            - {occurences: 2, id: C1116FA, ecu_id: RDU_212FR, status: PENDING}
-            - {occurences: 2, id: C163AFA, ecu_id: DTR212, status: PENDING}
+            - {value: {occurences: 2, id: C1116FA, ecu_id: RDU_212FR, status: PENDING}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {occurences: 2, id: C163AFA, ecu_id: DTR212, status: PENDING}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {occurences: {description: 'Number of occurences', type: number, format: integer}, ID: {description: Identifier, type: string}, ecuID: {description: 'Electronic Control Unit identifier', type: string}, status: {description: Status, type: string}}
     diagnostics.mileageMeters:
         description: 'The car mileage (odometer) in meters'
-        example: 150001
+        example:
+            value: 150001
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     diagnostics:
@@ -566,10 +676,10 @@ definitions:
     doors.insideLocks:
         description: 'Inside lock states for the given doors'
         example:
-            - {location: front_left, lock_state: locked}
-            - {location: front_right, lock_state: unlocked}
-            - {location: rear_right, lock_state: unlocked}
-            - {location: rear_left, lock_state: unlocked}
+            - {value: {location: front_left, lock_state: locked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, lock_state: unlocked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, lock_state: unlocked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, lock_state: unlocked}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
@@ -577,10 +687,10 @@ definitions:
     doors.locks:
         description: 'Lock states for the given doors'
         example:
-            - {location: front_left, lock_state: unlocked}
-            - {location: front_right, lock_state: unlocked}
-            - {location: rear_right, lock_state: locked}
-            - {location: rear_left, lock_state: locked}
+            - {value: {location: front_left, lock_state: unlocked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, lock_state: unlocked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, lock_state: locked}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, lock_state: locked}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
@@ -588,25 +698,29 @@ definitions:
     doors.positions:
         description: 'Door positions for the given doors'
         example:
-            - {location: front_left, position: open}
-            - {location: front_right, position: closed}
-            - {location: rear_right, position: closed}
-            - {location: rear_left, position: closed}
-            - {location: all, position: closed}
+            - {value: {location: front_left, position: open}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: front_right, position: closed}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_right, position: closed}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: rear_left, position: closed}, timestamp: '2020-02-26T09:59:40.290Z'}
+            - {value: {location: all, position: closed}, timestamp: '2020-02-26T09:59:40.290Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left, all]}, position: {type: string, enum: [closed, open]}}
     doors.insideLocksState:
         description: 'Inside locks state for the whole car (combines all specific lock states if available)'
-        example: locked
+        example:
+            value: locked
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - unlocked
             - locked
     doors.locksState:
         description: 'Locks state for the whole car (combines all specific lock states if available)'
-        example: unlocked
+        example:
+            value: unlocked
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - unlocked
@@ -620,7 +734,9 @@ definitions:
             insideLocksState: {$ref: '#/definitions/doors.insideLocksState'}
             locksState: {$ref: '#/definitions/doors.locksState'}
     engineStartStop.status:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - inactive
@@ -631,16 +747,22 @@ definitions:
             status: {$ref: '#/definitions/engineStartStop.status'}
     failureMessage.failedMessageID:
         description: 'Capability identifier of the failed message'
-        example: 33
+        example:
+            value: 33
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     failureMessage.failedMessageType:
         description: 'Message type of the failed message'
-        example: 1
+        example:
+            value: 1
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: number
         format: integer
     failureMessage.failureReason:
-        example: unauthorised
+        example:
+            value: unauthorised
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
         enum:
             - unsupported_capability
@@ -653,13 +775,15 @@ definitions:
             - rate_limit
     failureMessage.failureDescription:
         description: 'Failure description'
-        example: 'Try again'
+        example:
+            value: 'Try again'
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: string
     failureMessage.failedPropertyIDs:
         description: 'Array of failed property identifiers'
         example:
-            - 1
-            - 2
+            value: [1, 2]
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: array
         items:
             type: number
@@ -675,9 +799,8 @@ definitions:
     firmwareVersion.hmKitVersion:
         description: 'HMKit version'
         example:
-            major: 1
-            minor: 15
-            patch: 33
+            value: {major: 1, minor: 15, patch: 33}
+            timestamp: '2020-02-26T09:59:40.290Z'
         type: object
         properties:
             major: {description: 'HMKit version major number', type: number, format: integer}
@@ -685,11 +808,15 @@ definitions:
             patch: {description: 'HMKit version patch number', type: number, format: integer}
     firmwareVersion.hmKitBuildName:
         description: 'HMKit version build name'
-        example: btstack-uart
+        example:
+            value: btstack-uart
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
     firmwareVersion.applicationVersion:
         description: 'Application version'
-        example: v1.5-prod
+        example:
+            value: v1.5-prod
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
     firmwareVersion:
         type: object
@@ -698,13 +825,17 @@ definitions:
             hmKitBuildName: {$ref: '#/definitions/firmwareVersion.hmKitBuildName'}
             applicationVersion: {$ref: '#/definitions/firmwareVersion.applicationVersion'}
     fueling.gasFlapLock:
-        example: locked
+        example:
+            value: locked
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - unlocked
             - locked
     fueling.gasFlapPosition:
-        example: closed
+        example:
+            value: closed
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - closed
@@ -716,29 +847,37 @@ definitions:
             gasFlapPosition: {$ref: '#/definitions/fueling.gasFlapPosition'}
     graphics.imageURL:
         description: 'The image URL'
-        example: 'https://about.high-mobility.com/assets/images/hm-logo.svg'
+        example:
+            value: 'https://about.high-mobility.com/assets/images/hm-logo.svg'
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
     historical.states:
         description: 'The bytes of a Capability state'
         example:
-            - {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}
-            - {charging: {charging_rate_kw: 3.5, charge_port_state: open}}
+            - {value: {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {charging: {charging_rate_kw: 3.5, charge_port_state: open}}, timestamp: '2020-02-26T09:59:40.291Z'}
         type: array
         items:
             type: capability_state
     historical.capabilityID:
         description: 'The identifier of the Capability'
-        example: 96
+        example:
+            value: 96
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     historical.startDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2019-10-07T13:04:32.000Z'
+        example:
+            value: '2019-10-07T13:04:32.000Z'
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         format: date-time
     historical.endDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2019-09-27T08:42:30.000Z'
+        example:
+            value: '2019-09-27T08:42:30.000Z'
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         format: date-time
     historical:
@@ -746,20 +885,26 @@ definitions:
         properties:
             states: {$ref: '#/definitions/historical.states'}
     homeCharger.chargingStatus:
-        example: charging
+        example:
+            value: charging
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - disconnected
             - plugged_in
             - charging
     homeCharger.authenticationMechanism:
-        example: app
+        example:
+            value: app
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - pin
             - app
     homeCharger.plugType:
-        example: type_2
+        example:
+            value: type_2
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - type_1
@@ -768,27 +913,37 @@ definitions:
             - chademo
     homeCharger.chargingPowerKW:
         description: 'Charging power in kW'
-        example: 11.5
+        example:
+            value: 11.5
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     homeCharger.solarCharging:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
             - active
     homeCharger.wifiHotspotEnabled:
-        example: enabled
+        example:
+            value: enabled
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - disabled
             - enabled
     homeCharger.wifiHotspotSSID:
         description: 'The Wi-Fi Hotspot SSID'
-        example: 'Charger 7612'
+        example:
+            value: 'Charger 7612'
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
     homeCharger.wiFiHotspotSecurity:
-        example: wpa2_personal
+        example:
+            value: wpa2_personal
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - none
@@ -797,41 +952,52 @@ definitions:
             - wpa2_personal
     homeCharger.wiFiHotspotPassword:
         description: 'The Wi-Fi Hotspot password'
-        example: ZW3vARNUBe
+        example:
+            value: ZW3vARNUBe
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
     homeCharger.authenticationState:
-        example: authenticated
+        example:
+            value: authenticated
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - unauthenticated
             - authenticated
     homeCharger.chargeCurrentDC:
         description: 'The charge direct current'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     homeCharger.maximumChargeCurrent:
         description: 'The maximum possible charge current'
-        example: 1
+        example:
+            value: 1
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     homeCharger.minimumChargeCurrent:
         description: 'The minimal possible charge current'
+        example:
+            value: null
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     homeCharger.coordinates:
         example:
-            latitude: 52.520008
-            longitude: 13.404954
+            value: {latitude: 52.520008, longitude: 13.404954}
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: object
         properties:
             latitude: {description: Latitude, type: number, format: double}
             longitude: {description: Longitude, type: number, format: double}
     homeCharger.priceTariffs:
         example:
-            - {pricing_type: starting_fee, price: 4.5, currency: EUR}
-            - {pricing_type: per_minute, price: 0.3, currency: EUR}
-            - {pricing_type: per_kwh, price: 0.3, currency: Ripple}
+            - {value: {pricing_type: starting_fee, price: 4.5, currency: EUR}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {pricing_type: per_minute, price: 0.3, currency: EUR}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {pricing_type: per_kwh, price: 0.3, currency: Ripple}, timestamp: '2020-02-26T09:59:40.291Z'}
         type: array
         items:
             type: object
@@ -855,7 +1021,9 @@ definitions:
             coordinates: {$ref: '#/definitions/homeCharger.coordinates'}
             priceTariffs: {$ref: '#/definitions/homeCharger.priceTariffs'}
     honkHornFlashLights.flashers:
-        example: left_flasher_active
+        example:
+            value: left_flasher_active
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
@@ -864,16 +1032,22 @@ definitions:
             - right_flasher_active
     honkHornFlashLights.honkSeconds:
         description: 'Number of seconds to honk the horn'
-        example: 3
+        example:
+            value: 3
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     honkHornFlashLights.flashTimes:
         description: 'Number of times to flash the lights'
-        example: 5
+        example:
+            value: 5
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     honkHornFlashLights.emergencyFlashersState:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
@@ -883,7 +1057,9 @@ definitions:
         properties:
             flashers: {$ref: '#/definitions/honkHornFlashLights.flashers'}
     hood.position:
-        example: open
+        example:
+            value: open
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - closed
@@ -894,13 +1070,17 @@ definitions:
         properties:
             position: {$ref: '#/definitions/hood.position'}
     ignition.status:
-        example: off
+        example:
+            value: off
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - off
             - on
     ignition.accessoriesStatus:
-        example: on
+        example:
+            value: on
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - off
@@ -912,12 +1092,16 @@ definitions:
             accessoriesStatus: {$ref: '#/definitions/ignition.accessoriesStatus'}
     lightConditions.outsideLight:
         description: 'Measured outside illuminance in lux'
-        example: 111000
+        example:
+            value: 111000
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     lightConditions.insideLight:
         description: 'Measured inside illuminance in lux'
-        example: 0.25
+        example:
+            value: 0.25
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: float
     lightConditions:
@@ -926,64 +1110,71 @@ definitions:
             outsideLight: {$ref: '#/definitions/lightConditions.outsideLight'}
             insideLight: {$ref: '#/definitions/lightConditions.insideLight'}
     lights.frontExteriorLight:
-        example: active_with_full_beam
+        example:
+            value: active_with_full_beam
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
             - active
             - active_with_full_beam
-            - dlr
+            - drl
             - automatic
     lights.rearExteriorLight:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
             - active
     lights.ambientLightColour:
         example:
-            red: 255
-            green: 0
-            blue: 0
+            value: {red: 255, green: 0, blue: 0}
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: object
         properties:
             red: {description: 'The red component of RGB', type: number, format: integer}
             green: {description: 'The green component of RGB', type: number, format: integer}
             blue: {description: 'The blue component of RGB', type: number, format: integer}
     lights.reverseLight:
-        example: inactive
+        example:
+            value: inactive
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
             - active
     lights.emergencyBrakeLight:
-        example: inactive
+        example:
+            value: inactive
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - inactive
             - active
     lights.fogLights:
         example:
-            - {location: front, state: inactive}
-            - {location: rear, state: active}
+            - {value: {location: front, state: inactive}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {location: rear, state: active}, timestamp: '2020-02-26T09:59:40.291Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front, rear]}, state: {type: string, enum: [inactive, active]}}
     lights.readingLamps:
         example:
-            - {location: front_left, state: active}
-            - {location: front_right, state: active}
-            - {location: rear_right, state: inactive}
-            - {location: rear_left, state: inactive}
+            - {value: {location: front_left, state: active}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {location: front_right, state: active}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {location: rear_right, state: inactive}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {location: rear_left, state: inactive}, timestamp: '2020-02-26T09:59:40.291Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left]}, state: {type: string, enum: [inactive, active]}}
     lights.interiorLights:
         example:
-            - {location: front, state: inactive}
-            - {location: rear, state: active}
+            - {value: {location: front, state: inactive}, timestamp: '2020-02-26T09:59:40.291Z'}
+            - {value: {location: rear, state: active}, timestamp: '2020-02-26T09:59:40.291Z'}
         type: array
         items:
             type: object
@@ -1001,26 +1192,36 @@ definitions:
             interiorLights: {$ref: '#/definitions/lights.interiorLights'}
     maintenance.daysToNextService:
         description: 'Number of days until next servicing of the car, whereas negative is overdue'
-        example: 501
+        example:
+            value: 501
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     maintenance.kilometersToNextService:
         description: 'The amount of kilometers until next servicing of the car'
-        example: 3681
+        example:
+            value: 3681
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     maintenance.cbsReportsCount:
         description: 'The number of CBS reports'
-        example: 3
+        example:
+            value: 3
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     maintenance.monthsToExhaustInspection:
         description: 'Number of months until exhaust inspection'
-        example: 5
+        example:
+            value: 5
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: number
         format: integer
     maintenance.teleserviceAvailability:
-        example: successful
+        example:
+            value: successful
+            timestamp: '2020-02-26T09:59:40.291Z'
         type: string
         enum:
             - pending
@@ -1029,39 +1230,51 @@ definitions:
             - error
     maintenance.serviceDistanceThreshold:
         description: 'Distance threshold for Service'
-        example: 500
+        example:
+            value: 500
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     maintenance.serviceTimeThreshold:
         description: 'Time threshold, in weeks, for Service'
-        example: 4
+        example:
+            value: 4
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     maintenance.automaticTeleserviceCallDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2018-11-23T11:33:50.000Z'
+        example:
+            value: '2018-11-23T11:33:50.000Z'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         format: date-time
     maintenance.teleserviceBatteryCallDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2018-11-23T10:36:50.000Z'
+        example:
+            value: '2018-11-23T10:36:50.000Z'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         format: date-time
     maintenance.nextInspectionDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2018-10-23T14:38:47.000Z'
+        example:
+            value: '2018-10-23T14:38:47.000Z'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         format: date-time
     maintenance.conditionBasedServices:
         example:
-            - {year: 2019, month: 5, id: 3, due_status: ok, text: 'Brake fluid', description: 'Next change at specified date at the latest.'}
+            - {value: {year: 2019, month: 5, id: 3, due_status: ok, text: 'Brake fluid', description: 'Next change at specified date at the latest.'}, timestamp: '2020-02-26T09:59:40.292Z'}
         type: array
         items:
             type: object
             properties: {year: {description: 'The year', type: number, format: integer}, month: {description: 'Value between 1 and 12', type: number, format: integer}, id: {description: 'CBS identifier', type: number, format: integer}, dueStatus: {type: string, enum: [ok, pending, overdue]}, text: {description: 'CBS text', type: string}, description: {description: Description, type: string}}
     maintenance.brakeFluidChangeDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2018-12-05T03:22:56.000Z'
+        example:
+            value: '2018-12-05T03:22:56.000Z'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         format: date-time
     maintenance:
@@ -1081,11 +1294,15 @@ definitions:
             brakeFluidChangeDate: {$ref: '#/definitions/maintenance.brakeFluidChangeDate'}
     messaging.text:
         description: 'The text'
-        example: 'Hey mom!'
+        example:
+            value: 'Hey mom!'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
     messaging.handle:
         description: 'The optional handle of message'
-        example: Epp
+        example:
+            value: Epp
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
     messaging:
         type: object
@@ -1093,7 +1310,9 @@ definitions:
             text: {$ref: '#/definitions/messaging.text'}
             handle: {$ref: '#/definitions/messaging.handle'}
     mobile.connection:
-        example: connected
+        example:
+            value: connected
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         enum:
             - disconnected
@@ -1103,18 +1322,18 @@ definitions:
         properties:
             connection: {$ref: '#/definitions/mobile.connection'}
     multiCommand.multiStates:
-        description: 'The bytes of incoming capabilities (states)'
+        description: 'The incoming states'
         example:
-            - {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}
-            - {charging: {charging_rate_kw: 3.5, charge_port_state: open}}
+            - {value: {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}, timestamp: '2020-02-26T09:59:40.292Z'}
+            - {value: {charging: {charging_rate_kw: 3.5, charge_port_state: open}}, timestamp: '2020-02-26T09:59:40.292Z'}
         type: array
         items:
             type: capability_state
     multiCommand.multiCommands:
-        description: 'The bytes of outgoing capabilities (commands)'
+        description: 'The outgoing commands'
         example:
-            - {doors: {inside_locks_state: locked}}
-            - {ignition: {status: off}}
+            - {value: {doors: {inside_locks_state: locked}}, timestamp: '2020-02-26T09:59:40.292Z'}
+            - {value: {ignition: {status: off}}, timestamp: '2020-02-26T09:59:40.292Z'}
         type: array
         items:
             type: capability_state
@@ -1124,38 +1343,46 @@ definitions:
             multiStates: {$ref: '#/definitions/multiCommand.multiStates'}
     naviDestination.coordinates:
         example:
-            latitude: 52.520008
-            longitude: 13.404954
+            value: {latitude: 52.520008, longitude: 13.404954}
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: object
         properties:
             latitude: {description: Latitude, type: number, format: double}
             longitude: {description: Longitude, type: number, format: double}
     naviDestination.destinationName:
         description: 'Destination name'
-        example: Berlin
+        example:
+            value: Berlin
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
     naviDestination.dataSlotsFree:
         description: 'Remaining number of POI data slots available.'
-        example: 14
+        example:
+            value: 14
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     naviDestination.dataSlotsMax:
         description: 'Maximum number of POI data slots.'
-        example: 30
+        example:
+            value: 30
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     naviDestination.arrivalDuration:
         description: 'Remaining time until reaching the destination.'
         example:
-            hour: 2
-            minute: 32
+            value: {hour: 2, minute: 32}
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: object
         properties:
             hour: {description: 'Value between 0 and 23', type: number, format: integer}
             minute: {description: 'Value between 0 and 59', type: number, format: integer}
     naviDestination.distanceToDestination:
         description: 'Remaining distance to reach the destination.'
-        example: 1337
+        example:
+            value: 1337
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     naviDestination:
@@ -1169,23 +1396,29 @@ definitions:
             distanceToDestination: {$ref: '#/definitions/naviDestination.distanceToDestination'}
     notifications.text:
         description: 'Text for the notification'
-        example: 'Open Garage'
+        example:
+            value: 'Open Garage'
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
     notifications.actionItems:
         example:
-            - {id: 27, name: Open}
-            - {id: 28, name: Cancel}
+            - {value: {id: 27, name: Open}, timestamp: '2020-02-26T09:59:40.292Z'}
+            - {value: {id: 28, name: Cancel}, timestamp: '2020-02-26T09:59:40.292Z'}
         type: array
         items:
             type: object
             properties: {id: {description: 'Action identifier', type: number, format: integer}, name: {description: 'Name of the action', type: string}}
     notifications.activatedAction:
         description: 'Identifier of the activated action'
-        example: 27
+        example:
+            value: 27
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: number
         format: integer
     notifications.clear:
-        example: clear
+        example:
+            value: clear
+            timestamp: '2020-02-26T09:59:40.292Z'
         type: string
         enum:
             - clear
@@ -1198,12 +1431,16 @@ definitions:
             clear: {$ref: '#/definitions/notifications.clear'}
     offroad.routeIncline:
         description: 'The route elevation incline in degrees, which is a negative number for decline'
-        example: 10
+        example:
+            value: 10
+            timestamp: '2020-02-26T09:59:40.293Z'
         type: number
         format: integer
     offroad.wheelSuspension:
         description: 'The wheel suspension level percentage, whereas 0.0 is no suspension and 1.0 maximum suspension'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.293Z'
         type: number
         format: double
     offroad:
@@ -1212,7 +1449,9 @@ definitions:
             routeIncline: {$ref: '#/definitions/offroad.routeIncline'}
             wheelSuspension: {$ref: '#/definitions/offroad.wheelSuspension'}
     parkingBrake.status:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
@@ -1222,27 +1461,37 @@ definitions:
         properties:
             status: {$ref: '#/definitions/parkingBrake.status'}
     parkingTicket.status:
-        example: ended
+        example:
+            value: ended
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - ended
             - started
     parkingTicket.operatorName:
         description: 'Operator name'
-        example: 'Berlin Parking'
+        example:
+            value: 'Berlin Parking'
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
     parkingTicket.operatorTicketID:
         description: 'Operator ticket ID'
-        example: '64894233'
+        example:
+            value: '64894233'
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
     parkingTicket.ticketStartTime:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2017-01-10T19:34:22.000Z'
+        example:
+            value: '2017-01-10T19:34:22.000Z'
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         format: date-time
     parkingTicket.ticketEndTime:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2019-10-08T11:21:45.000Z'
+        example:
+            value: '2019-10-08T11:21:45.000Z'
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         format: date-time
     parkingTicket:
@@ -1254,13 +1503,17 @@ definitions:
             ticketStartTime: {$ref: '#/definitions/parkingTicket.ticketStartTime'}
             ticketEndTime: {$ref: '#/definitions/parkingTicket.ticketEndTime'}
     powerTakeoff.status:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     powerTakeoff.engaged:
-        example: engaged
+        example:
+            value: engaged
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - not_engaged
@@ -1272,65 +1525,83 @@ definitions:
             engaged: {$ref: '#/definitions/powerTakeoff.engaged'}
     race.accelerations:
         example:
-            - {direction: longitudinal, g_force: 0.864}
-            - {direction: lateral, g_force: -0.753}
-            - {direction: front_lateral, g_force: -0.753}
-            - {direction: rear_lateral, g_force: -0.753}
+            - {value: {direction: longitudinal, g_force: 0.864}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {direction: lateral, g_force: -0.753}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {direction: front_lateral, g_force: -0.753}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {direction: rear_lateral, g_force: -0.753}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {direction: {type: string, enum: [longitudinal, lateral, front_lateral, rear_lateral]}, gForce: {description: 'The accelaration in g-force', type: number, format: float}}
     race.understeering:
         description: 'The understeering percentage between 0.0-1.0 whereas up to 0.2 (20%) is considered OK, up to 0.3 (30%) marginal, over 30% critical'
-        example: 0.19
+        example:
+            value: 0.19
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     race.oversteering:
         description: 'The oversteering percentage between 0.0-1.0 whereas up to 0.2 (20%) is considered OK, up to 30% marginal, over 30% critical'
-        example: 0.05
+        example:
+            value: 0.05
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     race.gasPedalPosition:
         description: 'The gas pedal position between 0.0-1.0, whereas 1.0 (100%) is full throttle'
-        example: 0.98
+        example:
+            value: 0.98
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     race.steeringAngle:
         description: 'The steering angle in degrees, whereas 0° is straight ahead, positive number to the right and negative number to the left'
-        example: 10
+        example:
+            value: 10
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: integer
     race.brakePressure:
         description: 'Brake pressure in bar, whereas 100 bar is max value, full brake'
-        example: 20
+        example:
+            value: 20
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: float
     race.yawRate:
         description: 'Yaw rate in degrees per second [°/s]'
-        example: 6.66
+        example:
+            value: 6.66
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: float
     race.rearSuspensionSteering:
         description: 'Rear suspension steering in degrees'
-        example: 3
+        example:
+            value: 3
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: integer
     race.electronicStabilityProgram:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     race.brakeTorqueVectorings:
         example:
-            - {axle: front, state: active}
-            - {axle: rear, state: inactive}
+            - {value: {axle: front, state: active}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {axle: rear, state: inactive}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {axle: {type: string, enum: [front, rear]}, state: {type: string, enum: [inactive, active]}}
     race.gearMode:
-        example: drive
+        example:
+            value: drive
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - manual
@@ -1342,40 +1613,54 @@ definitions:
             - sport
     race.selectedGear:
         description: 'The selected gear value, if any'
-        example: 4
+        example:
+            value: 4
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: integer
     race.brakePedalPosition:
         description: 'The brake pedal position between 0.0-1.0, wheras 1.0 (100%) is full brakes'
-        example: 0.12
+        example:
+            value: 0.12
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     race.brakePedalSwitch:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     race.clutchPedalSwitch:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     race.acceleratorPedalIdleSwitch:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     race.acceleratorPedalKickdownSwitch:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - inactive
             - active
     race.vehicleMoving:
-        example: moving
+        example:
+            value: moving
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - not_moving
@@ -1403,16 +1688,22 @@ definitions:
             vehicleMoving: {$ref: '#/definitions/race.vehicleMoving'}
     rooftopControl.dimming:
         description: '1.0 (100%) is opaque, 0.0 (0%) is transparent'
-        example: 1
+        example:
+            value: 1
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     rooftopControl.position:
         description: '1.0 (100%) is fully open, 0.0 (0%) is closed'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: number
         format: double
     rooftopControl.convertibleRoofState:
-        example: open
+        example:
+            value: open
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - closed
@@ -1425,14 +1716,18 @@ definitions:
             - loading_position
             - loading_position_immediate
     rooftopControl.sunroofTiltState:
-        example: half_tilted
+        example:
+            value: half_tilted
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - closed
             - tilted
             - half_tilted
     rooftopControl.sunroofState:
-        example: open
+        example:
+            value: open
+            timestamp: '2020-02-26T09:59:40.294Z'
         type: string
         enum:
             - closed
@@ -1448,22 +1743,22 @@ definitions:
             sunroofState: {$ref: '#/definitions/rooftopControl.sunroofState'}
     seats.personsDetected:
         example:
-            - {location: front_left, detected: detected}
-            - {location: front_right, detected: not_detected}
-            - {location: rear_right, detected: not_detected}
-            - {location: rear_left, detected: not_detected}
-            - {location: rear_center, detected: not_detected}
+            - {value: {location: front_left, detected: detected}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: front_right, detected: not_detected}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_right, detected: not_detected}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_left, detected: not_detected}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_center, detected: not_detected}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left, rear_center]}, detected: {type: string, enum: [not_detected, detected]}}
     seats.seatbeltsState:
         example:
-            - {location: front_left, fastened_state: fastened}
-            - {location: front_right, fastened_state: not_fastened}
-            - {location: rear_right, fastened_state: not_fastened}
-            - {location: rear_left, fastened_state: not_fastened}
-            - {location: rear_center, fastened_state: not_fastened}
+            - {value: {location: front_left, fastened_state: fastened}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: front_right, fastened_state: not_fastened}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_right, fastened_state: not_fastened}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_left, fastened_state: not_fastened}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {location: rear_center, fastened_state: not_fastened}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
@@ -1475,49 +1770,57 @@ definitions:
             seatbeltsState: {$ref: '#/definitions/seats.seatbeltsState'}
     tachograph.driversWorkingStates:
         example:
-            - {driver_number: 1, working_state: working}
-            - {driver_number: 2, working_state: resting}
+            - {value: {driver_number: 1, working_state: working}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {driver_number: 2, working_state: resting}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {driverNumber: {description: 'The driver number', type: number, format: integer}, workingState: {type: string, enum: [resting, driver_available, working, driving]}}
     tachograph.driversTimeStates:
         example:
-            - {driver_number: 3, time_state: four_reached}
-            - {driver_number: 4, time_state: fifteen_min_before_sixteen}
+            - {value: {driver_number: 3, time_state: four_reached}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {driver_number: 4, time_state: fifteen_min_before_sixteen}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {driverNumber: {description: 'The driver number', type: number, format: integer}, timeState: {type: string, enum: [normal, fifteen_min_before_four, four_reached, fifteen_min_before_nine, nine_reached, fifteen_min_before_sixteen, sixteen_reached]}}
     tachograph.driversCardsPresent:
         example:
-            - {driver_number: 6, card_present: present}
-            - {driver_number: 7, card_present: not_present}
+            - {value: {driver_number: 6, card_present: present}, timestamp: '2020-02-26T09:59:40.294Z'}
+            - {value: {driver_number: 7, card_present: not_present}, timestamp: '2020-02-26T09:59:40.294Z'}
         type: array
         items:
             type: object
             properties: {driverNumber: {description: 'The driver number', type: number, format: integer}, cardPresent: {type: string, enum: [not_present, present]}}
     tachograph.vehicleMotion:
-        example: detected
+        example:
+            value: detected
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - not_detected
             - detected
     tachograph.vehicleOverspeed:
-        example: no_overspeed
+        example:
+            value: no_overspeed
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - no_overspeed
             - overspeed
     tachograph.vehicleDirection:
-        example: forward
+        example:
+            value: forward
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - forward
             - reverse
     tachograph.vehicleSpeed:
         description: 'The tachograph vehicle speed in km/h'
-        example: 80
+        example:
+            value: 80
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: integer
     tachograph:
@@ -1532,10 +1835,14 @@ definitions:
             vehicleSpeed: {$ref: '#/definitions/tachograph.vehicleSpeed'}
     textInput.text:
         description: 'The text'
-        example: 'Rendezvous with Rama'
+        example:
+            value: 'Rendezvous with Rama'
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
     theftAlarm.status:
-        example: armed
+        example:
+            value: armed
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - unarmed
@@ -1546,13 +1853,17 @@ definitions:
         properties:
             status: {$ref: '#/definitions/theftAlarm.status'}
     trunk.lock:
-        example: unlocked
+        example:
+            value: unlocked
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - unlocked
             - locked
     trunk.position:
-        example: open
+        example:
+            value: open
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - closed
@@ -1564,91 +1875,117 @@ definitions:
             position: {$ref: '#/definitions/trunk.position'}
     usage.averageWeeklyDistance:
         description: 'Average weekly distance in km'
-        example: 666
+        example:
+            value: 666
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: integer
     usage.averageWeeklyDistanceLongRun:
         description: 'Average weekyl distance, over long term, in km'
-        example: 668
+        example:
+            value: 668
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: integer
     usage.accelerationEvaluation:
         description: 'Acceleration evaluation percentage'
-        example: 0.7
+        example:
+            value: 0.7
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     usage.drivingStyleEvaluation:
         description: 'Driving style evaluation percentage'
-        example: 0.88
+        example:
+            value: 0.88
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     usage.drivingModesActivationPeriods:
         example:
-            - {driving_mode: regular, period: 0.2}
-            - {driving_mode: eco, period: 0.3}
-            - {driving_mode: sport, period: 0.1}
-            - {driving_mode: sport_plus, period: 0.1}
-            - {driving_mode: ecoPlus, period: 0.3}
-            - {driving_mode: comfort, period: 0}
+            - {value: {driving_mode: regular, period: 0.2}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: eco, period: 0.3}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: sport, period: 0.1}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: sport_plus, period: 0.1}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: ecoPlus, period: 0.3}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: comfort, period: 0}, timestamp: '2020-02-26T09:59:40.295Z'}
         type: array
         items:
             type: object
             properties: {drivingMode: {type: string, enum: [regular, eco, sport, sport_plus, ecoPlus, comfort]}, period: {description: 'Percentage of the period used for a driving mode', type: number, format: double}}
     usage.drivingModesEnergyConsumptions:
         example:
-            - {driving_mode: regular, consumption: 20.2}
-            - {driving_mode: eco, consumption: 33.2}
-            - {driving_mode: sport, consumption: 54}
-            - {driving_mode: sport_plus, consumption: 64.8}
-            - {driving_mode: ecoPlus, consumption: 18}
-            - {driving_mode: comfort, consumption: 33.6}
+            - {value: {driving_mode: regular, consumption: 20.2}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: eco, consumption: 33.2}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: sport, consumption: 54}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: sport_plus, consumption: 64.8}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: ecoPlus, consumption: 18}, timestamp: '2020-02-26T09:59:40.295Z'}
+            - {value: {driving_mode: comfort, consumption: 33.6}, timestamp: '2020-02-26T09:59:40.295Z'}
         type: array
         items:
             type: object
             properties: {drivingMode: {type: string, enum: [regular, eco, sport, sport_plus, ecoPlus, comfort]}, consumption: {description: 'Energy consumption in the driving mode in kWh', type: number, format: float}}
     usage.lastTripEnergyConsumption:
         description: 'Energy consumption in the last trip in kWh'
-        example: 101.3
+        example:
+            value: 101.3
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: float
     usage.lastTripFuelConsumption:
         description: 'Fuel consumption in the last trip in L'
-        example: 22.5
+        example:
+            value: 22.5
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: float
     usage.mileageAfterLastTrip:
         description: 'Mileage after the last trip in km'
-        example: 95632
+        example:
+            value: 95632
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: integer
     usage.lastTripElectricPortion:
         description: 'Portion of the last trip used in electric mode'
-        example: 0.7
+        example:
+            value: 0.7
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     usage.lastTripAverageEnergyRecuperation:
         description: 'Energy recuperation rate for last trip, in kWh / 100 km'
-        example: 5.68
+        example:
+            value: 5.68
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: float
     usage.lastTripBatteryRemaining:
         description: 'Battery % remaining after last trip'
-        example: 0.5
+        example:
+            value: 0.5
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     usage.lastTripDate:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2018-10-17T12:34:58.000Z'
+        example:
+            value: '2018-10-17T12:34:58.000Z'
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         format: date-time
     usage.averageFuelConsumption:
         description: 'Average fuel consumption for current trip in liters / 100 km'
-        example: 6.5
+        example:
+            value: 6.5
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: float
     usage.currentFuelConsumption:
         description: 'Current fuel consumption in liters / 100 km'
-        example: 7.5
+        example:
+            value: 7.5
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: float
     usage:
@@ -1670,7 +2007,9 @@ definitions:
             averageFuelConsumption: {$ref: '#/definitions/usage.averageFuelConsumption'}
             currentFuelConsumption: {$ref: '#/definitions/usage.currentFuelConsumption'}
     valetMode.status:
-        example: active
+        example:
+            value: active
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - inactive
@@ -1681,20 +2020,24 @@ definitions:
             status: {$ref: '#/definitions/valetMode.status'}
     vehicleLocation.coordinates:
         example:
-            latitude: 52.520008
-            longitude: 13.404954
+            value: {latitude: 52.520008, longitude: 13.404954}
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: object
         properties:
             latitude: {description: Latitude, type: number, format: double}
             longitude: {description: Longitude, type: number, format: double}
     vehicleLocation.heading:
         description: 'Heading in degrees'
-        example: 13.370123
+        example:
+            value: 13.370123
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     vehicleLocation.altitude:
         description: 'Altitude in meters above the WGS 84 reference ellipsoid'
-        example: 133.5
+        example:
+            value: 133.5
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: number
         format: double
     vehicleLocation:
@@ -1705,10 +2048,14 @@ definitions:
             altitude: {$ref: '#/definitions/vehicleLocation.altitude'}
     vehicleStatus.vin:
         description: 'The unique Vehicle Identification Number'
-        example: JF2SHBDC7CH451869
+        example:
+            value: JF2SHBDC7CH451869
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
     vehicleStatus.powertrain:
-        example: all_electric
+        example:
+            value: all_electric
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
         enum:
             - unknown
@@ -1719,69 +2066,97 @@ definitions:
             - hydrogen_hybrid
     vehicleStatus.modelName:
         description: 'The car model name'
-        example: 'Type X'
+        example:
+            value: 'Type X'
+            timestamp: '2020-02-26T09:59:40.295Z'
         type: string
     vehicleStatus.name:
         description: 'The car name (nickname)'
-        example: Speedy
+        example:
+            value: Speedy
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     vehicleStatus.licensePlate:
         description: 'The license plate number'
-        example: ABC123
+        example:
+            value: ABC123
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     vehicleStatus.salesDesignation:
         description: 'The sales designation of the model'
-        example: Package+
+        example:
+            value: Package+
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     vehicleStatus.modelYear:
         description: 'The car model manufacturing year number'
-        example: 2019
+        example:
+            value: 2019
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     vehicleStatus.colourName:
         description: 'The colour name'
-        example: 'Estoril Blau'
+        example:
+            value: 'Estoril Blau'
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     vehicleStatus.powerInKW:
         description: 'The power of the car measured in kW'
-        example: 220
+        example:
+            value: 220
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     vehicleStatus.numberOfDoors:
         description: 'The number of doors'
-        example: 5
+        example:
+            value: 5
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     vehicleStatus.numberOfSeats:
         description: 'The number of seats'
-        example: 5
+        example:
+            value: 5
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     vehicleStatus.engineVolume:
         description: 'The engine volume displacement in liters'
-        example: 2.5
+        example:
+            value: 2.5
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: float
     vehicleStatus.engineMaxTorque:
         description: 'The maximum engine torque in Nm'
-        example: 245
+        example:
+            value: 245
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     vehicleStatus.gearbox:
-        example: automatic
+        example:
+            value: automatic
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - manual
             - automatic
             - semi_automatic
     vehicleStatus.displayUnit:
-        example: km
+        example:
+            value: km
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - km
             - miles
     vehicleStatus.driverSeatLocation:
-        example: left
+        example:
+            value: left
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - left
@@ -1790,20 +2165,22 @@ definitions:
     vehicleStatus.equipments:
         description: 'Names of equipment the vehicle is equipped with'
         example:
-            - 'Parking sensors'
-            - 'Automatic wipers'
+            - {value: 'Parking sensors', timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: 'Automatic wipers', timestamp: '2020-02-26T09:59:40.296Z'}
         type: array
         items:
             type: string
     vehicleStatus.brand:
-        description: 'The car brand bytes'
-        example: Tesla
+        description: 'The car brand'
+        example:
+            value: Tesla
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     vehicleStatus.states:
         description: 'The bytes of a Capability state'
         example:
-            - {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}
-            - {charging: {charging_rate_kw: 3.5, charge_port_state: open}}
+            - {value: {doors: {positions: {location: front_left, position: open}, locks_state: unlocked}}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {charging: {charging_rate_kw: 3.5, charge_port_state: open}}, timestamp: '2020-02-26T09:59:40.296Z'}
         type: array
         items:
             type: capability_state
@@ -1832,8 +2209,8 @@ definitions:
     vehicleTime.vehicleTime:
         description: 'Vehicle time in a 24h format'
         example:
-            hour: 19
-            minute: 55
+            value: {hour: 19, minute: 55}
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: object
         properties:
             hour: {description: 'Value between 0 and 23', type: number, format: integer}
@@ -1844,27 +2221,37 @@ definitions:
             vehicleTime: {$ref: '#/definitions/vehicleTime.vehicleTime'}
     videoHandover.url:
         description: 'URL string'
-        example: 'https://bit.ly/2obY7G5'
+        example:
+            value: 'https://bit.ly/2obY7G5'
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     videoHandover.startingSecond:
-        example: 3
+        example:
+            value: 3
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: integer
     videoHandover.screen:
-        example: rear
+        example:
+            value: rear
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - front
             - rear
     wakeUp.status:
-        example: wake_up
+        example:
+            value: wake_up
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - wake_up
             - sleep
     weatherConditions.rainIntensity:
         description: 'Measured raining intensity percentage, whereas 0% is no rain and 100% is maximum rain'
-        example: 1
+        example:
+            value: 1
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: number
         format: double
     weatherConditions:
@@ -1872,23 +2259,31 @@ definitions:
         properties:
             rainIntensity: {$ref: '#/definitions/weatherConditions.rainIntensity'}
     wiFi.status:
-        example: enabled
+        example:
+            value: enabled
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - disabled
             - enabled
     wiFi.networkConnected:
-        example: connected
+        example:
+            value: connected
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - disconnected
             - connected
     wiFi.networkSSID:
         description: 'The network SSID'
-        example: HOME
+        example:
+            value: HOME
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     wiFi.networkSecurity:
-        example: wpa2_personal
+        example:
+            value: wpa2_personal
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
         enum:
             - none
@@ -1897,7 +2292,9 @@ definitions:
             - wpa2_personal
     wiFi.password:
         description: 'The network password'
-        example: great_secret12
+        example:
+            value: great_secret12
+            timestamp: '2020-02-26T09:59:40.296Z'
         type: string
     wiFi:
         type: object
@@ -1908,22 +2305,22 @@ definitions:
             networkSecurity: {$ref: '#/definitions/wiFi.networkSecurity'}
     windows.openPercentages:
         example:
-            - {location: front_left, open_percentage: 0.2}
-            - {location: front_right, open_percentage: 0.5}
-            - {location: rear_right, open_percentage: 0.5}
-            - {location: rear_left, open_percentage: 0.1}
-            - {location: hatch, open_percentage: 0.18}
+            - {value: {location: front_left, open_percentage: 0.2}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: front_right, open_percentage: 0.5}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: rear_right, open_percentage: 0.5}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: rear_left, open_percentage: 0.1}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: hatch, open_percentage: 0.18}, timestamp: '2020-02-26T09:59:40.296Z'}
         type: array
         items:
             type: object
             properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left, hatch]}, openPercentage: {description: 'Percentage value between 0.0 - 1.0 (0% - 100%)', type: number, format: double}}
     windows.positions:
         example:
-            - {location: front_left, position: open}
-            - {location: front_right, position: open}
-            - {location: rear_right, position: closed}
-            - {location: rear_left, position: open}
-            - {location: hatch, position: open}
+            - {value: {location: front_left, position: open}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: front_right, position: open}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: rear_right, position: closed}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: rear_left, position: open}, timestamp: '2020-02-26T09:59:40.296Z'}
+            - {value: {location: hatch, position: open}, timestamp: '2020-02-26T09:59:40.296Z'}
         type: array
         items:
             type: object
@@ -1934,14 +2331,18 @@ definitions:
             openPercentages: {$ref: '#/definitions/windows.openPercentages'}
             positions: {$ref: '#/definitions/windows.positions'}
     windscreen.wipersStatus:
-        example: automatic
+        example:
+            value: automatic
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: string
         enum:
             - inactive
             - active
             - automatic
     windscreen.wipersIntensity:
-        example: level_3
+        example:
+            value: level_3
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: string
         enum:
             - level_0
@@ -1949,7 +2350,9 @@ definitions:
             - level_2
             - level_3
     windscreen.windscreenDamage:
-        example: impact_but_no_damage_detected
+        example:
+            value: impact_but_no_damage_detected
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: string
         enum:
             - no_impact_detected
@@ -1959,8 +2362,8 @@ definitions:
     windscreen.windscreenZoneMatrix:
         description: 'Representing the size of the matrix, seen from the inside of the vehicle'
         example:
-            horizontal: 4
-            vertical: 3
+            value: {horizontal: 4, vertical: 3}
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: object
         properties:
             horizontal: {description: 'Horizontal component of the matrix', type: number, format: integer}
@@ -1968,14 +2371,16 @@ definitions:
     windscreen.windscreenDamageZone:
         description: 'Representing the position in the zone, seen from the inside of the vehicle (1-based index)'
         example:
-            horizontal: 1
-            vertical: 2
+            value: {horizontal: 1, vertical: 2}
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: object
         properties:
             horizontal: {description: 'Horizontal component of the matrix', type: number, format: integer}
             vertical: {description: 'Vertical component of the matrix', type: number, format: integer}
     windscreen.windscreenNeedsReplacement:
-        example: no_replacement_needed
+        example:
+            value: no_replacement_needed
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: string
         enum:
             - unknown
@@ -1983,12 +2388,16 @@ definitions:
             - replacement_needed
     windscreen.windscreenDamageConfidence:
         description: 'Confidence of damage detection, 0% if no impact detected'
-        example: 0.95
+        example:
+            value: 0.95
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: number
         format: double
     windscreen.windscreenDamageDetectionTime:
         description: 'Milliseconds since UNIX Epoch time'
-        example: '2017-01-10T16:32:05.000Z'
+        example:
+            value: '2017-01-10T16:32:05.000Z'
+            timestamp: '2020-02-26T09:59:40.297Z'
         type: string
         format: date-time
     windscreen:
@@ -2032,7 +2441,7 @@ paths:
             tags: [Browser]
             summary: 'Load a URL in the headunit browser. A URL shortener can be used in other cases. Note that for the car emulator the URL has to be for a secure site (HTTPS).'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {url: {$ref: '#/definitions/browser.url'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {url: {description: 'The URL', example: 'https://about.high-mobility.com', type: string}}}}]
             responses: {'200': {description: OK}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /capabilities:
         get:
@@ -2053,42 +2462,42 @@ paths:
             tags: [Charging]
             summary: 'Start or stop charging, which can only be controlled when the car is plugged in.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/charging.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: charging, type: string, enum: [not_charging, charging, charging_complete, initialising, charging_paused, charging_error]}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /charging/set_charge_limit:
         put:
             tags: [Charging]
             summary: 'Set the charge limit, to which point the car will charge itself.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeLimit: {$ref: '#/definitions/charging.chargeLimit'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeLimit: {description: 'Charge limit percentage between 0.0-1.0', example: 0.9, type: number, format: double}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /charging/open_close_charging_port:
         put:
             tags: [Charging]
             summary: 'Open or close the charge port of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargePortState: {$ref: '#/definitions/charging.chargePortState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargePortState: {example: open, type: string, enum: [closed, open]}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /charging/set_charge_mode:
         put:
             tags: [Charging]
             summary: 'Set the charge mode of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeMode: {$ref: '#/definitions/charging.chargeMode'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeMode: {example: timer_based, type: string, enum: [immediate, timer_based, inductive]}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /charging/set_charging_timers:
         put:
             tags: [Charging]
             summary: 'Set the charging timers of the car. The command can include one of the different timer types or all.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {timers: {$ref: '#/definitions/charging.timers'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {timers: {example: [{timer_type: preferred_start_time, date: '2017-01-10T16:32:05.000Z'}, {timer_type: preferred_end_time, date: '2017-01-10T16:36:05.000Z'}, {timer_type: departure_date, date: '2017-01-10T16:36:05.000Z'}], type: array, items: {type: object, properties: {timerType: {type: string, enum: [preferred_start_time, preferred_end_time, departure_date]}, date: {description: 'Milliseconds since UNIX Epoch time', type: string, format: date-time}}}}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /charging/set_reduction_of_charging_current_times:
         put:
             tags: [Charging]
             summary: 'Set the reduction of charging times of the car. The command can include different values for start and stop.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {reductionTimes: {$ref: '#/definitions/charging.reductionTimes'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {reductionTimes: {example: [{start_stop: start, time: {hour: 17, minute: 33}}, {start_stop: stop, time: {hour: 12, minute: 52}}], type: array, items: {type: object, properties: {startStop: {type: string, enum: [start, stop]}, time: {type: object, properties: {hour: {description: 'Value between 0 and 23', type: number, format: integer}, minute: {description: 'Value between 0 and 59', type: number, format: integer}}}}}}}}}]
             responses: {'200': {description: 'Charging State', schema: {$ref: '#/definitions/charging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /chassis_settings:
         get:
@@ -2102,28 +2511,28 @@ paths:
             tags: ['Chassis Settings']
             summary: 'Set the driving mode.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {drivingMode: {$ref: '#/definitions/chassisSettings.drivingMode'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {drivingMode: {example: eco, type: string, enum: [regular, eco, sport, sport_plus, ecoPlus, comfort]}}}}]
             responses: {'200': {description: 'Chassis Settings State', schema: {$ref: '#/definitions/chassisSettings'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /chassis_settings/start_stop_sports_chrono:
         put:
             tags: ['Chassis Settings']
             summary: 'Start/Stop sport chrono.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {sportChrono: {$ref: '#/definitions/chassisSettings.sportChrono'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {sportChrono: {example: active, type: string, enum: [inactive, active, reset]}}}}]
             responses: {'200': {description: 'Chassis Settings State', schema: {$ref: '#/definitions/chassisSettings'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /chassis_settings/set_spring_rates:
         put:
             tags: ['Chassis Settings']
             summary: 'Set the spring rates.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {currentSpringRates: {$ref: '#/definitions/chassisSettings.currentSpringRates'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {currentSpringRates: {description: 'The current values for the spring rates', example: [{axle: front, spring_rate: 21}, {axle: rear, spring_rate: 23}], type: array, items: {type: object, properties: {axle: {type: string, enum: [front, rear]}, springRate: {description: 'The suspension spring rate in N/mm', type: number, format: integer}}}}}}}]
             responses: {'200': {description: 'Chassis Settings State', schema: {$ref: '#/definitions/chassisSettings'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /chassis_settings/set_chassis_position:
         put:
             tags: ['Chassis Settings']
             summary: 'Set the chassis position.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {currentChassisPosition: {$ref: '#/definitions/chassisSettings.currentChassisPosition'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {currentChassisPosition: {description: 'The chassis position in mm calculated from the lowest point', example: 25, type: number, format: integer}}}}]
             responses: {'200': {description: 'Chassis Settings State', schema: {$ref: '#/definitions/chassisSettings'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate:
         get:
@@ -2137,42 +2546,42 @@ paths:
             tags: [Climate]
             summary: 'Set the HVAC (Heating, ventilation, and air conditioning) automated starting times.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {hvacWeekdayStartingTimes: {$ref: '#/definitions/climate.hvacWeekdayStartingTimes'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {hvacWeekdayStartingTimes: {example: [{weekday: monday, time: {hour: 16, minute: 0}}, {weekday: tuesday, time: {hour: 16, minute: 0}}, {weekday: wednesday, time: {hour: 16, minute: 0}}, {weekday: thursday, time: {hour: 16, minute: 0}}, {weekday: friday, time: {hour: 16, minute: 0}}, {weekday: saturday, time: {hour: 18, minute: 30}}, {weekday: sunday, time: {hour: 19, minute: 31}}, {weekday: automatic, time: {hour: 16, minute: 0}}], type: array, items: {type: object, properties: {weekday: {type: string, enum: [monday, tuesday, wednesday, thursday, friday, saturday, sunday, automatic]}, time: {type: object, properties: {hour: {description: 'Value between 0 and 23', type: number, format: integer}, minute: {description: 'Value between 0 and 59', type: number, format: integer}}}}}}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate/start_stop_hvac:
         put:
             tags: [Climate]
             summary: 'Start or stop the HVAC system to reach driver and passenger set temperatures. The car will use cooling, defrosting and defogging as appropriate.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {hvacState: {$ref: '#/definitions/climate.hvacState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {hvacState: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate/start_stop_defogging:
         put:
             tags: [Climate]
             summary: 'Manually start or stop defogging.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {defoggingState: {$ref: '#/definitions/climate.defoggingState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {defoggingState: {example: inactive, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate/start_stop_defrosting:
         put:
             tags: [Climate]
             summary: 'Manually start or stop defrosting.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {defrostingState: {$ref: '#/definitions/climate.defrostingState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {defrostingState: {example: inactive, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate/start_stop_ionising:
         put:
             tags: [Climate]
             summary: 'Manually start or stop ionising.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {ionisingState: {$ref: '#/definitions/climate.ionisingState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {ionisingState: {example: inactive, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /climate/set_temperature_settings:
         put:
             tags: [Climate]
             summary: 'Set the preferred temperature settings.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {driverTemperatureSetting: {$ref: '#/definitions/climate.driverTemperatureSetting'}, passengerTemperatureSetting: {$ref: '#/definitions/climate.passengerTemperatureSetting'}, rearTemperatureSetting: {$ref: '#/definitions/climate.rearTemperatureSetting'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {driverTemperatureSetting: {description: 'The driver temperature setting in celsius', example: 21.5, type: number, format: float}, passengerTemperatureSetting: {description: 'The passenger temperature setting in celsius', example: 21.5, type: number, format: float}, rearTemperatureSetting: {description: 'The rear temperature in celsius', example: 21.5, type: number, format: float}}}}]
             responses: {'200': {description: 'Climate State', schema: {$ref: '#/definitions/climate'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /dashboard_lights:
         get:
@@ -2200,7 +2609,7 @@ paths:
             tags: [Doors]
             summary: 'Attempt to lock or unlock all doors of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {insideLocksState: {$ref: '#/definitions/doors.insideLocksState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {locksState: {description: 'Locks state for the whole car (combines all specific lock states if available)', example: unlocked, type: string, enum: [unlocked, locked]}}}}]
             responses: {'200': {description: 'Doors State', schema: {$ref: '#/definitions/doors'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /engine_start_stop:
         get:
@@ -2214,7 +2623,7 @@ paths:
             tags: ['Engine Start-Stop']
             summary: 'Activate or deactivate the Start-Stop system of the engine. When activated, this will automatically shut down and restart the internal combustion engine when the car is stopped.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/engineStartStop.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Engine Start-Stop State', schema: {$ref: '#/definitions/engineStartStop'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /firmware_version:
         get:
@@ -2235,21 +2644,21 @@ paths:
             tags: [Fueling]
             summary: 'Control the gas flap of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {gasFlapLock: {$ref: '#/definitions/fueling.gasFlapLock'}, gasFlapPosition: {$ref: '#/definitions/fueling.gasFlapPosition'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {gasFlapLock: {example: locked, type: string, enum: [unlocked, locked]}, gasFlapPosition: {example: closed, type: string, enum: [closed, open]}}}}]
             responses: {'200': {description: 'Fueling State', schema: {$ref: '#/definitions/fueling'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /graphics/display_image:
         put:
             tags: [Graphics]
             summary: 'Display an image in the headunit by providing the image URL.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {imageURL: {$ref: '#/definitions/graphics.imageURL'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {imageURL: {description: 'The image URL', example: 'https://about.high-mobility.com/assets/images/hm-logo.svg', type: string}}}}]
             responses: {'200': {description: OK}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /historical/request_states:
         put:
             tags: [Historical]
             summary: 'Request historical states.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {capabilityID: {$ref: '#/definitions/historical.capabilityID'}, startDate: {$ref: '#/definitions/historical.startDate'}, endDate: {$ref: '#/definitions/historical.endDate'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {capabilityID: {description: 'The identifier of the Capability', example: 96, type: number, format: integer}, startDate: {description: 'Milliseconds since UNIX Epoch time', example: '2019-10-07T13:04:32.000Z', type: string, format: date-time}, endDate: {description: 'Milliseconds since UNIX Epoch time', example: '2019-09-27T08:42:30.000Z', type: string, format: date-time}}}}]
             responses: {'200': {description: 'Historical State', schema: {$ref: '#/definitions/historical'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /home_charger:
         get:
@@ -2263,35 +2672,35 @@ paths:
             tags: ['Home Charger']
             summary: 'Set the charge current of the home charger.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeCurrentDC: {$ref: '#/definitions/homeCharger.chargeCurrentDC'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {chargeCurrentDC: {description: 'The charge direct current', example: 0.5, type: number, format: float}}}}]
             responses: {'200': {description: 'Home Charger State', schema: {$ref: '#/definitions/homeCharger'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /home_charger/set_price_tariffs:
         put:
             tags: ['Home Charger']
             summary: 'Set the price tariffs of the home charger.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {priceTariffs: {$ref: '#/definitions/homeCharger.priceTariffs'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {priceTariffs: {example: [{pricing_type: starting_fee, price: 4.5, currency: EUR}, {pricing_type: per_minute, price: 0.3, currency: EUR}, {pricing_type: per_kwh, price: 0.3, currency: Ripple}], type: array, items: {type: object, properties: {pricingType: {type: string, enum: [starting_fee, per_minute, per_kwh]}, price: {description: 'The price', type: number, format: float}, currency: {description: 'The currency alphabetic code per ISO 4217 or crypto currency symbol', type: string}}}}}}}]
             responses: {'200': {description: 'Home Charger State', schema: {$ref: '#/definitions/homeCharger'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /home_charger/activate_deactivate_solar_charging:
         put:
             tags: ['Home Charger']
             summary: 'Activate or deactivate charging from solar power.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {solarCharging: {$ref: '#/definitions/homeCharger.solarCharging'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {solarCharging: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Home Charger State', schema: {$ref: '#/definitions/homeCharger'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /home_charger/enable_disable_wi_fi_hotspot:
         put:
             tags: ['Home Charger']
             summary: 'Enable or disable the Wi-Fi Hotspot.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {wifiHotspotEnabled: {$ref: '#/definitions/homeCharger.wifiHotspotEnabled'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {wifiHotspotEnabled: {example: enabled, type: string, enum: [disabled, enabled]}}}}]
             responses: {'200': {description: 'Home Charger State', schema: {$ref: '#/definitions/homeCharger'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /home_charger/authenticate_expire:
         put:
             tags: ['Home Charger']
             summary: 'Authenticate or expire the charging session. Only if the session is authenticated can the charging be started by the vehicle.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {authenticationState: {$ref: '#/definitions/homeCharger.authenticationState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {authenticationState: {example: authenticated, type: string, enum: [unauthenticated, authenticated]}}}}]
             responses: {'200': {description: 'Home Charger State', schema: {$ref: '#/definitions/homeCharger'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /honk_horn_flash_lights:
         get:
@@ -2305,14 +2714,14 @@ paths:
             tags: ['Honk Horn & Flash Lights']
             summary: 'Honk the horn and/or flash the blinker lights. This can be done simultaneously or just one action at the time. It is also possible to pass in how many times the lights should be flashed and how many seconds the horn should be honked.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {honkSeconds: {$ref: '#/definitions/honkHornFlashLights.honkSeconds'}, flashTimes: {$ref: '#/definitions/honkHornFlashLights.flashTimes'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {honkSeconds: {description: 'Number of seconds to honk the horn', example: 3, type: number, format: integer}, flashTimes: {description: 'Number of times to flash the lights', example: 5, type: number, format: integer}}}}]
             responses: {'200': {description: 'Honk Horn & Flash Lights State', schema: {$ref: '#/definitions/honkHornFlashLights'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /honk_horn_flash_lights/activate_deactivate_emergency_flasher:
         put:
             tags: ['Honk Horn & Flash Lights']
             summary: 'This activates or deactivates the emergency flashers of the car, typically the blinkers to alarm other drivers.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {emergencyFlashersState: {$ref: '#/definitions/honkHornFlashLights.emergencyFlashersState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {emergencyFlashersState: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Honk Horn & Flash Lights State', schema: {$ref: '#/definitions/honkHornFlashLights'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /hood:
         get:
@@ -2333,7 +2742,7 @@ paths:
             tags: [Ignition]
             summary: 'Attempt to turn the car engine ignition on or off. When the engine ignition is on, it is possible for the driver to turn on the engine and drive the vehicle.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/ignition.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: off, type: string, enum: [off, on]}}}}]
             responses: {'200': {description: 'Ignition State', schema: {$ref: '#/definitions/ignition'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /light_conditions:
         get:
@@ -2354,7 +2763,7 @@ paths:
             tags: [Lights]
             summary: 'Set the lights state.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {frontExteriorLight: {$ref: '#/definitions/lights.frontExteriorLight'}, rearExteriorLight: {$ref: '#/definitions/lights.rearExteriorLight'}, ambientLightColour: {$ref: '#/definitions/lights.ambientLightColour'}, fogLights: {$ref: '#/definitions/lights.fogLights'}, readingLamps: {$ref: '#/definitions/lights.readingLamps'}, interiorLights: {$ref: '#/definitions/lights.interiorLights'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {frontExteriorLight: {example: active_with_full_beam, type: string, enum: [inactive, active, active_with_full_beam, drl, automatic]}, rearExteriorLight: {example: active, type: string, enum: [inactive, active]}, ambientLightColour: {example: {red: 255, green: 0, blue: 0}, type: object, properties: {red: {description: 'The red component of RGB', type: number, format: integer}, green: {description: 'The green component of RGB', type: number, format: integer}, blue: {description: 'The blue component of RGB', type: number, format: integer}}}, fogLights: {example: [{location: front, state: inactive}, {location: rear, state: active}], type: array, items: {type: object, properties: {location: {type: string, enum: [front, rear]}, state: {type: string, enum: [inactive, active]}}}}, readingLamps: {example: [{location: front_left, state: active}, {location: front_right, state: active}, {location: rear_right, state: inactive}, {location: rear_left, state: inactive}], type: array, items: {type: object, properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left]}, state: {type: string, enum: [inactive, active]}}}}, interiorLights: {example: [{location: front, state: inactive}, {location: rear, state: active}], type: array, items: {type: object, properties: {location: {type: string, enum: [front, rear]}, state: {type: string, enum: [inactive, active]}}}}}}}]
             responses: {'200': {description: 'Lights State', schema: {$ref: '#/definitions/lights'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /maintenance:
         get:
@@ -2368,7 +2777,7 @@ paths:
             tags: [Messaging]
             summary: 'Notify the car that a message has been received. Depending on the car system, it will display or read it loud to the driver.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {$ref: '#/definitions/messaging.text'}, handle: {$ref: '#/definitions/messaging.handle'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {description: 'The text', example: 'Hey mom!', type: string}, handle: {description: 'The optional handle of message', example: Epp, type: string}}}}]
             responses: {'200': {description: 'Messaging State', schema: {$ref: '#/definitions/messaging'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /mobile:
         get:
@@ -2382,7 +2791,7 @@ paths:
             tags: ['Multi Command']
             summary: null
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {multiCommands: {$ref: '#/definitions/multiCommand.multiCommands'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {multiCommands: {description: 'The outgoing commands', example: [{doors: {inside_locks_state: locked}}, {ignition: {status: off}}], type: array, items: {type: capability_state}}}}}]
             responses: {'200': {description: 'Multi Command State', schema: {$ref: '#/definitions/multiCommand'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /navi_destination:
         get:
@@ -2396,21 +2805,21 @@ paths:
             tags: ['Navi Destination']
             summary: 'Set the navigation destination. This will be forwarded to the navigation system of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {coordinates: {$ref: '#/definitions/naviDestination.coordinates'}, destinationName: {$ref: '#/definitions/naviDestination.destinationName'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {coordinates: {example: {latitude: 52.520008, longitude: 13.404954}, type: object, properties: {latitude: {description: Latitude, type: number, format: double}, longitude: {description: Longitude, type: number, format: double}}}, destinationName: {description: 'Destination name', example: Berlin, type: string}}}}]
             responses: {'200': {description: 'Navi Destination State', schema: {$ref: '#/definitions/naviDestination'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /notifications/notification:
         put:
             tags: [Notifications]
             summary: 'Send a notification to the car or smart device. The notification can have action items that the user can respond with.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {$ref: '#/definitions/notifications.text'}, actionItems: {$ref: '#/definitions/notifications.actionItems'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {description: 'Text for the notification', example: 'Open Garage', type: string}, actionItems: {example: [{id: 27, name: Open}, {id: 28, name: Cancel}], type: array, items: {type: object, properties: {id: {description: 'Action identifier', type: number, format: integer}, name: {description: 'Name of the action', type: string}}}}}}}]
             responses: {'200': {description: 'Notifications State', schema: {$ref: '#/definitions/notifications'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /notifications/action:
         put:
             tags: [Notifications]
             summary: 'Activate/choose a notification action.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {activatedAction: {$ref: '#/definitions/notifications.activatedAction'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {activatedAction: {description: 'Identifier of the activated action', example: 27, type: number, format: integer}}}}]
             responses: {'200': {description: 'Notifications State', schema: {$ref: '#/definitions/notifications'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /notifications/clear_notification:
         put:
@@ -2438,7 +2847,7 @@ paths:
             tags: ['Parking Brake']
             summary: 'Turn on or off the parking brake.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/parkingBrake.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Parking Brake State', schema: {$ref: '#/definitions/parkingBrake'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /parking_ticket:
         get:
@@ -2452,7 +2861,7 @@ paths:
             tags: ['Parking Ticket']
             summary: 'Start parking. This clears the last parking ticket information and starts a new one. The end time can be left unset depending on the operator.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {operatorTicketID: {$ref: '#/definitions/parkingTicket.operatorTicketID'}, ticketStartTime: {$ref: '#/definitions/parkingTicket.ticketStartTime'}, operatorName: {$ref: '#/definitions/parkingTicket.operatorName'}, ticketEndTime: {$ref: '#/definitions/parkingTicket.ticketEndTime'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {operatorTicketID: {description: 'Operator ticket ID', example: '64894233', type: string}, ticketStartTime: {description: 'Milliseconds since UNIX Epoch time', example: '2017-01-10T19:34:22.000Z', type: string, format: date-time}, operatorName: {description: 'Operator name', example: 'Berlin Parking', type: string}, ticketEndTime: {description: 'Milliseconds since UNIX Epoch time', example: '2019-10-08T11:21:45.000Z', type: string, format: date-time}}}}]
             responses: {'200': {description: 'Parking Ticket State', schema: {$ref: '#/definitions/parkingTicket'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /parking_ticket/end_parking:
         put:
@@ -2473,7 +2882,7 @@ paths:
             tags: ['Power Take-Off']
             summary: 'Activate or deactivate power take-off.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/powerTakeoff.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Power Take-Off State', schema: {$ref: '#/definitions/powerTakeoff'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /race:
         get:
@@ -2494,7 +2903,7 @@ paths:
             tags: ['Rooftop Control']
             summary: 'Set the rooftop state.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {dimming: {$ref: '#/definitions/rooftopControl.dimming'}, position: {$ref: '#/definitions/rooftopControl.position'}, convertibleRoofState: {$ref: '#/definitions/rooftopControl.convertibleRoofState'}, sunroofTiltState: {$ref: '#/definitions/rooftopControl.sunroofTiltState'}, sunroofState: {$ref: '#/definitions/rooftopControl.sunroofState'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {dimming: {description: '1.0 (100%) is opaque, 0.0 (0%) is transparent', example: 1, type: number, format: double}, position: {description: '1.0 (100%) is fully open, 0.0 (0%) is closed', example: 0.5, type: number, format: double}, convertibleRoofState: {example: open, type: string, enum: [closed, open, emergency_locked, closed_secured, open_secured, hard_top_mounted, intermediate_position, loading_position, loading_position_immediate]}, sunroofTiltState: {example: half_tilted, type: string, enum: [closed, tilted, half_tilted]}, sunroofState: {example: open, type: string, enum: [closed, open, intermediate]}}}}]
             responses: {'200': {description: 'Rooftop Control State', schema: {$ref: '#/definitions/rooftopControl'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /seats:
         get:
@@ -2515,7 +2924,7 @@ paths:
             tags: ['Text Input']
             summary: 'Send a keystroke or entire sentences as input to the car headunit. This can act as an alternative to the input devices that the car is equipped with.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {$ref: '#/definitions/textInput.text'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {text: {description: 'The text', example: 'Rendezvous with Rama', type: string}}}}]
             responses: {'200': {description: OK}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /theft_alarm:
         get:
@@ -2529,7 +2938,7 @@ paths:
             tags: ['Theft Alarm']
             summary: 'Unarm or arm the theft alarm of the car.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/theftAlarm.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: armed, type: string, enum: [unarmed, armed, triggered]}}}}]
             responses: {'200': {description: 'Theft Alarm State', schema: {$ref: '#/definitions/theftAlarm'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /trunk:
         get:
@@ -2543,7 +2952,7 @@ paths:
             tags: [Trunk]
             summary: 'Unlock/Lock and Open/Close the trunk.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {lock: {$ref: '#/definitions/trunk.lock'}, position: {$ref: '#/definitions/trunk.position'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {lock: {example: unlocked, type: string, enum: [unlocked, locked]}, position: {example: open, type: string, enum: [closed, open]}}}}]
             responses: {'200': {description: 'Trunk State', schema: {$ref: '#/definitions/trunk'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /usage:
         get:
@@ -2564,7 +2973,7 @@ paths:
             tags: ['Valet Mode']
             summary: 'Activate or deactivate valet mode.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/valetMode.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: active, type: string, enum: [inactive, active]}}}}]
             responses: {'200': {description: 'Valet Mode State', schema: {$ref: '#/definitions/valetMode'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /vehicle_location:
         get:
@@ -2592,7 +3001,7 @@ paths:
             tags: ['Video Handover']
             summary: 'Hand over a video from smart device to car headunit to be shown in the car display. The emulator supports HTML5 video player formats .mp4 and .webm.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {url: {$ref: '#/definitions/videoHandover.url'}, startingSecond: {$ref: '#/definitions/videoHandover.startingSecond'}, screen: {$ref: '#/definitions/videoHandover.screen'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {url: {description: 'URL string', example: 'https://bit.ly/2obY7G5', type: string}, startingSecond: {example: 3, type: number, format: integer}, screen: {example: rear, type: string, enum: [front, rear]}}}}]
             responses: {'200': {description: OK}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /wake_up/wake_up:
         put:
@@ -2620,21 +3029,21 @@ paths:
             tags: [Wi-Fi]
             summary: 'Connect the car to a Wi-Fi network.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {networkSSID: {$ref: '#/definitions/wiFi.networkSSID'}, networkSecurity: {$ref: '#/definitions/wiFi.networkSecurity'}, password: {$ref: '#/definitions/wiFi.password'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {networkSSID: {description: 'The network SSID', example: HOME, type: string}, networkSecurity: {example: wpa2_personal, type: string, enum: [none, wep, wpa, wpa2_personal]}, password: {description: 'The network password', example: great_secret12, type: string}}}}]
             responses: {'200': {description: 'Wi-Fi State', schema: {$ref: '#/definitions/wiFi'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /wi_fi/forget_network:
         put:
             tags: [Wi-Fi]
             summary: 'Forget a network that the car has previously connected to.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {networkSSID: {$ref: '#/definitions/wiFi.networkSSID'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {networkSSID: {description: 'The network SSID', example: HOME, type: string}}}}]
             responses: {'200': {description: 'Wi-Fi State', schema: {$ref: '#/definitions/wiFi'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /wi_fi/enable_disable_wi_fi:
         put:
             tags: [Wi-Fi]
             summary: 'Enable or disable Wi-Fi completely.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {$ref: '#/definitions/wiFi.status'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {status: {example: enabled, type: string, enum: [disabled, enabled]}}}}]
             responses: {'200': {description: 'Wi-Fi State', schema: {$ref: '#/definitions/wiFi'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /windows:
         get:
@@ -2648,7 +3057,7 @@ paths:
             tags: [Windows]
             summary: 'Open or close the windows. Either one or all windows can be controlled with the same command.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {openPercentages: {$ref: '#/definitions/windows.openPercentages'}, positions: {$ref: '#/definitions/windows.positions'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {openPercentages: {example: [{location: front_left, open_percentage: 0.2}, {location: front_right, open_percentage: 0.5}, {location: rear_right, open_percentage: 0.5}, {location: rear_left, open_percentage: 0.1}, {location: hatch, open_percentage: 0.18}], type: array, items: {type: object, properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left, hatch]}, openPercentage: {description: 'Percentage value between 0.0 - 1.0 (0% - 100%)', type: number, format: double}}}}, positions: {example: [{location: front_left, position: open}, {location: front_right, position: open}, {location: rear_right, position: closed}, {location: rear_left, position: open}, {location: hatch, position: open}], type: array, items: {type: object, properties: {location: {type: string, enum: [front_left, front_right, rear_right, rear_left, hatch]}, position: {type: string, enum: [closed, open, intermediate]}}}}}}}]
             responses: {'200': {description: 'Windows State', schema: {$ref: '#/definitions/windows'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /windscreen:
         get:
@@ -2662,19 +3071,19 @@ paths:
             tags: [Windscreen]
             summary: 'Set the windscreen damage. This is for instance used to reset the glass damage or correct it. Damage confidence percentage is automatically set to either 0% or 100%.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {windscreenDamage: {$ref: '#/definitions/windscreen.windscreenDamage'}, windscreenDamageZone: {$ref: '#/definitions/windscreen.windscreenDamageZone'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {windscreenDamage: {example: impact_but_no_damage_detected, type: string, enum: [no_impact_detected, impact_but_no_damage_detected, damage_smaller_than_1_inch, damage_larger_than_1_inch]}, windscreenDamageZone: {description: 'Representing the position in the zone, seen from the inside of the vehicle (1-based index)', example: {horizontal: 1, vertical: 2}, type: object, properties: {horizontal: {description: 'Horizontal component of the matrix', type: number, format: integer}, vertical: {description: 'Vertical component of the matrix', type: number, format: integer}}}}}}]
             responses: {'200': {description: 'Windscreen State', schema: {$ref: '#/definitions/windscreen'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /windscreen/set_windscreen_replacement_needed:
         put:
             tags: [Windscreen]
             summary: 'Set if the windscreen needs replacement.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {windscreenNeedsReplacement: {$ref: '#/definitions/windscreen.windscreenNeedsReplacement'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {windscreenNeedsReplacement: {example: no_replacement_needed, type: string, enum: [unknown, no_replacement_needed, replacement_needed]}}}}]
             responses: {'200': {description: 'Windscreen State', schema: {$ref: '#/definitions/windscreen'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
     /windscreen/control_wipers:
         put:
             tags: [Windscreen]
             summary: 'Control the wipers.'
             produces: [application/json]
-            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {wipersStatus: {$ref: '#/definitions/windscreen.wipersStatus'}, wipersIntensity: {$ref: '#/definitions/windscreen.wipersIntensity'}}}}]
+            parameters: [{$ref: '#/parameters/authorizationParam'}, {in: body, name: body, required: true, schema: {type: object, properties: {wipersStatus: {example: automatic, type: string, enum: [inactive, active, automatic]}, wipersIntensity: {example: level_3, type: string, enum: [level_0, level_1, level_2, level_3]}}}}]
             responses: {'200': {description: 'Windscreen State', schema: {$ref: '#/definitions/windscreen'}}, '400': {description: 'Error 400', schema: {$ref: '#/definitions/Error400'}}, '401': {description: 'Error 401', schema: {$ref: '#/definitions/Error401'}}, '403': {description: 'Error 403', schema: {$ref: '#/definitions/Error403'}}, '408': {description: 'Error 404', schema: {$ref: '#/definitions/Error408'}}}
