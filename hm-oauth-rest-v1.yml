@@ -57,6 +57,9 @@ definitions:
       expires_in:
         type: integer
         description: Expiration time in seconds
+      authorization_id:
+        type: string
+        description: Authorization Id could be used later on in authorization_changed Webhook
       access_token:
         type: string
         description: Access token
