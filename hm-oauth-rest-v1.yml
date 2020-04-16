@@ -27,6 +27,26 @@ paths:
             $ref: '#/definitions/AccessTokensRequest'
       operationId: ApiWeb.OAuthAccessTokenController.create
       description: Creates and renews AccessTokens.
+    delete:
+      tags:
+        - OAuth2
+      summary: ''
+      responses:
+        '200':
+          description: Success
+        '400':
+          schema:
+            $ref: '#/definitions/AccessTokensError'
+          description: Error
+        '503':
+          description: Server Errors
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/AccessTokensRevoke'
+      operationId: ApiWeb.OAuthAccessTokenController.delete
+      description: Revokes AccessTokens.
 info:
   version: '1.0'
   title: High Mobility OAuth2 Spec
@@ -109,6 +129,28 @@ definitions:
     required:
       - grant_type
       - client_id
+  AccessTokensRevoke:
+    type: object
+    properties:
+      token:
+        type: string
+        description: Access Token or Refresh Token that will be used in the revocation.
+      client_id:
+        type: string
+        description: Client ID used for authentication.
+      client_secret:
+        type: string
+        description: Client Secret used for authentication, only used in Server-Side Apps
+      token_type_hint:
+        type: string
+        enum:
+          - refresh_token
+          - access_token
+        description: Token hint used to identify which type of token is inside the token property.
+    required:
+      - client_id
+      - client_secret
+      - token
   AccessTokensError:
     type: object
     title: AccessTokensError
@@ -122,4 +164,3 @@ definitions:
         type: string
         description: Error code
     description: Error details
-
