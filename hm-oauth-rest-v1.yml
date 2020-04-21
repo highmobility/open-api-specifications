@@ -8,7 +8,8 @@ paths:
     post:
       tags:
         - OAuth2
-      summary: ''
+      summary: 'Creates and renews AccessTokens'
+      description: This API implements rfc7009 and rfc7636
       responses:
         '200':
           schema:
@@ -26,11 +27,11 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRequest'
       operationId: ApiWeb.OAuthAccessTokenController.create
-      description: Creates and renews AccessTokens.
     delete:
       tags:
         - OAuth2
-      summary: ''
+      summary: 'Revokes AccessTokens'
+      description: This API implements rfc7009
       responses:
         '200':
           description: Success
@@ -46,7 +47,6 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRevoke'
       operationId: ApiWeb.OAuthAccessTokenController.delete
-      description: Revokes AccessTokens.
 info:
   version: '1.0'
   title: High Mobility OAuth2 Spec
