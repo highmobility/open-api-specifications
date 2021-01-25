@@ -4,7 +4,7 @@ tags:
 host: sandbox.api.high-mobility.com
 swagger: '2.0'
 paths:
-  /api/v1/access_tokens:
+  /v1/access_tokens:
     post:
       tags:
         - OAuth2
