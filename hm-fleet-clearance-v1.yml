@@ -1,0 +1,668 @@
+openapi: 3.0.3
+info:
+  title: Fleet Clearance
+  description: |-
+    Service to manage fleet vehicle clearance.
+  contact:
+    email: support@high-mobility.com
+  version: 1.0.0
+externalDocs:
+  description: High Mobility's Developer Console
+  url: https://www.high-mobility.com
+servers:
+  - url: https://sandbox.api.high-mobility.com
+  - url: https://api.high-mobility.com
+
+paths:
+  /v1/fleets/vehicles:
+    post:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Vehicle Resource
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FleetVehicleRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetVehiclePostResponse'
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetFrobidenErrors'
+          description: When the application doesn't have fleet access.
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetErrors'
+          description: >-
+            Invalid Input. It occurs when the payload is missing a params or the
+            the application is not configured.
+        '500':
+          description: Server Errors
+
+
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Vehicle Resource
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetVehicleGetResponse'
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetFrobidenErrors'
+          description: When the application doesn't have fleet access.
+        '500':
+          description: Server Errors
+      operationId: ApiWeb.FleetImportController.index
+      description: >-
+        Get the status of VINs that have previously been registered for data
+        access clearance.
+
+  /v1/fleets/vehicles/{vin}:
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Vehicle Resource
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
+        - name: vin
+          in: path
+          required: true
+          schema:
+            type: string
+          description: VIN of the vehicle in question.
+
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetVehicleGetItemResponse'
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetFrobidenErrors'
+          description: When the application doesn't have fleet access.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetErrors'
+          description: Given resource not found
+        '500':
+          description: Server Errors
+
+      description: >-
+        Get the status of a VIN that has previously been registered for data
+        access clearance.
+
+    delete:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Vehicle Resource
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
+        - name: vin
+          in: path
+          required: true
+          schema:
+            type: string
+          description: VIN of the vehicle in question.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetVehicleDeleteItemResponse'
+          description: Success
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetFrobidenErrors'
+          description: When the application doesn't have fleet access.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetErrors'
+          description: Given resource not found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetDeletationErrors'
+          description: >-
+            When deleting a clearance with given VIN is not possible.
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetCancelationErrors'
+          description: >-
+            When cancelation is not possible at this moment.
+        '500':
+          description: Server Errors
+
+      description: >-
+        Delete the clearance for the given VIN. If the clearance is in a pending state, the activation process is canceled. If the vehicle is in an approved state, a revoke is attempted.
+
+  /v1/fleets/{vin}/cancel_activation:
+    post:
+      deprecated: true
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Vehicle Resource
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
+        - name: vin
+          in: path
+          required: true
+          schema:
+            type: string
+          description: VIN of the vehicle in question.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetVin'
+          description: ''
+        '500':
+          description: Server Errors
+
+      operationId: ApiWeb.FleetCancelActivationController.create
+      description: >-
+        Deprecated: use DELETE /v1/fleet/vehicles/{vin} end point instead
+
+  /v1/fleets/access_tokens:
+    post:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Fleet Veicle Access Token
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensReponse'
+          description: Success
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensError'
+          description: Error
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetErrors'
+          description: When the application doesn't have fleet access.
+        '500':
+          description: Server Errors
+      description: >-
+        Creates an access token for a VIN that has the "approved" state. This
+        access token can be used to retrieve car data through any of the SDKs or
+        the REST API.
+
+
+components:
+  schemas:
+    FleetVehicleGetResponse:
+      type: array
+      title: FleetVehicleGetResponse
+      items:
+        $ref: '#/components/schemas/FleetVehicleGetItemResponse'
+      example:
+        - vin: VIN0TESTVIN000000
+          status: approved
+          brand: mercedes-benz
+          changelog:
+            - timestamp: "2022-03-22T09:36:51"
+              status: pending
+            - timestamp: "2022-03-22T10:36:51"
+              status: approved
+
+    FleetFrobidenErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+            - detail: This service account is not associated with a fleet.
+              source: Authorization
+              title: Forbidden
+
+    UnauthorizedErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Errors'
+          example:
+            - detail: >
+                Missing or invalid authorization header. The token must be
+                obtained through the service account API and sent as a header with
+                the format "Authorization: Bearer <token>"
+              source: Authorization
+    Errors:
+      type: array
+      title: Errors
+      items:
+        $ref: '#/components/schemas/Error'
+      description: List of errors
+    Error:
+      type: object
+      title: Error
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          description: Error title
+        source:
+          type: string
+          description: Field that has problem
+        detail:
+          type: string
+          description: Error detail
+      description: Error details
+
+    FleetVehicleRequest:
+      type: object
+      properties:
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/FleetVehicle'
+          description: Vehicle list
+      example:
+        vehicles:
+          - vin: WBADT43452G296403
+            brand: mercedes-benz
+            control_measures:
+              odometer:
+                value: 55271000
+                unit: kilometers
+          - vin: WBADT43452G296404
+            brand: bmw
+      required:
+        - vehicles
+
+    FleetVehicle:
+      type: object
+      title: FleetVehicle
+      required:
+        - vin
+        - brand
+      properties:
+        vin:
+          type: string
+          description: Vehicle Identification Number (VIN)
+        brand:
+          type: string
+          enum:
+            - bmw
+            - citroen
+            - ds
+            - mercedes-benz
+            - mini
+            - opel
+            - peugeot
+            - vauxhall
+            - jeep
+            - fiat
+            - alfaromeo
+          description: Vehicle Brand
+        control_measures:
+          type: object
+          properties:
+            odometer:
+              required:
+                - value
+                - unit
+              type: object
+              properties:
+                value:
+                  type: integer
+                unit:
+                  type: string
+                  enum:
+                    - kilometers
+                    - miles
+
+    FleetVehiclePostResponse:
+      type: object
+      title: FleetVehiclePostResponse
+      required:
+        - vehicles
+      properties:
+        vehicles:
+          type: array
+          items:
+            $ref: '#/components/schemas/FleetVin'
+          description: Vehicle list
+      example:
+        vehicles:
+          - vin: WBADT43452G296403
+            status: pending
+          - vin: WBADT43452G296404
+            status: pending
+
+
+    FleetVin:
+      type: object
+      title: FleetVin
+      required:
+        - vin
+        - status
+      properties:
+        vin:
+          type: string
+          description: Vehicle Identification Number (VIN)
+        status:
+          type: string
+          enum:
+            - approved
+            - pending
+            - revoked
+            - rejected
+            - revoking
+            - canceling
+            - canceled
+          description: >-
+            An access token can be retrieved for the FleetVin if the status is
+            "approved"
+        description:
+          type: string
+          description: Optional description of the VIN
+      example:
+        vin: WBADT43452G296403
+        status: pending
+
+    FleetErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+    FleetVehicleGetItemResponse:
+      type: object
+      title: FleetVehicle
+      required:
+        - vin
+        - status
+      properties:
+        vin:
+          type: string
+          description: Vehicle Identification Number (VIN)
+        status:
+          type: string
+          enum:
+            - approved
+            - pending
+            - revoking
+            - revoked
+            - revoking
+            - rejected
+            - canceling
+            - canceled
+        brand:
+          type: string
+          enum:
+            - bmw
+            - citroen
+            - ds
+            - mercedes-benz
+            - mini
+            - opel
+            - peugeot
+            - vauxhall
+            - jeep
+            - fiat
+            - alfaromeo
+        changelog:
+           type: array
+           items:
+             $ref: '#/components/schemas/FleetVinChangelog'
+
+
+    FleetVinChangelog:
+      type: object
+      required:
+        - timestamp
+        - status
+      properties:
+        timestamp:
+          type: string
+          description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+        status:
+          type: string
+          enum:
+            - approved
+            - pending
+            - revoking
+            - revoked
+            - revoking
+            - rejected
+            - canceling
+            - canceled
+
+    FleetDeletationErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+            - detail: Clearance is already removed
+              source: vin
+              title: Conflict
+            - detail: Clearance is in transition mode
+              source: vin
+              title: Conflict
+
+
+    FleetCancelationErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+            - detail: cancellation is not supported for this vin
+              source: vin
+              title: not supported
+            - detail: the pending status could only be canceled after 1 day it's created
+              source: status
+              title: too early
+
+    FleetVehicleDeleteItemResponse:
+      type: object
+      title: FleetVehicle
+      required:
+        - vin
+        - status
+      properties:
+        vin:
+          type: string
+          description: Vehicle Identification Number (VIN)
+        status:
+          type: string
+          enum:
+            - revoking
+            - canceling
+      example:
+        vin: VIN0TESTVIN000000
+        status: revoking
+
+
+    AccessTokensReponse:
+      type: object
+      title: AccessTokensReponse
+      required:
+        - expires_in
+        - access_token
+        - token_type
+      properties:
+        validity_start_date:
+          type: string
+          description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+        validity_end_date:
+          type: string
+          description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+        token_type:
+          type: string
+          description: Token type
+        scope:
+          type: string
+          description: List of scopes
+        refresh_token:
+          type: string
+          description: Refresh token
+        expires_in:
+          type: integer
+          description: Expiration time in seconds
+        access_token:
+          type: string
+          description: Access token
+      example:
+        token_type: bearer
+        scope: >-
+          diagnostics.get.mileage door_locks.get.locks
+          windows.get.windows_positions
+        refresh_token: 7f7a9be0-04c9-4202-a59f-35d55079b6ba
+        expires_in: 600
+        access_token: a50e89e5-093c-4727-8101-4c6e81addabe
+      description: Access Tokens
+    FleetAccessTokensRequest:
+      type: object
+      properties:
+        vin:
+          type: string
+          description: The VIN of the vehicle to ask access to.
+      example:
+        vin: WBADT43452G296403
+      required:
+        - vin
+    AccessTokensError:
+      type: object
+      title: AccessTokensError
+      required:
+        - error
+      properties:
+        error_description:
+          type: string
+          description: Error description
+        error:
+          type: string
+          description: Error code
+      description: Error details
+
+  securitySchemes:
+    ServiceAccountToken:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: 'Bearer token'

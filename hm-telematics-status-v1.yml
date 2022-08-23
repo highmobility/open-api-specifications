@@ -1,0 +1,110 @@
+swagger: '2.0'
+host: sandbox.api.high-mobility.com
+securityDefinitions:
+  ServiceAccountToken:
+    type: apiKey
+    name: Authorization
+    description: >-
+      This is a Bearer token. Service Account Token is a temporary token for
+      server to service communication, find out more how to generate one at
+      https://high-mobility.com/learn/documentation/cloud-api/service-account-api/intro/
+    in: header
+paths:
+  /v1/telematics_status:
+    post:
+      deprecated: true
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Telematics Status
+      summary: ''
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/TelematicsStatusResponse'
+          description: Vehicle status requested successfully
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/TelematicsStatusRequest'
+      operationId: ApiWeb.TelematicsStatusController.create
+      description: >-
+        Retrieves the telematics status for a specific VIN. This can be used to
+        find out if the vehicle has the necessary connectivity to transmit data.
+
+info:
+  version: '1.0'
+  title: Telematics Status Api
+definitions:
+  
+  TelematicsStatusResponse:
+    type: object
+    title: TelematicsStatusResponse
+    properties:
+      bmw:
+        type: object
+        properties:
+          telematics_capability:
+            type: string
+            enum:
+              - enabled
+              - disabled
+              - unknown
+          subscription_status:
+            type: string
+            enum:
+              - enabled
+              - disabled
+              - unknown
+    example:
+      bmw:
+        telematics_capability: enabled
+        subscription_status: enabled
+    description: Response of Telematics status
+  TelematicsStatusRequest:
+    type: object
+    properties:
+      vin:
+        type: string
+        description: Vehicle vin.
+    required:
+      - vin
+ 
+  UnauthorizedErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+        example:
+          - detail: >
+              Missing or invalid authorization header. The token must be
+              obtained through the service account API and sent as a header with
+              the format "Authorization: Bearer <token>"
+            source: Authorization 
+            
+  Error:
+    type: object
+    title: Error
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Error title
+      source:
+        type: string
+        description: Field that has problem
+      detail:
+        type: string
+        description: Error detail
+    description: Error details            
