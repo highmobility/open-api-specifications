@@ -1,8 +1,12 @@
 openapi: 3.0.3
 info:
-  title: Fleet Clearance
+  title: Fleet Clearance API
   description: |-
-    Service to manage fleet vehicle clearance.
+    By using the Fleet Clearance API endpoints, it's possible for fleet operators to activate and deactivate data access to their vehicles.
+    
+    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+    
+    The API is currently only available in the production environment on `https://api.high-mobility.com`
   contact:
     email: support@high-mobility.com
   version: 1.0.0

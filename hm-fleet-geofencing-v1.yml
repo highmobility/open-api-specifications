@@ -1,5 +1,13 @@
 swagger: '2.0'
-host: sandbox.api.high-mobility.com
+host: api.high-mobility.com
+info:
+  version: '1.0'
+  title: Fleet Geofencing API 
+  description: >-
+    The Geofencing API allows fleet operators to define zones and assign them to vehicles in order to get notified once a vehicle enters or exits a zone.
+    
+    
+    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
 securityDefinitions:
   ServiceAccountToken:
     type: apiKey
@@ -415,9 +423,6 @@ paths:
           schema:
             $ref: '#/definitions/Errors'
           description: Server errors
-info:
-  version: '1.0'
-  title: Fleet Geofencing API 
 definitions:
   GeofencingEvents:
     type: object

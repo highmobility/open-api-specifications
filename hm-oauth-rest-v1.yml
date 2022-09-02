@@ -1,8 +1,21 @@
 tags:
   - name: OAuth2
     description: Operations about OAuth2
-host: sandbox.api.high-mobility.com
 swagger: '2.0'
+info:
+  version: '1.0'
+  title: OAuth2 API
+  description: >-
+    The OAuth2 API provides you an interface to create and refresh Access Tokens, which are issued on a VIN-basis to be used with any of the pull-based data APIs:
+      
+      * [REST API](/api-references/code-references/rest/reference/v5/)
+      * [GraphQL API](/api-references/code-references/graph-ql/v1/)
+      * [Node.js SDK](/api-references/code-references/node-js/hmkit/)
+      * [iOS SDK](http://localhost:4000/api-references/code-references/ios/telematics/telematics/)
+      * [Android SDK](/api-references/code-references/android/hmkit/)
+    
+    The OAuth2 server addresses are listed in your application view within the platform console.
+    
 paths:
   /v1/access_tokens:
     post:
@@ -47,9 +60,6 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRevoke'
       operationId: ApiWeb.OAuthAccessTokenController.delete
-info:
-  version: '1.0'
-  title: High Mobility OAuth2 Spec
 definitions:
   AccessTokensReponse:
     type: object

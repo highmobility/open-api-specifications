@@ -1,5 +1,12 @@
 swagger: '2.0'
-host: sandbox.api.high-mobility.com
+host: api.high-mobility.com
+info:
+  version: '1.0'
+  title: Telematics Status API
+  description: >-
+    This API allows lookups to see if a vehicle is eligible for telematics data. Currently, only BMW & MINI lookups are supported.
+    
+    The API is currently only available in the production environment on https://api.high-mobility.com
 securityDefinitions:
   ServiceAccountToken:
     type: apiKey
@@ -38,9 +45,6 @@ paths:
         Retrieves the telematics status for a specific VIN. This can be used to
         find out if the vehicle has the necessary connectivity to transmit data.
 
-info:
-  version: '1.0'
-  title: Telematics Status Api
 definitions:
   
   TelematicsStatusResponse:

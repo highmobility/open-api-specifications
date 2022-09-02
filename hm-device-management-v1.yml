@@ -1,5 +1,15 @@
 swagger: '2.0'
-host: sandbox.api.high-mobility.com
+info:
+  version: '1.0'
+  title: Device Management API
+  description: >-
+    The Device Management API allows you to create and revoke Device Certificates for your mobile clients that are using the iOS SDK or the Android SDK.
+
+    
+    Sandbox server: `https://sandbox.api.high-mobility.com`
+
+
+    Production server: `https://api.high-mobility.com`
 securityDefinitions:
   ServiceAccountToken:
     type: apiKey
@@ -138,12 +148,7 @@ paths:
       operationId: ApiWeb.DeviceCertificateController.index
       description: Lists all device certificates.
 
-info:
-  version: '1.0'
-  title: Device Management API
 definitions:
-
- 
   Errors:
     type: array
     title: Errors
