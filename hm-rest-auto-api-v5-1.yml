@@ -1,10 +1,16 @@
 info:
-    title: 'HM REST Auto API'
+    title: 'REST API'
     version: 5.1.0
-    description: 'High Mobility REST Auto API Level 13 specification'
+    description: >-
+      The REST API allows you to retrieve vehicle data through a RESTful interface. All data responses are formatted according to the Auto API protocol and each response includes both the `VIN` and `brand`. Apart from the individual endpoints, the `/vehicle_status` endpoint returns data for all capabilities.
+
+    
+      Sandbox server: `https://sandbox.rest-api.high-mobility.com/v5`
+
+
+      Production server: `https://api.high-mobility.com/v5`
+      
 swagger: '2.0'
-host: sandbox.rest-api.high-mobility.com
-basePath: /v5
 parameters:
     authorizationParam:
         name: Authorization

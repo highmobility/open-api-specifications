@@ -1,0 +1,271 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Device Management API
+  description: >-
+    The Device Management API allows you to create and revoke Device Certificates for your mobile clients that are using the iOS SDK or the Android SDK.
+
+    
+    Sandbox server: `https://sandbox.api.high-mobility.com`
+
+
+    Production server: `https://api.high-mobility.com`
+securityDefinitions:
+  ServiceAccountToken:
+    type: apiKey
+    name: Authorization
+    description: >-
+      This is a Bearer token. Service Account Token is a temporary token for
+      server to service communication, find out more how to generate one at
+      https://high-mobility.com/learn/documentation/cloud-api/service-account-api/intro/
+    in: header
+paths:
+  /v1/device_certificates/{id}:
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - DeviceCertificate
+      summary: ''
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/DeviceCertificate'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '404':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Not found
+        '500':
+          description: Server Errors
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: A Service Account Token
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: The id of the device certificate
+      operationId: ApiWeb.DeviceCertificateController.show
+      description: Retrieves a device certificate.
+    delete:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - DeviceCertificate
+      summary: ''
+      responses:
+        '204':
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '404':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Not found
+        '500':
+          description: Server Errors
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: A Service Account Token
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: The id of the device certificate
+      operationId: ApiWeb.DeviceCertificateController.delete
+      description: Revokes a device certificate.
+  /v1/device_certificates:
+    post:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - DeviceCertificate
+      summary: ''
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/DeviceCertificate'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Errors
+        '500':
+          description: Server Errors
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: A Service Account Token
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/DeviceCertificateRequest'
+      operationId: ApiWeb.DeviceCertificateController.create
+      description: Creates a device certificate.
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - DeviceCertificate
+      summary: ''
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/DeviceCertificates'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '500':
+          description: Server Errors
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: A Service Account Token
+      operationId: ApiWeb.DeviceCertificateController.index
+      description: Lists all device certificates.
+
+definitions:
+  Errors:
+    type: array
+    title: Errors
+    items:
+      $ref: '#/definitions/Error'
+    description: List of errors
+  Error:
+    type: object
+    title: Error
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Error title
+      source:
+        type: string
+        description: Field that has problem
+      detail:
+        type: string
+        description: Error detail
+    description: Error details
+  DeviceCertificateRequest:
+    type: object
+    properties:
+      public_key:
+        type: string
+        format: base64
+        description: >-
+          The public key of the device that was generated with HMKit. The size
+          should be 128 characters
+      app_id:
+        type: string
+        description: the serial number of the application associated with the certificate
+      device_name:
+        type: string
+        description: the display name of the device
+      sdk_info:
+        type: string
+        description: The type and version of the SDK
+    required:
+      - public_key
+      - app_id
+  DeviceCertificates:
+    type: array
+    title: Device Certificates
+    items:
+      $ref: '#/definitions/DeviceCertificate'
+    description: List of Device Certificates
+  DeviceCertificate:
+    type: object
+    title: Device Certificate
+    required:
+      - device_serial_number
+      - issuer_public_key
+      - issuer_name
+      - app_id
+      - signature
+      - public_key
+      - id
+    properties:
+      signature:
+        type: string
+        description: the cryptographic signature of the device certificate (base64)
+      public_key:
+        type: string
+        description: the public key of the device certificate (base64)
+      issuer_public_key:
+        type: string
+        description: >-
+          the public key of the Certificate Authority that has issued the
+          certificate
+      issuer_name:
+        type: string
+        description: >-
+          the name of the Certificate Authority that has issued the certificate,
+          which is always exve for published apps
+      id:
+        type: integer
+        description: the unique identifier of the device certificate
+      device_serial_number:
+        type: string
+        description: the serial number of the device
+      device_name:
+        type: string
+        description: the display name of the device
+      app_id:
+        type: string
+        description: the serial number of the application associated with the certificate
+    example:
+      signature: >-
+        Ol8VNEQbNvb2zdaMquq+ovOvVKF9gGt8goKUuuFB0gcN4awZLTnKDXV4NsnRFV8ASxp/gJJa5NfJeFJuqbcwkA==
+      public_key: >-
+        1zxuh/pcdaz59nblzsz5e2y3vc0dufnzidcqubdpihzsjjcfcbne/dkorz6kxkecchqzfhbr1ha+yk+7/tzzzw==
+      issuer_public_key: >-
+        wxj6v+kfyfncrnd4rzeody/gtytyoqgyizyksoh67buk7gohv67afe8kzpmfl/b1wjxnxqb9x4eeekwv/nfomg==
+      issuer_name: xvhm
+      id: c11f0e15-c078-4f5c-a077-c15675fec5aa
+      device_serial_number: f96705fcdca5d006ce
+      device_name: my device
+      app_id: a96027ee1779b53b1a9d6dfe
+    description: >-
+      The Device Certificate proves that the the app has been created by a
+      certified developer.
+ 
+  UnauthorizedErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+        example:
+          - detail: >
+              Missing or invalid authorization header. The token must be
+              obtained through the service account API and sent as a header with
+              the format "Authorization: Bearer <token>"
+            source: Authorization

@@ -1,0 +1,734 @@
+swagger: '2.0'
+host: api.high-mobility.com
+info:
+  version: '1.0'
+  title: Fleet Geofencing API 
+  description: >-
+    The Geofencing API allows fleet operators to define zones and assign them to vehicles in order to get notified once a vehicle enters or exits a zone.
+    
+    
+    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+securityDefinitions:
+  ServiceAccountToken:
+    type: apiKey
+    name: Authorization
+    description: >-
+      This is a Bearer token. Service Account Token is a temporary token for
+      server to service communication, find out more how to generate one at
+      https://high-mobility.com/learn/documentation/cloud-api/service-account-api/intro/
+    in: header
+paths:
+  /v1/fleets/geofencing/zones:
+    post:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Create a zone
+      description: >-
+        **Create** a zone for geofencing based on [GeoJSON](https://geojson.org)
+        (and optional human-readable name).<br> In order for geofencing to work,
+        the _geojson_ needs to represent an _area_ (lines etc. will not produce
+        an effect).<br> <br> A created zone is a _prerequisite_ to connecting
+        vehicles with "geofencing behaviours" (aka _notifications_).
+      operationId: Fleets.Geofencing.Zones.create
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - in: body
+          required: true
+          name: body
+          schema:
+            $ref: '#/definitions/GeofencingZoneCreate'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/GeofencingZoneCreated'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Get all zones' data
+      description: '**Get** the data for _all_ zones created.'
+      operationId: Fleets.Geofencing.Zones.index
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingZones'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+  /v1/fleets/geofencing/zones/{id}:
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Get a single zone's data
+      description: >-
+        **Get** the data for a specific zone with the given _ID_.<br> The zone
+        must be created before.
+      operationId: Fleets.Geofencing.Zones.get
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: _ID_ of the zone to be **fetched**.
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingZone'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Zone not found - invalid _ID_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+    delete:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Delete a zone
+      description: >-
+        **Delete** the zone with the given _ID_.<br> If successful,
+        notifications and events associated with this zone are also deleted.
+      operationId: Fleets.Geofencing.Zones.delete
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: _ID_ of the zone to be **deleted**.
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingZoneDeleted'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Zone not found - invalid _ID_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+  /v1/fleets/geofencing/notifications:
+    post:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Create a notification
+      description: >-
+        **Create** a notification that "ties" together a _zone_ and a _vehicle_
+        to observe events based on the set _triggers_.<br> This starts the
+        observation of the vehicle's location to determine if it has crossed the
+        zone's boundary.<br> If a "boundary crossing" event has been detected, a
+        _webhook_ is delivered (configured in _developer console_).<br> <br>
+        _Prerequisities_ are an _approved_ (or _pending_) vehicle consent and a
+        created _zone_ (referenced by it's _ID_).
+      operationId: Fleets.Geofencing.Notifications.create
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - in: body
+          name: body
+          schema:
+            $ref: '#/definitions/GeofencingNotificationCreate'
+      responses:
+        '201':
+          schema:
+            $ref: '#/definitions/GeofencingNotificationCreated'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: >-
+            Application doesn't have fleet access.<br> Vehicle doesn't have
+            consent _approved_ or (_pending_).
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Zone not found - invalid _ID_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Get all notifications' data
+      description: '**Get** the data for _all_ notifications created.'
+      operationId: Fleets.Geofencing.Notifications.index
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingNotifications'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+  /v1/fleets/geofencing/notifications/{id}:
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Get a single notification's data
+      description: >-
+        **Get** the data for a specific notification with the given _ID_.<br>
+        The notification must be created before.
+      operationId: Fleets.Geofencing.Notifications.get
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: _ID_ of the notification to be **fetched**.
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingNotification'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Notification not found - invalid _ID_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+    delete:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Delete a notification
+      description: >-
+        **Delete** the notification with the given _ID_.<br> If successful,
+        events associated with this notification are also deleted.
+      operationId: Fleets.Geofencing.Notifications.delete
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - type: string
+          required: true
+          name: id
+          in: path
+          description: _ID_ of the notification to be **deleted**.
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingNotificationDeleted'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Notification not found - invalid _ID_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+  /v1/fleets/geofencing/events/{vin}:
+    get:
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Geofencing
+      summary: Get the latest events for a vehicle
+      description: >-
+        **Get** the last (up to 5) events of a vehicle with the given _VIN_.<br>
+        The events symbolize the vehicle crossing over boundaries of previously
+        configured geofences and "activating" their triggers.<br> <br> Requires
+        a previously created zone and a notification, and the vehicle to have
+        moved in way to trigger the events.
+      operationId: Fleets.Geofencing.Events.index
+      parameters:
+        - type: string
+          required: true
+          name: Authorization
+          in: header
+          description: '_Service Account_ token, in `Bearer: <token>` format.'
+        - type: string
+          required: true
+          name: vin
+          in: path
+          description: _VIN_ of the vehicle to **fetch** the _events_ for.
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/GeofencingEvents'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: Invalid _ServiceAccountToken_ is used.
+        '403':
+          schema:
+            $ref: '#/definitions/FleetFrobidenErrors'
+          description: Application doesn't have fleet access.
+        '404':
+          schema:
+            $ref: '#/definitions/FleetErrors'
+          description: Events not found (or empty) - invalid _VIN_.
+        '422':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Decoding errors
+        '500':
+          schema:
+            $ref: '#/definitions/Errors'
+          description: Server errors
+definitions:
+  GeofencingEvents:
+    type: object
+    title: Geofencing Events
+    description: List (array) of last events (up to 5) for the given _VIN_.
+    required:
+      - last_events
+      - vin
+    properties:
+      last_events:
+        type: object
+        title: Event
+        description: >-
+          The _event_ that was triggered, _when_ it was triggered and for what
+          _zone_.
+        required:
+          - event
+          - timestamp
+          - zone_id
+          - zone_name
+        properties:
+          event:
+            $ref: '#/definitions/GeofencingTrigger'
+          timestamp:
+            type: string
+            description: >-
+              Date and Time in _ISO8601_ format, for example:
+              `2018-11-06T10:20:37.094533Z`.
+          zone_id:
+            type: string
+            description: _ID_ of the zone (geojson) this event happened for.
+          zone_name:
+            type: string
+            description: Name of the zone (geojson) this event happened for.
+      vin:
+        type: string
+        description: _VIN_ of the vehicle in question.
+    example:
+      last_events:
+        - event: entered
+          timestamp: '2022-02-28T14:01:29Z'
+          zone_id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+          zone_name: berlin_large
+        - event: exited
+          timestamp: '2022-02-28T15:22:64Z'
+          zone_id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+          zone_name: berlin_large
+      vin: VIN11223344556677
+  GeofencingNotification:
+    type: object
+    title: Geofencing Notification
+    description: >-
+      Geofencing notification that defines _triggers_ to be observed for
+      "boundary crossing" events for a given vehicle in a zone.
+    required:
+      - id
+      - triggers
+      - vin
+      - zone_id
+    properties:
+      id:
+        type: string
+        description: _ID_ of the notification.
+      triggers:
+        type: array
+        description: List of geofencing _triggers_.
+        items:
+          $ref: '#/definitions/GeofencingTrigger'
+      vin:
+        type: string
+        description: _VIN_ of the vehicle to connect with the geofence (zone).
+      zone_id:
+        type: string
+        description: _ID_ of the zone to connect with the vehicle.
+    example:
+      id: 9390284e-cb37-40ec-a290-5ff9432716ec
+      triggers:
+        - entered
+        - exited
+      vin: VIN11223344556677
+      zone_id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+  GeofencingNotificationCreate:
+    type: object
+    title: Geofencing Notification Create
+    description: Geofencing notification _creation_ data.
+    required:
+      - triggers
+      - vin
+      - zone_id
+    properties:
+      triggers:
+        type: array
+        description: List of geofencing _triggers_.
+        items:
+          $ref: '#/definitions/GeofencingTrigger'
+      vin:
+        type: string
+        description: _VIN_ of the vehicle to connect with the geofence (zone).
+      zone_id:
+        type: string
+        description: _ID_ of the zone to connect with the vehicle.
+    example:
+      triggers:
+        - entered
+      vin: VIN11223344556677
+      zone_id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+  GeofencingNotificationCreated:
+    type: object
+    title: Geofencing Notification Created
+    description: Response data when a _notification_ was successfully **created**.
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: _ID_ of the notification that was created.
+    example:
+      id: 9390284e-cb37-40ec-a290-5ff9432716ec
+  GeofencingNotificationDeleted:
+    type: object
+    title: Geofencing Notification Deleted
+    description: Response data when a _notification_ was successfully **deleted**.
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: _ID_ of the notification that was deleted.
+    example:
+      id: 9390284e-cb37-40ec-a290-5ff9432716ec
+  GeofencingNotifications:
+    type: array
+    title: Geofencing Notifications
+    description: List (array) made up of _GeofencingNotification_-s
+    items:
+      $ref: '#/definitions/GeofencingNotification'
+  GeofencingTrigger:
+    type: string
+    title: Geofencing Trigger
+    description: Geofencing "boundary crossing" event type.
+    enum:
+      - entered
+      - exited
+    example: entered
+  GeofencingZone:
+    type: object
+    title: Geofencing Zone
+    description: >-
+      Geofencing zone with it's representation as _GeoJSON_ and the optional
+      human-readable name.
+    required:
+      - id
+      - geojson
+    properties:
+      id:
+        type: string
+        description: _ID_ of the zone.
+      geojson:
+        type: object
+        description: The zone (area) represented as a _GeoJSON_.
+      name:
+        type: string
+        description: _Name_ of the zone (optional).
+    example:
+      id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+      geojson:
+        type: FeatureCollection
+        features:
+          - type: Feature
+            properties: {}
+            geometry:
+              type: Polygon
+              coordinates:
+                - - - 13.1890869140625
+                    - 52.449314140869696
+                  - - 13.5516357421875
+                    - 52.449314140869696
+                  - - 13.5516357421875
+                    - 52.6063835896964
+                  - - 13.1890869140625
+                    - 52.6063835896964
+                  - - 13.1890869140625
+                    - 52.449314140869696
+      name: crude_berlin
+  GeofencingZoneCreate:
+    type: object
+    title: Geofencing Zone Create
+    description: Geofencing zone _creation_ data.
+    required:
+      - geojson
+    properties:
+      geojson:
+        type: object
+        description: The zone represented as a _GeoJSON_.
+      name:
+        type: string
+        description: _Name_ of the zone (optional).
+    example:
+      geojson:
+        type: FeatureCollection
+        features:
+          - type: Feature
+            properties: {}
+            geometry:
+              type: Polygon
+              coordinates:
+                - - - 13.1890869140625
+                    - 52.449314140869696
+                  - - 13.5516357421875
+                    - 52.449314140869696
+                  - - 13.5516357421875
+                    - 52.6063835896964
+                  - - 13.1890869140625
+                    - 52.6063835896964
+                  - - 13.1890869140625
+                    - 52.449314140869696
+      name: crude_berlin
+  GeofencingZoneCreated:
+    type: object
+    title: Geofencing Zone Created
+    description: Response data when a _zone_ was successfully **created**.
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: _ID_ of the zone that was created.
+    example:
+      id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+  GeofencingZoneDeleted:
+    type: object
+    title: Geofencing Zone Deleted
+    description: Response data when a _zone_ was successfully **deleted**.
+    required:
+      - id
+    properties:
+      id:
+        type: string
+        description: _ID_ of the zone that was deleted.
+    example:
+      id: f5bb0c1f-1b22-434a-93c3-489b07b565f8
+  GeofencingZones:
+    type: array
+    title: Geofencing Zones
+    description: List (array) made up of _GeofencingZone_-s
+    items:
+      $ref: '#/definitions/GeofencingZone'
+  Errors:
+    type: array
+    title: Errors
+    items:
+      $ref: '#/definitions/Error'
+    description: List of errors
+  Error:
+    type: object
+    title: Error
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Error title
+      source:
+        type: string
+        description: Field that has problem
+      detail:
+        type: string
+        description: Error detail
+    description: Error details
+
+  FleetErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+
+  FleetFrobidenErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+        example:
+          - detail: This service account is not associated with a fleet.
+            source: Authorization
+            title: Forbidden
+  UnauthorizedErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+        example:
+          - detail: >
+              Missing or invalid authorization header. The token must be
+              obtained through the service account API and sent as a header with
+              the format "Authorization: Bearer <token>"
+            source: Authorization
+
