@@ -1,0 +1,151 @@
+swagger: '2.0'
+host: api.high-mobility.com
+info:
+  version: '1.0'
+  title: Eligibility API
+  description: >-
+    This API allows lookups to see if a vehicle is eligible for telematics data.
+    The API is currently only available in the production environment on https://api.high-mobility.com
+    Note that the brands of the VINs that are being checked have to first be activated for your production application before you can do lookups.
+securityDefinitions:
+  ServiceAccountToken:
+    type: apiKey
+    name: Authorization
+    description: >-
+      This is a Bearer token. Service Account Token is a temporary token for
+      server to service communication, find out more how to generate one at
+      https://high-mobility.com/learn/documentation/cloud-api/service-account-api/intro/
+    in: header
+paths:
+  /v1/eligibility:
+    post:
+      deprecated: false
+      security:
+        - ServiceAccountToken: []
+      tags:
+        - Eligibility
+      summary: ''
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+          description: Vehicle status requested successfully
+        '401':
+          schema:
+            $ref: '#/definitions/UnauthorizedErrors'
+          description: When an invalid ServiceAccountToken is used.
+        '422':
+          schema:
+            $ref: '#/definitions/GeneralErrors'
+          description: Errors such as invalid VIN and OEM call failed
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Request'
+      operationId: ApiWeb.EligibilityController.create
+      description: >-
+        Retrieves the eligibility status for a specific VIN. This can be used to
+        find out if the vehicle has the necessary connectivity to transmit data.
+
+definitions:
+  SuccessResponse:
+    type: object
+    title: SuccessResponse
+    properties:
+      vin:
+        type: string
+      eligible:
+        type: boolean
+      data_delivery:
+        type: array
+        items:
+          type: string
+          enum:
+            - pull
+            - push
+      connectivity_status:
+        type: string
+        enum:
+          - activated
+          - deactivated
+          - unknown
+      primary_user_assigned:
+        type: boolean
+    required:
+      - vin
+      - eligible
+      - data_delivery
+    example:
+      vin: EXVETESTVIN000001
+      eligible: true
+      data_delivery:
+        - pull
+        - push
+    description: Response of Telematics status
+  Request:
+    type: object
+    properties:
+      vin:
+        type: string
+        description: Vehicle vin.
+      brand:
+        type: string
+        enum:
+          - mercedes-benz
+          - ford
+          - bmw
+          - mini
+          - citroen
+          - peugeot
+          - opel
+          - vauxhall
+          - ds
+          - jeep
+          - fiat
+          - alfaromeo
+    required:
+      - vin
+      - brand
+  UnauthorizedErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+        example:
+          - detail: >
+              Missing or invalid authorization header. The token must be
+              obtained through the service account API and sent as a header with
+              the format "Authorization: Bearer <token>"
+            source: Authorization
+            title: Not authorized
+  GeneralErrors:
+    type: object
+    title: Errors
+    properties:
+      errors:
+        description: List of errors
+        type: array
+        items:
+          $ref: '#/definitions/Error'
+  Error:
+    type: object
+    title: Error
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Error title
+      source:
+        type: string
+        description: Field that has problem
+      detail:
+        type: string
+        description: Error detail
+    description: Error details
