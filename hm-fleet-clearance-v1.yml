@@ -408,6 +408,7 @@ components:
             - jeep
             - fiat
             - alfaromeo
+            - ford
           description: Vehicle Brand
         control_measures:
           type: object
@@ -520,6 +521,7 @@ components:
             - jeep
             - fiat
             - alfaromeo
+            - ford
         changelog:
            type: array
            items:
