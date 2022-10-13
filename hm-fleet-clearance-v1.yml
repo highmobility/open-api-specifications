@@ -261,6 +261,13 @@ paths:
         - ServiceAccountToken: []
       tags:
         - Fleet Veicle Access Token
+      parameters:
+        - name: Authorization
+          in: header
+          description: 'Bearer token'
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           content:
