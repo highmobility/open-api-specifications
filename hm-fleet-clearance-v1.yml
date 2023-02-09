@@ -416,6 +416,7 @@ components:
             - fiat
             - alfaromeo
             - ford
+            - renault
           description: Vehicle Brand
         control_measures:
           type: object
@@ -529,6 +530,7 @@ components:
             - fiat
             - alfaromeo
             - ford
+            - renault
         changelog:
            type: array
            items:
