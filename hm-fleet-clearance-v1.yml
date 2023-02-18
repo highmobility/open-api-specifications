@@ -6,7 +6,9 @@ info:
     
     In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
     
-    The API is currently only available in the production environment on `https://api.high-mobility.com`
+    Sandbox server: `https://sandbox.api.high-mobility.com`
+    
+    Production server: `https://api.high-mobility.com`
   contact:
     email: support@high-mobility.com
   version: 1.0.0
