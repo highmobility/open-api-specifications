@@ -55,7 +55,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetFrobidenErrors'
+                $ref: '#/components/schemas/FleetForbiddenErrors'
           description: When the application doesn't have fleet access.
         '422':
           content:
@@ -99,7 +99,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetFrobidenErrors'
+                $ref: '#/components/schemas/FleetForbiddenErrors'
           description: When the application doesn't have fleet access.
         '500':
           description: Server Errors
@@ -145,7 +145,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetFrobidenErrors'
+                $ref: '#/components/schemas/FleetForbiddenErrors'
           description: When the application doesn't have fleet access.
         '404':
           content:
@@ -195,7 +195,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetFrobidenErrors'
+                $ref: '#/components/schemas/FleetForbiddenErrors'
           description: When the application doesn't have fleet access.
         '404':
           content:
@@ -207,16 +207,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetDeletationErrors'
+                $ref: '#/components/schemas/FleetDeletionErrors'
           description: >-
             When deleting a clearance with given VIN is not possible.
         '422':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FleetCancelationErrors'
+                $ref: '#/components/schemas/FleetCancellationErrors'
           description: >-
-            When cancelation is not possible at this moment.
+            When cancellation is not possible at this moment.
         '500':
           description: Server Errors
 
@@ -262,7 +262,7 @@ paths:
       security:
         - ServiceAccountToken: []
       tags:
-        - Fleet Veicle Access Token
+        - Fleet Vehicle Access Token
       parameters:
         - name: Authorization
           in: header
@@ -275,7 +275,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccessTokensReponse'
+                $ref: '#/components/schemas/AccessTokensResponse'
           description: Success
         '400':
           content:
@@ -320,7 +320,7 @@ components:
             - timestamp: "2022-03-22T10:36:51"
               status: approved
 
-    FleetFrobidenErrors:
+    FleetForbiddenErrors:
       type: object
       title: Errors
       properties:
@@ -560,7 +560,7 @@ components:
             - canceling
             - canceled
 
-    FleetDeletationErrors:
+    FleetDeletionErrors:
       type: object
       title: Errors
       properties:
@@ -578,7 +578,7 @@ components:
               title: Conflict
 
 
-    FleetCancelationErrors:
+    FleetCancellationErrors:
       type: object
       title: Errors
       properties:
@@ -615,9 +615,9 @@ components:
         status: revoking
 
 
-    AccessTokensReponse:
+    AccessTokensResponse:
       type: object
-      title: AccessTokensReponse
+      title: AccessTokensResponse
       required:
         - expires_in
         - access_token
