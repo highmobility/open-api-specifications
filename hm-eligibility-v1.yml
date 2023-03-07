@@ -111,6 +111,7 @@ components:
             - jeep
             - fiat
             - alfaromeo
+            - renault
       required:
         - vin
         - brand
