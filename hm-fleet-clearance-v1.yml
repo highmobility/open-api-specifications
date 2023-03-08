@@ -454,6 +454,9 @@ components:
             status: pending
           - vin: WBADT43452G296404
             status: pending
+          - vin: VIN012345678901234
+            status: error
+            description: vin should be 17 character(s)
 
 
     FleetVin:
@@ -476,6 +479,7 @@ components:
             - revoking
             - canceling
             - canceled
+            - error
           description: >-
             An access token can be retrieved for the FleetVin if the status is
             "approved"
