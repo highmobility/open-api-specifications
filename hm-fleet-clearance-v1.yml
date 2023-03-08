@@ -390,6 +390,10 @@ components:
                 unit: kilometers
           - vin: WBADT43452G296404
             brand: bmw
+          - vin: VIN012345678901234
+            brand: ds
+          - vin: VIN01234567890123
+            brand: unknown
       required:
         - vehicles
 
@@ -457,6 +461,9 @@ components:
           - vin: VIN012345678901234
             status: error
             description: vin should be 17 character(s)
+          - vin: VIN0123456789012
+            status: error
+            description: The brand is invalid
 
 
     FleetVin:
