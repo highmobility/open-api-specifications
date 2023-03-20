@@ -60,6 +60,24 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRevoke'
       operationId: ApiWeb.OAuthAccessTokenController.delete
+   /v1/vehicleinfo:
+    get:
+      tags:
+        - OAuth2
+      summary: 'Checks AccessTokens vehicleinfo'
+      description: Returns vehicleinfo associated with access token
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/VehicleInfoResponse'
+          description: Success
+        '401':
+          schema:
+            $ref: '#/definitions/VehicleInfoError'
+          description: Error
+        '500':
+          description: Server Errors
+      operationId: ApiWeb.VehicleInfoController.show
 definitions:
   AccessTokensReponse:
     type: object
@@ -164,6 +182,36 @@ definitions:
   AccessTokensError:
     type: object
     title: AccessTokensError
+    required:
+      - error
+    properties:
+      error_description:
+        type: string
+        description: Error description
+      error:
+        type: string
+        description: Error code
+    description: Error details
+  VehicleInfoResponse:
+    type: object
+    title: VehicleInfoResponse
+    required:
+      - vin
+      - sub
+    properties:
+      vin:
+        type: string
+        description: 'VIN associated with the access token'
+      sub:
+        type: string
+        description: 'sub associated with the access token'
+    example:
+      vin: 'VIN00000000000001'
+      sub: '00000000-0000-0000-0000-000000000000'
+    description: Vehicle Info
+  VehicleInfoError:
+    type: object
+    title: VehicleInfoError
     required:
       - error
     properties:
