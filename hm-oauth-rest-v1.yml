@@ -60,7 +60,7 @@ paths:
           schema:
             $ref: '#/definitions/AccessTokensRevoke'
       operationId: ApiWeb.OAuthAccessTokenController.delete
-   /v1/vehicleinfo:
+  /v1/vehicleinfo:
     get:
       tags:
         - OAuth2
