@@ -64,6 +64,12 @@ paths:
     get:
       tags:
         - OAuth2
+      parameters:
+         - type: string
+           required: true
+           name: Authorization
+           in: header
+           description: Bearer token   
       summary: 'Checks AccessTokens vehicleinfo'
       description: Returns vehicleinfo associated with access token
       responses:
