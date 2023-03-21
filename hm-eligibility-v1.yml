@@ -3,17 +3,23 @@ info:
   title: Eligibility API
   description: |-
     This API allows lookups to see if a vehicle is eligible for telematics data.
-    The API is available in the production environment on `https://api.high-mobility.com`
-
-    Note that the brands of the VINs that are being checked have to first be activated for your production application before you can do lookups.
+    
+    
+    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+    
+    * Sandbox server: `https://sandbox.api.high-mobility.com`
+    * Production server: `https://api.high-mobility.com`
+    
+    Note that in production, the brands of the VINs that are being checked have to first be activated for yourapplication before you can do lookups.
   contact:
     email: support@high-mobility.com
   version: 1.0.0
 externalDocs:
   description: High Mobility's Developer Console
-  url: https://www.high-mobility.com
+  url: https://console.high-mobility.com
 servers:
   - url: https://api.high-mobility.com
+  - url: https://sandbox.api.high-mobility.com  
 
 paths:
   /v1/eligibility:
@@ -112,6 +118,7 @@ components:
             - fiat
             - alfaromeo
             - renault
+            - sandbox
       required:
         - vin
         - brand
