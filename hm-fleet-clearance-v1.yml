@@ -419,6 +419,7 @@ components:
             - alfaromeo
             - ford
             - renault
+            - toyota
           description: Vehicle Brand
         control_measures:
           type: object
@@ -533,6 +534,7 @@ components:
             - alfaromeo
             - ford
             - renault
+            - toyota
         changelog:
            type: array
            items:
