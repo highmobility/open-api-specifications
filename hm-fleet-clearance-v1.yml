@@ -424,6 +424,7 @@ components:
             - ford
             - renault
             - toyota
+            - sandbox
           description: Vehicle Brand
         control_measures:
           type: object
@@ -546,6 +547,7 @@ components:
             - ford
             - renault
             - toyota
+            - sandbox
         changelog:
            type: array
            items:
