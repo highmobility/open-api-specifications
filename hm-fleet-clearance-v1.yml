@@ -221,7 +221,7 @@ paths:
           description: Server Errors
 
       description: >-
-        Delete the clearance for the given VIN. If the clearance is in a pending state, the activation process is canceled. If the vehicle is in an approved state, a revoke is attempted.
+        Delete the clearance for the given VIN. If the vehicle is in approved state, a revoke is attempted.  If the clearance is in pending state, the activation process is canceled. **The cancelation is only supported for Mercedes-Bez and Stellantis(Peugeot, DS,Jeep and etc) brands**
 
   /v1/fleets/{vin}/cancel_activation:
     post:
