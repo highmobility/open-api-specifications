@@ -8,7 +8,7 @@ info:
       Sandbox server: `https://sandbox.rest-api.high-mobility.com/v5`
 
 
-      Production server: `https://api.high-mobility.com/v5`
+      Production server: `https://rest-api.high-mobility.com/v5`
       
 swagger: '2.0'
 parameters:
