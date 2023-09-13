@@ -118,6 +118,8 @@ components:
             - fiat
             - alfaromeo
             - renault
+            - toyota
+            - lexus
             - sandbox
       required:
         - vin
