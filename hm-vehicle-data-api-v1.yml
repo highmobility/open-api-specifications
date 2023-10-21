@@ -1,0 +1,5498 @@
+components:
+  schemas:
+    property_engine_oil_pressure_level:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - low
+            - normal
+            - high
+            - low_soft
+            - low_hard
+            - no_sensor
+            - system_fault
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_low_voltage_battery_charge_level:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - ok
+            - deactivation_level_1
+            - deactivation_level_2
+            - deactivation_level_3
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_impact_zone:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - pedestrian_protection
+            - rollover
+            - rear_passenger_side
+            - rear_driver_side
+            - side_passenger_side
+            - side_driver_side
+            - front_passenger_side
+            - front_driver_side
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_temperature:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - kelvin
+            - celsius
+            - fahrenheit
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_zone:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_zone'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_seatbelt_state:
+      additionalProperties: false
+      description: Seatbelt state
+      properties:
+        fastened_state:
+          description: Fastened state
+          enum:
+            - not_fastened
+            - fastened
+          type: string
+        location:
+          $ref: '#/components/schemas/custom_type_seat_location'
+          description: Seat location
+      required:
+        - location
+        - fastened_state
+      type: object
+    property_window_open_percentage:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_window_open_percentage'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_lock:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_lock'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_park_assist:
+      additionalProperties: false
+      description: Park assist
+      properties:
+        alarm:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+        location:
+          $ref: '#/components/schemas/custom_type_location_longitudinal'
+          description: Location longitudinal
+        muted:
+          $ref: '#/components/schemas/custom_type_muted'
+          description: Muted
+      required:
+        - location
+        - alarm
+        - muted
+      type: object
+    custom_type_brake_service_status:
+      additionalProperties: false
+      description: Brake service status
+      properties:
+        axle:
+          $ref: '#/components/schemas/custom_type_axle'
+          description: Axle
+        status:
+          $ref: '#/components/schemas/custom_type_service_status'
+          description: Service-Status
+      required:
+        - axle
+        - status
+      type: object
+    custom_type_webhook:
+      additionalProperties: false
+      description: Webhook
+      properties:
+        available:
+          description: If the specified webhook is available.
+          enum:
+            - unavailable
+            - available
+          type: string
+        event:
+          $ref: '#/components/schemas/custom_type_event'
+          description: Triggered event
+      required:
+        - available
+        - event
+      type: object
+    property_energy:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_energy'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_percentage:
+      description: Percentage value between 0.0 - 1.0 (0% - 100%)
+      type: number
+    custom_type_window_position:
+      additionalProperties: false
+      description: Window position
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_window_location'
+          description: Window location
+        position:
+          description: Position
+          enum:
+            - closed
+            - open
+            - intermediate
+          type: string
+      required:
+        - location
+        - position
+      type: object
+    hood:
+      properties:
+        lock:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Includes the lock state of the hood.
+        lock_safety:
+          $ref: '#/components/schemas/property_lock_safety'
+          description: Indicates the safe-state of the hood.
+        position:
+          $ref: '#/components/schemas/property_position'
+          description: Position
+    property_angle:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_angle'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    charging:
+      properties:
+        distance_to_complete_charge:
+          $ref: '#/components/schemas/property_length'
+          description: Distance until charging completed
+        restriction:
+          $ref: '#/components/schemas/property_charging_restriction'
+          description: Charging limit and state
+        acoustic_limit:
+          $ref: '#/components/schemas/property_acoustic_limit'
+          description: Acoustic limitation of charging process.
+        battery_level_at_departure:
+          $ref: '#/components/schemas/property_percentage'
+          description: Battery charge level expected at time of departure
+        charging_phases:
+          $ref: '#/components/schemas/property_charging_phases'
+          description: Charging process count of the high-voltage battery (phases).
+        battery_voltage:
+          $ref: '#/components/schemas/property_electric_potential_difference'
+          description: High-voltage battery electric potential difference (aka voltage).
+        status:
+          $ref: '#/components/schemas/property_status'
+          description: Status
+        charge_port_state:
+          $ref: '#/components/schemas/property_position'
+          description: Charge port state
+        charging_time_display:
+          $ref: '#/components/schemas/property_charging_time_display'
+          description: Charging time displayed in the vehicle.
+        charging_current:
+          $ref: '#/components/schemas/property_electric_current'
+          description: Charging electric current.
+        charging_single_immediate:
+          $ref: '#/components/schemas/property_active_state'
+          description: Single instant charging function status.
+        fully_charged_end_times:
+          $ref: '#/components/schemas/property_weekday_time'
+          description: Time and weekday when the vehicle will be fully charged.
+        max_charging_current:
+          $ref: '#/components/schemas/property_electric_current'
+          description: Maximum charging current
+        current_limit:
+          $ref: '#/components/schemas/property_electric_current'
+          description: Limit for the charging current.
+        charging_window_chosen:
+          $ref: '#/components/schemas/property_charging_window_chosen'
+          description: Charging window chosen
+        preconditioning_immediate_status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Status of immediate preconditioning
+        preconditioning_remaining_time:
+          $ref: '#/components/schemas/property_duration'
+          description: Time until preconditioning is complete.
+        limit_status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates whether charging limit is active.
+        flap_lock_status:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Locking status of charging flap.
+        departure_times:
+          description: Departure times
+          items:
+            $ref: '#/components/schemas/property_departure_time'
+          type: array
+        departure_time_display:
+          $ref: '#/components/schemas/property_departure_time_display'
+          description: Departure time displayed in the vehicle.
+        battery_max_available:
+          $ref: '#/components/schemas/property_energy'
+          description: Maximum available energy content of the high-voltage battery.
+        smart_charging_status:
+          $ref: '#/components/schemas/property_smart_charging_status'
+          description: Status of optimized/intelligent charging
+        charger_voltage:
+          $ref: '#/components/schemas/property_electric_potential_difference'
+          description: Charger voltage
+        battery_current_dc:
+          $ref: '#/components/schemas/property_electric_current'
+          deprecated: true
+          description: Battery direct current
+        preconditioning_departure_status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Status of preconditioning at departure time
+        current_type:
+          $ref: '#/components/schemas/property_current_type'
+          description: Type of current in use
+        charger_voltage_dc:
+          $ref: '#/components/schemas/property_electric_potential_difference'
+          deprecated: true
+          description: Charger voltage for direct current
+        battery_temperature_extremes:
+          $ref: '#/components/schemas/property_temperature_extreme'
+          description: Current highest-lowest temperature inside the battery.
+        starter_battery_state:
+          $ref: '#/components/schemas/property_starter_battery_state'
+          description: State of the starter battery
+        charging_end_reason:
+          $ref: '#/components/schemas/property_charging_end_reason'
+          description: Reason for ending a charging process.
+        charge_limit:
+          $ref: '#/components/schemas/property_percentage'
+          description: Charge limit percentage between 0.0-1.0
+        min_charging_current:
+          $ref: '#/components/schemas/property_electric_current'
+          description: Minimum charging current.
+        battery_tempretature_extremes:
+          $ref: '#/components/schemas/property_temperature_extreme'
+          deprecated: true
+          description: Current highest-lowest temperature inside the battery.
+        max_range:
+          $ref: '#/components/schemas/property_length'
+          description: Maximum electric range with 100% of battery
+        battery_capacity:
+          $ref: '#/components/schemas/property_energy'
+          description: Indicates the battery capacity
+        reduction_times:
+          description: Reduction of charging times
+          items:
+            $ref: '#/components/schemas/property_reduction_time'
+          type: array
+        battery_temperature_control_demand:
+          $ref: '#/components/schemas/property_battery_temperature_control_demand'
+          description: Current demand of HV battery temperature control system.
+        battery_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: Battery level percentage between 0.0-1.0
+        plug_type:
+          $ref: '#/components/schemas/property_plug_type'
+          description: Plug type
+        battery_current:
+          $ref: '#/components/schemas/property_electric_current'
+          description: Battery current - charging if posititive and discharning when negative.
+        charger_voltage_ac:
+          $ref: '#/components/schemas/property_electric_potential_difference'
+          deprecated: true
+          description: Charger voltage for alternating current
+        battery_led:
+          $ref: '#/components/schemas/property_battery_led'
+          description: State of LED for the battery.
+        time_to_complete_charge:
+          $ref: '#/components/schemas/property_duration'
+          description: Time until charging completed
+        plugged_in:
+          $ref: '#/components/schemas/property_plugged_in'
+          description: Plugged in
+        preconditioning_error:
+          $ref: '#/components/schemas/property_preconditioning_error'
+          description: Preconditioning error if one is encountered
+        timers:
+          description: Timers
+          items:
+            $ref: '#/components/schemas/property_timer'
+          type: array
+        driving_mode_phev:
+          $ref: '#/components/schemas/property_driving_mode_phev'
+          description: Indicates the current driving mode for Plug-In Hybrid Vehicle.
+        battery_status:
+          $ref: '#/components/schemas/property_battery_status'
+          description: Battery state.
+        battery_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: Battery temperature
+        battery_cooling_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: Battery cooling temperature.
+        estimated_range:
+          $ref: '#/components/schemas/property_length'
+          description: Estimated range
+        plug_lock_status:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Locking status of charging plug.
+        estimated_range_target:
+          $ref: '#/components/schemas/property_length'
+          description: Remaining electric range depending on target charging status.
+        preconditioning_departure_enabled:
+          $ref: '#/components/schemas/property_enabled_state'
+          description: Preconditioning activation status at departure
+        charge_mode:
+          $ref: '#/components/schemas/property_charge_mode'
+          description: Charge mode
+        battery_energy:
+          $ref: '#/components/schemas/property_energy'
+          description: Energy content of the high-voltage battery.
+        charging_rate:
+          $ref: '#/components/schemas/property_power'
+          description: Charge rate when charging
+        battery_current_ac:
+          $ref: '#/components/schemas/property_electric_current'
+          deprecated: true
+          description: Battery alternating current
+        charging_rate_kw:
+          $ref: '#/components/schemas/property_power'
+          deprecated: true
+          description: Charging rate
+        auxiliary_power:
+          $ref: '#/components/schemas/property_power'
+          description: Auxiliary power used for predictions.
+        charging_complete_lock:
+          $ref: '#/components/schemas/property_active_state'
+          description: Locking status of the charging plug after charging complete.
+        battery_energy_chargable:
+          $ref: '#/components/schemas/property_energy'
+          description: Energy required until high-voltage battery is fully charged.
+        smart_charging_option:
+          $ref: '#/components/schemas/property_smart_charging_option'
+          description: Smart charging option being used to charge with.
+        battery_charge_type:
+          $ref: '#/components/schemas/property_battery_charge_type'
+          description: Battery charge type.
+        preconditioning_scheduled_time:
+          $ref: '#/components/schemas/property_time'
+          description: Preconditioning scheduled departure time.
+    property_plugged_in:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - disconnected
+            - plugged_in
+            - plugged_in_both_sides
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_price_tariff:
+      additionalProperties: false
+      description: Price tariff
+      properties:
+        currency:
+          description: The currency alphabetic code per ISO 4217 or crypto currency symbol
+          type: string
+        price:
+          description: The price
+          type: number
+        pricing_type:
+          description: Pricing type
+          enum:
+            - starting_fee
+            - per_minute
+            - per_kwh
+          type: string
+      required:
+        - pricing_type
+        - price
+        - currency
+      type: object
+    custom_type_network_security:
+      description: Network security
+      enum:
+        - none
+        - wep
+        - wpa
+        - wpa2_personal
+      type: string
+    property_door_position:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_door_position'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_frequency:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - hertz
+            - millihertz
+            - kilohertz
+            - megahertz
+            - gigahertz
+            - times_per_minute
+            - times_per_hour
+            - times_per_day
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    unit_duration:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - seconds
+            - minutes
+            - hours
+            - days
+            - weeks
+            - months
+            - milliseconds
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_detected:
+      description: Detected
+      enum:
+        - not_detected
+        - detected
+      type: string
+    custom_type_check_control_message:
+      additionalProperties: false
+      description: Check control message
+      properties:
+        id:
+          description: Check Control Message identifier
+          type: integer
+        remaining_time:
+          $ref: '#/components/schemas/unit_duration'
+          description: Remaining time of the message
+        status:
+          description: CCM status
+          type: string
+        text:
+          description: CCM text
+          type: string
+      required:
+        - id
+        - remaining_time
+        - text
+        - status
+      type: object
+    response500:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Please contact support
+                type: string
+              title:
+                example: Internal Server Error
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: e4828bf1-8687-4f7b-b8c7-6c4223e2b842
+          type: string
+    property_windscreen_damage:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_impact_detected
+            - impact_but_no_damage_detected
+            - damage_smaller_than_1_inch
+            - damage_larger_than_1_inch
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_tipped_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - tipped_over
+            - not_tipped
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_wipers_intensity:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - level_0
+            - level_1
+            - level_2
+            - level_3
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_lock:
+      additionalProperties: false
+      description: Lock
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location'
+          description: Door location
+        lock_state:
+          $ref: '#/components/schemas/custom_type_lock_state'
+          description: Lock state for the door
+      required:
+        - location
+        - lock_state
+      type: object
+    property_weekday_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_weekday_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_connection_state:
+      description: Connection state
+      enum:
+        - disconnected
+        - connected
+      type: string
+    custom_type_spring_rate:
+      additionalProperties: false
+      description: Spring rate
+      properties:
+        axle:
+          $ref: '#/components/schemas/custom_type_axle'
+          description: Axle
+        spring_rate:
+          $ref: '#/components/schemas/unit_torque'
+          description: The suspension spring rate
+      required:
+        - axle
+        - spring_rate
+      type: object
+    property_uinteger:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          maximum: 255
+          minimum: 0
+          type: integer
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_timer:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_timer'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_accelerator_duration:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_accelerator_duration'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_integer:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          maximum: 127
+          minimum: -128
+          type: integer
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_park_assist:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_park_assist'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    dashboard_lights:
+      properties:
+        bulb_failures:
+          description: Vehicle light bulb failure
+          items:
+            $ref: '#/components/schemas/property_bulb_failures'
+          type: array
+        dashboard_lights:
+          description: Dashboard lights
+          items:
+            $ref: '#/components/schemas/property_dashboard_light'
+          type: array
+    property_percentage:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_percentage'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_switch_position:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - automatic
+            - dipped_headlights
+            - parking_light_right
+            - parking_light_left
+            - sidelights
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_pressure:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_pressure'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_lane_keep_assist_state:
+      additionalProperties: false
+      description: Lane keep assist state
+      properties:
+        location:
+          description: Location
+          enum:
+            - left
+            - right
+          type: string
+        state:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+      required:
+        - location
+        - state
+      type: object
+    property_power:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_power'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_muted:
+      description: Muted
+      enum:
+        - not_muted
+        - muted
+      type: string
+    vehicle_location:
+      properties:
+        altitude:
+          $ref: '#/components/schemas/property_length'
+          description: Altitude above the WGS 84 reference ellipsoid
+        coordinates:
+          $ref: '#/components/schemas/property_coordinates'
+          description: Coordinates
+        fuzzy_coordinates:
+          $ref: '#/components/schemas/property_coordinates'
+          description: Fuzzy coordinates for the vehicle location.
+        gps_signal_strength:
+          $ref: '#/components/schemas/property_percentage'
+          description: GPS signal strength percentage between 0.0-1.0
+        gps_source:
+          $ref: '#/components/schemas/property_gps_source'
+          description: Type of GPS source
+        heading:
+          $ref: '#/components/schemas/property_angle'
+          description: Heading angle
+        precision:
+          $ref: '#/components/schemas/property_length'
+          description: Precision
+    custom_type_rgb_colour:
+      additionalProperties: false
+      description: RGB colour
+      properties:
+        blue:
+          description: The blue component of RGB
+          type: integer
+        green:
+          description: The green component of RGB
+          type: integer
+        red:
+          description: The red component of RGB
+          type: integer
+      required:
+        - red
+        - green
+        - blue
+      type: object
+    property_distance_over_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_distance_over_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_driving_mode:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_driving_mode'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_acceleration_duration:
+      additionalProperties: false
+      description: Acceleration duration
+      properties:
+        direction:
+          description: Direction
+          enum:
+            - longitudinal
+            - lateral
+          type: string
+        duration:
+          $ref: '#/components/schemas/unit_duration'
+          description: The duration of the acceleration
+        type:
+          description: Type
+          enum:
+            - regular
+            - positive_outlier
+            - negative_outlier
+          type: string
+      required:
+        - direction
+        - type
+        - duration
+      type: object
+    property_duration:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_duration'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_enabled_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_enabled_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_brake_service_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_brake_service_status'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_reading_lamp:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_reading_lamp'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_brake_torque_vectoring:
+      additionalProperties: false
+      description: Brake torque vectoring
+      properties:
+        axle:
+          $ref: '#/components/schemas/custom_type_axle'
+          description: Axle
+        state:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+      required:
+        - axle
+        - state
+      type: object
+    custom_type_driver_time_state:
+      additionalProperties: false
+      description: Driver time state
+      properties:
+        driver_number:
+          description: The driver number
+          type: integer
+        time_state:
+          description: Time state
+          enum:
+            - normal
+            - fifteen_min_before_four
+            - four_reached
+            - fifteen_min_before_nine
+            - nine_reached
+            - fifteen_min_before_sixteen
+            - sixteen_reached
+          type: string
+      required:
+        - driver_number
+        - time_state
+      type: object
+    custom_type_address_component:
+      additionalProperties: false
+      description: A single component of the full address
+      properties:
+        type:
+          description: Component type
+          enum:
+            - city
+            - country
+            - country_short
+            - district
+            - postal_code
+            - street
+            - state_province
+            - other
+          type: string
+        value:
+          description: Value for the component
+          type: string
+      required:
+        - type
+        - value
+      type: object
+    property_dashboard_light:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_dashboard_light'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_enabled_state:
+      description: Enabled state
+      enum:
+        - disabled
+        - enabled
+      type: string
+    property_seatbelt_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_seatbelt_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_preconditioning_error:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_change
+            - not_possible_low
+            - not_possible_finished
+            - available_after_engine_restart
+            - general_error
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    response:
+      properties:
+        hood:
+          $ref: '#/components/schemas/hood'
+        charging:
+          $ref: '#/components/schemas/charging'
+        brand:
+          description: The vehicle brand
+          enum:
+            - abarth
+            - alfaromeo
+            - alpine
+            - audi
+            - bmw
+            - cadillac
+            - chevrolet
+            - chrysler
+            - citroen
+            - cupra
+            - dacia
+            - dodge
+            - ds
+            - fiat
+            - ford
+            - honda
+            - hyundai
+            - iveco
+            - jaguar
+            - jeep
+            - kia
+            - lancia
+            - land_rover
+            - lexus
+            - man
+            - mazda
+            - mercedes_benz
+            - mini
+            - mitsubishi
+            - nissan
+            - opel
+            - peugeot
+            - porsche
+            - renault
+            - sandbox
+            - seat
+            - skoda
+            - smart
+            - subaru
+            - toyota
+            - unknown
+            - volkswagen
+            - volvo_cars
+          type: string
+        vin:
+          description: The unique Vehicle Identification Number
+          example: 1HM62652356323000
+          type: string
+        dashboard_lights:
+          $ref: '#/components/schemas/dashboard_lights'
+        vehicle_location:
+          $ref: '#/components/schemas/vehicle_location'
+        fueling:
+          $ref: '#/components/schemas/fueling'
+        windows:
+          $ref: '#/components/schemas/windows'
+        windscreen:
+          $ref: '#/components/schemas/windscreen'
+        trunk:
+          $ref: '#/components/schemas/trunk'
+        diagnostics:
+          $ref: '#/components/schemas/diagnostics'
+        power_takeoff:
+          $ref: '#/components/schemas/power_takeoff'
+        ignition:
+          $ref: '#/components/schemas/ignition'
+        notifications:
+          $ref: '#/components/schemas/notifications'
+        theft_alarm:
+          $ref: '#/components/schemas/theft_alarm'
+        weather_conditions:
+          $ref: '#/components/schemas/weather_conditions'
+        seats:
+          $ref: '#/components/schemas/seats'
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: 2c85d1f9a23623ac5deeb7eecba61a5f
+          type: string
+        offroad:
+          $ref: '#/components/schemas/offroad'
+        race:
+          $ref: '#/components/schemas/race'
+        climate:
+          $ref: '#/components/schemas/climate'
+        maintenance:
+          $ref: '#/components/schemas/maintenance'
+        crash:
+          $ref: '#/components/schemas/crash'
+        cruise_control:
+          $ref: '#/components/schemas/cruise_control'
+        remote_control:
+          $ref: '#/components/schemas/remote_control'
+        charging_session:
+          $ref: '#/components/schemas/charging_session'
+        light_conditions:
+          $ref: '#/components/schemas/light_conditions'
+        honk_horn_flash_lights:
+          $ref: '#/components/schemas/honk_horn_flash_lights'
+        parking_brake:
+          $ref: '#/components/schemas/parking_brake'
+        usage:
+          $ref: '#/components/schemas/usage'
+        messaging:
+          $ref: '#/components/schemas/messaging'
+        rooftop_control:
+          $ref: '#/components/schemas/rooftop_control'
+        lights:
+          $ref: '#/components/schemas/lights'
+        engine:
+          $ref: '#/components/schemas/engine'
+        adas:
+          $ref: '#/components/schemas/adas'
+        chassis_settings:
+          $ref: '#/components/schemas/chassis_settings'
+        doors:
+          $ref: '#/components/schemas/doors'
+      type: object
+    property_departure_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_departure_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_service_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_service_status'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_smart_charging_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - wallbox_is_active
+            - scc_is_active
+            - peak_setting_active
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_electric_potential_difference:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - volts
+            - millivolts
+            - kilovolts
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_door_position:
+      additionalProperties: false
+      description: Door position
+      properties:
+        location:
+          description: Location
+          enum:
+            - front_left
+            - front_right
+            - rear_right
+            - rear_left
+            - all
+          type: string
+        position:
+          $ref: '#/components/schemas/custom_type_position'
+          description: Position
+      required:
+        - location
+        - position
+      type: object
+    property_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_battery_led:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_colour
+            - white
+            - yellow
+            - green
+            - red
+            - yellow_pulsing
+            - green_pulsing
+            - red_pulsing
+            - green_red_pulsing
+            - green_flashing
+            - initialising
+            - error
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_last_event_level:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - low
+            - medium
+            - high
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_engaged:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_engaged
+            - engaged
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    fueling:
+      properties:
+        gas_flap_lock:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Gas flap lock
+        gas_flap_position:
+          $ref: '#/components/schemas/property_position'
+          description: Gas flap position
+    property_charging_end_reason:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - unknown
+            - goal_reached
+            - requested_by_driver
+            - connector_removed
+            - powergrid_failed
+            - hv_system_failure
+            - charging_station_failure
+            - parking_lock_failed
+            - no_parking_lock
+            - signal_invalid
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_nonce:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          items:
+            maximum: 255
+            minimum: 0
+            type: integer
+          maxItems: 9
+          minItems: 9
+          type: array
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    windows:
+      properties:
+        open_percentages:
+          description: Open percentages
+          items:
+            $ref: '#/components/schemas/property_window_open_percentage'
+          type: array
+        positions:
+          description: Positions
+          items:
+            $ref: '#/components/schemas/property_window_position'
+          type: array
+    custom_type_tire_pressure_status:
+      additionalProperties: false
+      description: Tire pressure status
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location_wheel'
+          description: Location wheel
+        status:
+          description: Status
+          enum:
+            - normal
+            - low
+            - alert
+            - soft
+            - deflation
+          type: string
+      required:
+        - location
+        - status
+      type: object
+    property_timestamp:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          format: date-time
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_charging_phases:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_charging
+            - one
+            - two
+            - three
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_driving_mode_activation_period:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_driving_mode_activation_period'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_charging_restriction:
+      additionalProperties: false
+      description: Charging restriction
+      properties:
+        active:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Indicates whether the charging current used to charge the vehicle is limited.
+        limit:
+          description: Limit
+          enum:
+            - max
+            - reduced
+            - min
+          type: string
+      required:
+        - active
+        - limit
+      type: object
+    custom_type_position:
+      description: Position
+      enum:
+        - closed
+        - open
+      type: string
+    property_charging_location:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_charging_location'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    windscreen:
+      properties:
+        windscreen_damage:
+          $ref: '#/components/schemas/property_windscreen_damage'
+          description: Windscreen damage
+        windscreen_damage_confidence:
+          $ref: '#/components/schemas/property_percentage'
+          description: Confidence of damage detection, 0% if no impact detected
+        windscreen_damage_detection_time:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Windscreen damage detection date
+        windscreen_damage_zone:
+          $ref: '#/components/schemas/property_zone'
+          description: Representing the position in the zone, seen from the inside of the vehicle (1-based index)
+        windscreen_needs_replacement:
+          $ref: '#/components/schemas/property_windscreen_needs_replacement'
+          description: Windscreen needs replacement
+        windscreen_zone_matrix:
+          $ref: '#/components/schemas/property_zone'
+          description: Representing the size of the matrix, seen from the inside of the vehicle
+        wipers_intensity:
+          $ref: '#/components/schemas/property_wipers_intensity'
+          description: Wipers intensity
+        wipers_status:
+          $ref: '#/components/schemas/property_wipers_status'
+          description: Wipers status
+    property_battery_temperature_control_demand:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - high_cooling
+            - medium_cooling
+            - low_cooling
+            - no_temperature_requirement
+            - low_heating
+            - medium_heating
+            - high_heating
+            - circulation_requirement
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_rgb_colour:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_rgb_colour'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_fluid_level:
+      description: Fluid level
+      enum:
+        - low
+        - filled
+        - very_low
+        - normal
+        - high
+        - very_high
+      type: string
+    custom_type_dashboard_light:
+      additionalProperties: false
+      description: Dashboard light
+      properties:
+        name:
+          description: Name
+          enum:
+            - high_beam
+            - low_beam
+            - hazard_warning
+            - brake_failure
+            - hatch_open
+            - fuel_level
+            - engine_coolant_temperature
+            - battery_charging_condition
+            - engine_oil
+            - position_lights
+            - front_fog_light
+            - rear_fog_light
+            - park_heating
+            - engine_indicator
+            - service_call
+            - transmission_fluid_temperature
+            - transmission_failure
+            - anti_lock_brake_failure
+            - worn_brake_linings
+            - windscreen_washer_fluid
+            - tire_failure
+            - engine_oil_level
+            - engine_coolant_level
+            - steering_failure
+            - esc_indication
+            - brake_lights
+            - adblue_level
+            - fuel_filter_diff_pressure
+            - seat_belt
+            - advanced_braking
+            - acc
+            - trailer_connected
+            - airbag
+            - esc_switched_off
+            - lane_departure_warning_off
+            - air_filter_minder
+            - air_suspension_ride_control_fault
+            - all_wheel_drive_disabled
+            - anti_theft
+            - blind_spot_detection
+            - charge_system_fault
+            - check_fuel_cap
+            - check_fuel_fill_inlet
+            - check_fuel_filter
+            - dc_temp_warning
+            - dc_warning_status
+            - diesel_engine_idle_shutdown
+            - diesel_engine_warning
+            - diesel_exhaust_fluid_system_fault
+            - diesel_exhaust_over_temp
+            - diesel_exhaust_fluid_quality
+            - diesel_filter_regeneration
+            - diesel_particulate_filter
+            - diesel_pre_heat
+            - electric_trailer_brake_connection
+            - ev_battery_cell_max_volt_warning
+            - ev_battery_cell_min_volt_warning
+            - ev_battery_charge_energy_storage_warning
+            - ev_battery_high_level_warning
+            - ev_battery_high_temperature_warning
+            - ev_battery_insulation_resist_warning
+            - ev_battery_jump_level_warning
+            - ev_battery_low_level_warning
+            - ev_battery_max_volt_veh_energy_warning
+            - ev_battery_min_volt_veh_energy_warning
+            - ev_battery_over_charge_warning
+            - ev_battery_poor_cell_warning
+            - ev_battery_temp_diff_warning
+            - forward_collision_warning
+            - fuel_door_open
+            - hill_descent_control_fault
+            - hill_start_assist_warning
+            - hv_interlocking_status_warning
+            - lighting_system_failure
+            - malfunction_indicator
+            - motor_controller_temp_warning
+            - park_aid_malfunction
+            - passive_entry_passive_start
+            - powertrain_malfunction
+            - restraints_indicator_warning
+            - start_stop_engine_warning
+            - traction_control_disabled
+            - traction_control_active
+            - traction_motor_temp_warning
+            - tire_pressure_monitor_system_warning
+            - water_in_fuel
+            - tire_warning_front_right
+            - tire_warning_front_left
+            - tire_warning_rear_right
+            - tire_warning_rear_left
+            - tire_warning_system_error
+            - battery_low_warning
+            - brake_fluid_warning
+            - active_hood_fault
+            - active_spoiler_fault
+            - adjust_tire_pressure
+            - steering_lock_alert
+            - anti_pollution_failure_engine_start_impossible
+            - anti_pollution_system_failure
+            - anti_reverse_system_failing
+            - auto_parking_brake
+            - automatic_braking_deactive
+            - automatic_braking_system_fault
+            - automatic_lights_settings_failure
+            - keyfob_battery_alarm
+            - trunk_open
+            - check_reversing_lamp
+            - crossing_line_system_alert_failure
+            - dipped_beam_headlamps_front_left_failure
+            - dipped_beam_headlamps_front_right_failure
+            - directional_headlamps_failure
+            - directional_light_failure
+            - dsg_failing
+            - electric_mode_not_available
+            - electronic_lock_failure
+            - engine_control_system_failure
+            - engine_oil_pressure_alert
+            - esp_failure
+            - excessive_oil_temperature
+            - tire_front_left_flat
+            - tire_front_right_flat
+            - tire_rear_left_flat
+            - tire_rear_right_flat
+            - fog_light_front_left_failure
+            - fog_light_front_right_failure
+            - fog_light_rear_left_failure
+            - fog_light_rear_right_failure
+            - fog_light_front_fault
+            - door_front_left_open
+            - door_front_left_open_high_speed
+            - tire_front_left_not_monitored
+            - door_front_right_open
+            - door_front_right_open_high_speed
+            - tire_front_right_not_monitored
+            - headlights_left_failure
+            - headlights_right_failure
+            - hybrid_system_fault
+            - hybrid_system_fault_repaired_vehicle
+            - hydraulic_pressure_or_brake_fuild_insufficient
+            - lane_departure_fault
+            - limited_visibility_aids_camera
+            - tire_pressure_low
+            - maintenance_date_exceeded
+            - maintenance_odometer_exceeded
+            - other_failing_system
+            - parking_brake_control_failing
+            - parking_space_measuring_system_failure
+            - place_gear_to_parking
+            - power_steering_assitance_failure
+            - power_steering_failure
+            - preheating_deactivated_battery_too_low
+            - preheating_deactivated_fuel_level_too_low
+            - preheating_deactivated_battery_set_the_clock
+            - fog_light_rear_fault
+            - door_rear_left_open
+            - door_rear_left_open_high_speed
+            - tire_rear_left_not_monitored
+            - door_rear_right_open
+            - door_rear_right_open_high_speed
+            - tire_rear_right_not_monitored
+            - screen_rear_open
+            - retractable_roof_mechanism_fault
+            - reverse_light_left_failure
+            - reverse_light_right_failure
+            - risk_of_ice
+            - roof_operation_impossible_apply_parking_break
+            - roof_operation_impossible_apply_start_engine
+            - roof_operation_impossible_temperature_too_high
+            - seatbelt_passenger_front_right_unbuckled
+            - seatbelt_passenger_rear_left_unbuckled
+            - seatbelt_passenger_rear_center_unbuckled
+            - seatbelt_passenger_rear_right_unbuckled
+            - battery_secondary_low
+            - shock_sensor_failing
+            - side_lights_front_left_failure
+            - side_lights_front_right_failure
+            - side_lights_rear_left_failure
+            - side_lights_rear_right_failure
+            - spare_wheel_fitter_driving_aids_deactivated
+            - speed_control_failure
+            - stop_light_left_failure
+            - stop_light_right_failure
+            - suspension_failure
+            - suspension_failure_reduce_speed
+            - suspension_fault_limited_to_90kmh
+            - tire_pressure_sensor_failure
+            - trunk_open_high_speed
+            - trunk_window_open
+            - turn_signal_front_left_failure
+            - turn_signal_front_right_failure
+            - turn_signal_rear_left_failure
+            - turn_signal_rear_right_failure
+            - tire_under_inflation
+            - wheel_pressure_fault
+            - oil_change_warning
+            - inspection_warning
+            - diesel_oil_filter_water_presence
+            - engine_drag_torque_control_failure
+          type: string
+        state:
+          $ref: '#/components/schemas/custom_type_on_off_state'
+          description: On-Off State
+      required:
+        - name
+        - state
+      type: object
+    unit_pressure:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - pascals
+            - kilopascals
+            - inches_of_mercury
+            - bars
+            - millibars
+            - millimeters_of_mercury
+            - pounds_force_per_square_inch
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_driving_mode:
+      description: Driving mode
+      enum:
+        - regular
+        - eco
+        - sport
+        - sport_plus
+        - eco_plus
+        - comfort
+      type: string
+    trunk:
+      properties:
+        lock:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Lock
+        lock_safety:
+          $ref: '#/components/schemas/property_lock_safety'
+          description: Indicates the safe-state of the trunk.
+        position:
+          $ref: '#/components/schemas/property_position'
+          description: Position
+    response504:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: OEM didn't response in the expected time
+                type: string
+              title:
+                example: Timeout
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: e4828bf1-8687-4f7b-b8c7-6c4223e2b842
+          type: string
+    property_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - normal
+            - restraints_engaged
+            - airbag_triggered
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    response422:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Vehicle data is not available yet
+                type: string
+              title:
+                example: Pending
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: a8306c7c-9f57-453c-8189-d06118944770
+          type: string
+    unit_electric_current:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - amperes
+            - milliamperes
+            - kiloamperes
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_supported_capability:
+      additionalProperties: false
+      description: Supported capability
+      properties:
+        capability_id:
+          description: The identifier of the supported capability
+          type: integer
+        supported_property_ids:
+          description: Array of supported property identifiers
+          items:
+            type: integer
+          type: array
+      required:
+        - capability_id
+        - supported_property_ids
+      type: object
+    custom_type_charging_point:
+      additionalProperties: false
+      description: Charging point
+      properties:
+        city:
+          description: City the charging point is in.
+          type: string
+        postal_code:
+          description: Postal code the charging point is at.
+          type: string
+        provider:
+          description: The provider name of the charging point.
+          type: string
+        street:
+          description: Street address the chargin point is at.
+          type: string
+      required:
+        - city
+        - postal_code
+        - street
+        - provider
+      type: object
+    property_fuel_efficiency:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_fuel_efficiency'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - pedestrian
+            - non_pedestrian
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_sunroof_tilt_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - closed
+            - tilted
+            - half_tilted
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_control_mode:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - unavailable
+            - available
+            - started
+            - failed_to_start
+            - aborted
+            - ended
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_lock_state:
+      description: Lock state
+      enum:
+        - unlocked
+        - locked
+      type: string
+    property_clear:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - clear
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_charging_point:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_charging_point'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_on_off_state:
+      description: On-Off State
+      enum:
+        - 'off'
+        - 'on'
+      type: string
+    diagnostics:
+      properties:
+        brake_lining_wear_pre_warning:
+          $ref: '#/components/schemas/property_active_state'
+          description: Status of brake lining wear pre-warning
+        distance_since_reset:
+          $ref: '#/components/schemas/property_length'
+          description: The distance driven since reset
+        estimated_secondary_powertrain_range:
+          $ref: '#/components/schemas/property_length'
+          description: Estimated secondary powertrain range
+        engine_coolant_fluid_level:
+          $ref: '#/components/schemas/property_fluid_level'
+          description: Engine coolant fluid level
+        anti_lock_braking:
+          $ref: '#/components/schemas/property_active_state'
+          description: Anti-lock braking system (ABS)
+        mileage:
+          $ref: '#/components/schemas/property_length'
+          deprecated: true
+          description: The vehicle mileage (odometer)
+        battery_voltage:
+          $ref: '#/components/schemas/property_electric_potential_difference'
+          description: Battery voltage
+        distance_since_start:
+          $ref: '#/components/schemas/property_length'
+          description: The distance driven since trip start
+        fuel_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: Fuel level percentage between 0.0-1.0
+        passenger_airbag_status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Passenger airbag is activated or not
+        check_control_messages:
+          description: Check control messages
+          items:
+            $ref: '#/components/schemas/property_check_control_message'
+          type: array
+        washer_fluid_level:
+          $ref: '#/components/schemas/property_fluid_level'
+          description: Washer fluid level
+        tire_pressure_statuses:
+          description: Tire pressure statuses
+          items:
+            $ref: '#/components/schemas/property_tire_pressure_status'
+          type: array
+        engine_rpm:
+          $ref: '#/components/schemas/property_angular_velocity'
+          description: Engine RPM (revolutions per minute)
+        fuel_volume:
+          $ref: '#/components/schemas/property_volume'
+          description: The fuel volume measured in liters
+        diesel_particulate_filter_soot_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: Level of soot in diesel exhaust particulate filter
+        oem_trouble_code_values:
+          description: Additional OEM trouble codes
+          items:
+            $ref: '#/components/schemas/property_oem_trouble_code_value'
+          type: array
+        adblue_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: AdBlue level percentage between 0.0-1.0
+        backup_battery_remaining_time:
+          $ref: '#/components/schemas/property_duration'
+          description: Remaining time the backup battery can work.
+        odometer:
+          $ref: '#/components/schemas/property_length'
+          description: The vehicle odometer value in a given units
+        tire_pressures:
+          description: Tire pressures
+          items:
+            $ref: '#/components/schemas/property_tire_pressure'
+          type: array
+        wheel_based_speed:
+          $ref: '#/components/schemas/property_speed'
+          description: The vehicle speed measured at the wheel base
+        engine_oil_pressure_level:
+          $ref: '#/components/schemas/property_engine_oil_pressure_level'
+          description: Engine oil pressure level
+        engine_total_fuel_consumption:
+          $ref: '#/components/schemas/property_volume'
+          description: The accumulated lifespan fuel consumption
+        engine_total_operating_time:
+          $ref: '#/components/schemas/property_duration'
+          description: The accumulated time of engine operation
+        engine_total_operating_hours:
+          $ref: '#/components/schemas/property_duration'
+          deprecated: true
+          description: The accumulated time of engine operation
+        engine_coolant_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: Engine coolant temperature
+        battery_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: Battery level in %, value between 0.0 and 1.0
+        engine_time_to_next_service:
+          $ref: '#/components/schemas/property_duration'
+          description: Engine time until next service of the vehicle
+        mileage_meters:
+          $ref: '#/components/schemas/property_length'
+          deprecated: true
+          description: The vehicle mileage (odometer) in meters
+        engine_load:
+          $ref: '#/components/schemas/property_percentage'
+          description: Current engine load percentage between 0.0-1.0
+        engine_oil_amount:
+          $ref: '#/components/schemas/property_volume'
+          description: The current estimated oil tank liquid fill.
+        trouble_codes:
+          description: Trouble codes
+          items:
+            $ref: '#/components/schemas/property_trouble_code'
+          type: array
+        engine_torque:
+          $ref: '#/components/schemas/property_percentage'
+          description: Current engine torque percentage between 0.0-1.0
+        diesel_exhaust_fluid_range:
+          $ref: '#/components/schemas/property_length'
+          description: Distance remaining until diesel exhaust fluid is empty
+        estimated_range:
+          $ref: '#/components/schemas/property_length'
+          description: Estimated range (with combustion engine)
+        wheel_rpms:
+          description: Wheel RPMs
+          items:
+            $ref: '#/components/schemas/property_wheel_rpm'
+          type: array
+        engine_oil_life_remaining:
+          $ref: '#/components/schemas/property_percentage'
+          description: Remaining life of engine oil which decreases over time
+        confirmed_trouble_codes:
+          description: Confirmed trouble codes
+          items:
+            $ref: '#/components/schemas/property_confirmed_trouble_code'
+          type: array
+        brake_fluid_level:
+          $ref: '#/components/schemas/property_fluid_level'
+          description: Brake fluid level
+        engine_total_idle_operating_time:
+          $ref: '#/components/schemas/property_duration'
+          description: The accumulated time of engine operation
+        tire_pressures_targets:
+          description: Target tire pressures for the vehicle.
+          items:
+            $ref: '#/components/schemas/property_tire_pressure'
+          type: array
+        low_voltage_battery_charge_level:
+          $ref: '#/components/schemas/property_low_voltage_battery_charge_level'
+          description: Indicates if the charge level of the low voltage battery is too low to use other systems
+        tire_pressures_differences:
+          description: Tire pressures difference from the target pressure.
+          items:
+            $ref: '#/components/schemas/property_tire_pressure'
+          type: array
+        engine_oil_level:
+          $ref: '#/components/schemas/property_percentage'
+          description: The current estimated oil tank liquid fill in percentage.
+        fuel_level_accuracy:
+          $ref: '#/components/schemas/property_fuel_level_accuracy'
+          description: This value includes the information, if the fuel level has been calculated or measured.
+        tire_temperatures:
+          description: Tire temperatures
+          items:
+            $ref: '#/components/schemas/property_tire_temperature'
+          type: array
+        speed:
+          $ref: '#/components/schemas/property_speed'
+          description: The vehicle speed
+        engine_oil_fluid_level:
+          $ref: '#/components/schemas/property_fluid_level'
+          description: Engine oil fluid level
+        engine_oil_service_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: Engine oil service status
+        diesel_exhaust_filter_status:
+          description: Diesel exhaust filter status
+          items:
+            $ref: '#/components/schemas/property_diesel_exhaust_filter_status'
+          type: array
+        engine_oil_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: Engine oil temperature
+    power_takeoff:
+      properties:
+        engaged:
+          $ref: '#/components/schemas/property_engaged'
+          description: Engaged
+        status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Status
+    property_brake_service_remaining_distance:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_brake_service_remaining_distance'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_location_longitudinal:
+      description: Location longitudinal
+      enum:
+        - front
+        - rear
+      type: string
+    property_smart_charging_option:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - price_optimized
+            - renewable_energy
+            - co2_optimized
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    ignition:
+      properties:
+        accessories_status:
+          $ref: '#/components/schemas/property_ignition_state'
+          deprecated: true
+          description: Accessories status
+        state:
+          $ref: '#/components/schemas/property_ignition_state'
+          description: State
+        status:
+          $ref: '#/components/schemas/property_ignition_state'
+          deprecated: true
+          description: Status
+    property_position:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - closed
+            - open
+            - intermediate
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_ignition_state:
+      description: Ignition state
+      enum:
+        - lock
+        - 'off'
+        - accessory
+        - 'on'
+        - start
+      type: string
+    custom_type_confirmed_trouble_code:
+      additionalProperties: false
+      description: Confirmed trouble code
+      properties:
+        ecu_address:
+          description: Electronic Control Unit address
+          type: string
+        ecu_variant_name:
+          description: Electronic Control Unit variant name
+          type: string
+        id:
+          description: Identifier
+          type: string
+        status:
+          description: Status
+          type: string
+      required:
+        - id
+        - ecu_address
+        - ecu_variant_name
+        - status
+      type: object
+    property_drivetrain_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - race_start_preparation
+            - race_start
+            - start
+            - comfort_start
+            - start_idle_run_control
+            - ready_for_overpressing
+            - low_speed_mode
+            - e_launch
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_mass:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - kilograms
+            - grams
+            - decigrams
+            - centigrams
+            - milligrams
+            - micrograms
+            - nanograms
+            - picograms
+            - ounces
+            - pounds
+            - stones
+            - metric_tons
+            - short_tons
+            - carats
+            - ounces_troy
+            - slugs
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_coordinates:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_coordinates'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_event:
+      description: Triggered event
+      enum:
+        - ping
+        - trip_started
+        - trip_ended
+        - vehicle_location_changed
+        - authorization_changed
+        - tire_pressure_changed
+        - seat_belt_triggered
+        - maintenance_changed
+        - dashboard_lights_changed
+        - ignition_changed
+        - accident_reported
+        - emergency_reported
+        - breakdown_reported
+        - battery_guard_warning
+        - engine_changed
+        - fleet_clearance_changed
+      type: string
+    custom_type_wheel_rpm:
+      additionalProperties: false
+      description: Wheel RPM
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location_wheel'
+          description: Wheel location
+        rpm:
+          $ref: '#/components/schemas/unit_angular_velocity'
+          description: The RPM measured at this wheel
+      required:
+        - location
+        - rpm
+      type: object
+    property_oem_trouble_code_value:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_oem_trouble_code_value'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_driving_mode_energy_consumption:
+      additionalProperties: false
+      description: Driving mode energy consumption
+      properties:
+        consumption:
+          $ref: '#/components/schemas/unit_energy'
+          description: Energy consumption in the driving mode
+        driving_mode:
+          $ref: '#/components/schemas/custom_type_driving_mode'
+          description: Driving mode
+      required:
+        - driving_mode
+        - consumption
+      type: object
+    property_lock_safety:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_lock_safety'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_brake_service_remaining_distance:
+      additionalProperties: false
+      description: Brake service remaining distance
+      properties:
+        axle:
+          $ref: '#/components/schemas/custom_type_axle'
+          description: Axle
+        distance:
+          $ref: '#/components/schemas/unit_length'
+          description: Distance
+      required:
+        - axle
+        - distance
+      type: object
+    custom_type_acceleration:
+      additionalProperties: false
+      description: Acceleration
+      properties:
+        acceleration:
+          $ref: '#/components/schemas/unit_acceleration'
+          description: The accelaration
+        direction:
+          description: Direction
+          enum:
+            - longitudinal
+            - lateral
+            - front_lateral
+            - rear_lateral
+          type: string
+      required:
+        - direction
+        - acceleration
+      type: object
+    property_temperature_extreme:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_temperature_extreme'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    notifications:
+      properties:
+        action_items:
+          description: Action items
+          items:
+            $ref: '#/components/schemas/property_action_item'
+          type: array
+        activated_action:
+          $ref: '#/components/schemas/property_uinteger'
+          description: Identifier of the activated action
+        clear:
+          $ref: '#/components/schemas/property_clear'
+          description: Clear
+        text:
+          $ref: '#/components/schemas/property_string'
+          description: Text for the notification
+    custom_type_triggered:
+      description: Triggered
+      enum:
+        - not_triggered
+        - triggered
+      type: string
+    custom_type_window_open_percentage:
+      additionalProperties: false
+      description: Window open percentage
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_window_location'
+          description: Window location
+        open_percentage:
+          description: Percentage value between 0.0 - 1.0 (0% - 100%)
+          type: number
+      required:
+        - location
+        - open_percentage
+      type: object
+    custom_type_reduction_time:
+      additionalProperties: false
+      description: Reduction time
+      properties:
+        start_stop:
+          $ref: '#/components/schemas/custom_type_start_stop'
+          description: Start-Stop
+        time:
+          $ref: '#/components/schemas/custom_type_time'
+          description: Time
+          type: object
+      required:
+        - start_stop
+        - time
+      type: object
+    custom_type_action_item:
+      additionalProperties: false
+      description: Action item
+      properties:
+        id:
+          description: Action identifier
+          type: integer
+        name:
+          description: Name of the action
+          type: string
+      required:
+        - id
+        - name
+      type: object
+    unit_speed:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - meters_per_second
+            - kilometers_per_hour
+            - miles_per_hour
+            - knots
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_charging_restriction:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_charging_restriction'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_grade:
+      description: Grade
+      enum:
+        - excellent
+        - normal
+        - warning
+      type: string
+    property_wipers_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - active
+            - automatic
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_driver_working_state:
+      additionalProperties: false
+      description: Driving working state
+      properties:
+        driver_number:
+          description: The driver number
+          type: integer
+        working_state:
+          description: Working state
+          enum:
+            - resting
+            - driver_available
+            - working
+            - driving
+          type: string
+      required:
+        - driver_number
+        - working_state
+      type: object
+    property_preconditioning_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - standby
+            - heating
+            - cooling
+            - ventilation
+            - inactive
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_key_value:
+      additionalProperties: false
+      description: Key-value pairs like in a dictionary or hash
+      properties:
+        key:
+          description: Key for the value
+          type: string
+        value:
+          description: Value for the key
+          type: string
+      required:
+        - key
+        - value
+      type: object
+    theft_alarm:
+      properties:
+        event_type:
+          $ref: '#/components/schemas/property_event_type'
+          description: Position of the last even relative to the vehicle
+        interior_protection_status:
+          $ref: '#/components/schemas/property_active_selected_state'
+          description: Interior protection sensor status
+        interior_protection_triggered:
+          $ref: '#/components/schemas/property_triggered'
+          description: Indicates whether the interior protection sensors are triggered.
+        last_event:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Last event happening date
+        last_event_level:
+          $ref: '#/components/schemas/property_last_event_level'
+          description: Level of impact for the last event
+        last_warning_reason:
+          $ref: '#/components/schemas/property_last_warning_reason'
+          description: Last warning reason
+        status:
+          $ref: '#/components/schemas/property_status'
+          description: Status
+        tow_protection_status:
+          $ref: '#/components/schemas/property_active_selected_state'
+          description: Tow protection sensor status
+        tow_protection_triggered:
+          $ref: '#/components/schemas/property_triggered'
+          description: Indicates whether the tow protection sensors are triggered.
+    property_gps_source:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - dead_reckoning
+            - real
+            - none
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    weather_conditions:
+      properties:
+        rain_intensity:
+          $ref: '#/components/schemas/property_percentage'
+          description: Measured raining intensity percentage, whereas 0% is no rain and 100% is maximum rain
+    property_brake_torque_vectoring:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_brake_torque_vectoring'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    response429:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Rate limit exceeded
+                type: string
+              title:
+                example: Too Many Requests
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: a8306c7c-9f57-453c-8189-d06118944770
+          type: string
+    custom_type_weekday:
+      description: Weekday
+      enum:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+        - sunday
+        - automatic
+      type: string
+    property_string:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_location_wheel:
+      description: Location wheel
+      enum:
+        - front_left
+        - front_right
+        - rear_right
+        - rear_left
+        - rear_right_outer
+        - rear_left_outer
+        - spare
+      type: string
+    custom_type_driving_mode_activation_period:
+      additionalProperties: false
+      description: Driving mode activation period
+      properties:
+        driving_mode:
+          $ref: '#/components/schemas/custom_type_driving_mode'
+          description: Driving mode
+        period:
+          description: Percentage of the period used for a driving mode
+          type: number
+      required:
+        - driving_mode
+        - period
+      type: object
+    property_crash_incident:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_crash_incident'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_distance_over_time:
+      additionalProperties: false
+      description: distance over time
+      properties:
+        distance:
+          $ref: '#/components/schemas/unit_length'
+          description: Distance driven
+        time:
+          $ref: '#/components/schemas/unit_duration'
+          description: Duration of time for the given distance
+      required:
+        - distance
+        - time
+      type: object
+    seats:
+      properties:
+        persons_detected:
+          description: Persons detected
+          items:
+            $ref: '#/components/schemas/property_person_detected'
+          type: array
+        seatbelts_state:
+          description: Seatbelts state
+          items:
+            $ref: '#/components/schemas/property_seatbelt_state'
+          type: array
+    property_confirmed_trouble_code:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_confirmed_trouble_code'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_location:
+      description: Location
+      enum:
+        - front_left
+        - front_right
+        - rear_right
+        - rear_left
+      type: string
+    unit_fuel_efficiency:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - liters_per_100_kilometers
+            - miles_per_imperial_gallon
+            - miles_per_gallon
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_diesel_exhaust_filter_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_diesel_exhaust_filter_status'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_charging_cost:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_charging_cost'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_active_selected_state:
+      description: Active selected state
+      enum:
+        - inactive_selected
+        - inactive_not_selected
+        - active
+      type: string
+    property_charging_window_chosen:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_chosen
+            - chosen
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_light:
+      additionalProperties: false
+      description: Light
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location_longitudinal'
+          description: Location longitudinal
+        state:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+      required:
+        - location
+        - state
+      type: object
+    property_plug_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - type_1
+            - type_2
+            - ccs
+            - chademo
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_person_detected:
+      additionalProperties: false
+      description: Person detected
+      properties:
+        detected:
+          $ref: '#/components/schemas/custom_type_detected'
+          description: Detected
+        location:
+          $ref: '#/components/schemas/custom_type_seat_location'
+          description: Seat location
+      required:
+        - location
+        - detected
+      type: object
+    custom_type_timer:
+      additionalProperties: false
+      description: Timer
+      properties:
+        date:
+          description: Timer date
+          format: date-time
+          type: string
+        timer_type:
+          description: Timer type
+          enum:
+            - preferred_start_time
+            - preferred_end_time
+            - departure_date
+          type: string
+      required:
+        - timer_type
+        - date
+      type: object
+    offroad:
+      properties:
+        route_incline:
+          $ref: '#/components/schemas/property_angle'
+          description: The route elevation incline
+        wheel_suspension:
+          $ref: '#/components/schemas/property_percentage'
+          description: The wheel suspension level percentage, whereas 0.0 is no suspension and 1.0 maximum suspension
+    property_starter_battery_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - red
+            - yellow
+            - green
+            - orange
+            - green_yellow
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_torque:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - newton_meters
+            - newton_millimeters
+            - pound_feet
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_battery_charge_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_charge
+            - normal
+            - accelerated
+            - fast
+            - quick
+            - ultra_fast
+            - not_used
+            - vehicle_to_home
+            - vehicle_to_grid
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_lock_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_lock_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_service_status:
+      description: Service-Status
+      enum:
+        - ok
+        - warning
+        - critical
+      type: string
+    unit_angular_velocity:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - revolutions_per_minute
+            - degrees_per_second
+            - radians_per_second
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_blind_spot_warning_system_coverage:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - regular
+            - trailer
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_temperature:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_temperature'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    race:
+      properties:
+        accelerations:
+          description: Accelerations
+          items:
+            $ref: '#/components/schemas/property_acceleration'
+          type: array
+        accelerator_durations:
+          description: Duration during which the accelerator pedal has been pressed more than the given percentage.
+          items:
+            $ref: '#/components/schemas/property_accelerator_duration'
+          type: array
+        accelerator_pedal_idle_switch:
+          $ref: '#/components/schemas/property_active_state'
+          description: Accelerator pedal idle switch
+        accelerator_pedal_kickdown_switch:
+          $ref: '#/components/schemas/property_active_state'
+          description: Accelerator pedal kickdown switch
+        brake_pedal_position:
+          $ref: '#/components/schemas/property_percentage'
+          description: The brake pedal position between 0.0-1.0, wheras 1.0 (100%) is full brakes
+        brake_pedal_switch:
+          $ref: '#/components/schemas/property_active_state'
+          description: Brake pedal switch
+        brake_pressure:
+          $ref: '#/components/schemas/property_pressure'
+          description: Brake pressure
+        brake_torque_vectorings:
+          description: Brake torque vectorings
+          items:
+            $ref: '#/components/schemas/property_brake_torque_vectoring'
+          type: array
+        clutch_pedal_switch:
+          $ref: '#/components/schemas/property_active_state'
+          description: Clutch pedal switch
+        drivetrain_state:
+          $ref: '#/components/schemas/property_drivetrain_state'
+          description: State of the drivetrain for starts.
+        electronic_stability_program:
+          $ref: '#/components/schemas/property_active_state'
+          description: Electronic stability program
+        gas_pedal_position:
+          $ref: '#/components/schemas/property_percentage'
+          description: The gas pedal position between 0.0-1.0, whereas 1.0 (100%) is full throttle
+        gear_mode:
+          $ref: '#/components/schemas/property_gear_mode'
+          description: Gear mode
+        oversteering:
+          $ref: '#/components/schemas/property_percentage'
+          description: The oversteering percentage between 0.0-1.0 whereas up to 0.2 (20%) is considered OK, up to 30% marginal, over 30% critical
+        rear_suspension_steering:
+          $ref: '#/components/schemas/property_angle'
+          description: Rear suspension steering
+        selected_gear:
+          $ref: '#/components/schemas/property_integer'
+          description: The selected gear value, if any
+        steering_angle:
+          $ref: '#/components/schemas/property_angle'
+          description: The steering angle, whereas 0.0 is straight ahead, positive number to the right and negative number to the left
+        understeering:
+          $ref: '#/components/schemas/property_percentage'
+          description: The understeering percentage between 0.0-1.0 whereas up to 0.2 (20%) is considered OK, up to 0.3 (30%) marginal, over 30% critical
+        vehicle_moving:
+          $ref: '#/components/schemas/property_vehicle_moving'
+          description: Vehicle moving
+        yaw_rate:
+          $ref: '#/components/schemas/property_angular_velocity'
+          description: Yaw turning rate
+    custom_type_tire_temperature:
+      additionalProperties: false
+      description: Tire temperature
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location_wheel'
+          description: Location wheel
+        temperature:
+          $ref: '#/components/schemas/unit_temperature'
+          description: Tire temperature
+      required:
+        - location
+        - temperature
+      type: object
+    custom_type_seat_location:
+      description: Seat location
+      enum:
+        - front_left
+        - front_right
+        - rear_right
+        - rear_left
+        - rear_center
+        - driver
+        - passenger
+      type: string
+    custom_type_accelerator_duration:
+      additionalProperties: false
+      description: Accelerator duration
+      properties:
+        duration:
+          $ref: '#/components/schemas/unit_duration'
+          description: The duration of the accelerator pedal position
+        pedal_position_threshold:
+          description: The accelerator pedal position threshold percentage
+          type: number
+      required:
+        - pedal_position_threshold
+        - duration
+      type: object
+    property_triggered:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_triggered'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    climate:
+      properties:
+        air_conditioner_compressor_power:
+          $ref: '#/components/schemas/property_power'
+          description: Electric air conditioner compressor power.
+        defogging_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Defogging state
+        defrosting_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Defrosting state
+        defrosting_temperature_setting:
+          $ref: '#/components/schemas/property_temperature'
+          description: The defrosting temperature setting
+        driver_temperature_setting:
+          $ref: '#/components/schemas/property_temperature'
+          description: The driver temperature setting
+        humidity:
+          $ref: '#/components/schemas/property_percentage'
+          description: Measured relative humidity between 0.0 - 1.0.
+        hvac_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: HVAC state
+        hvac_weekday_starting_times:
+          description: HVAC weekday starting times
+          items:
+            $ref: '#/components/schemas/property_weekday_time'
+          type: array
+        inside_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: The inside temperature
+        ionising_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Ionising state
+        outside_temperature:
+          $ref: '#/components/schemas/property_temperature'
+          description: The outside temperature
+        passenger_temperature_setting:
+          $ref: '#/components/schemas/property_temperature'
+          description: The passenger temperature setting
+        rear_temperature_setting:
+          $ref: '#/components/schemas/property_temperature'
+          description: The rear temperature
+    maintenance:
+      properties:
+        drive_in_inspection_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: Drive-in inspection service status.
+        brakes_service_due_dates:
+          description: Brakes servicing due dates.
+          items:
+            $ref: '#/components/schemas/property_brake_service_due_date'
+          type: array
+        drive_in_inspection_distance_to:
+          $ref: '#/components/schemas/property_length'
+          description: The distance until next drive-in inspection of the vehicle
+        months_to_exhaust_inspection:
+          $ref: '#/components/schemas/property_duration'
+          deprecated: true
+          description: Time until exhaust inspection
+        teleservice_battery_call_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Teleservice batter call date
+        distance_to_next_oil_service:
+          $ref: '#/components/schemas/property_length'
+          description: Indicates the remaining distance until the next oil service; if this limit was exceeded, this value indicates the distance that has been driven since then.
+        brake_fluid_remaining_distance:
+          $ref: '#/components/schemas/property_length'
+          description: Indicates the remaining distance for brake fluid.
+        teleservice_availability:
+          $ref: '#/components/schemas/property_teleservice_availability'
+          description: Teleservice availability
+        cbs_reports_count:
+          $ref: '#/components/schemas/property_uinteger'
+          description: The number of CBS reports
+        service_time_threshold:
+          $ref: '#/components/schemas/property_duration'
+          description: Time threshold for service
+        brakes_service_statuses:
+          description: Brakes servicing statuses.
+          items:
+            $ref: '#/components/schemas/property_brake_service_status'
+          type: array
+        next_inspection_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Next inspection date
+        time_to_next_service:
+          $ref: '#/components/schemas/property_duration'
+          description: Time until next servicing of the vehicle
+        brakes_service_remaining_distances:
+          description: Brakes servicing remaining distances.
+          items:
+            $ref: '#/components/schemas/property_brake_service_remaining_distance'
+          type: array
+        last_ecall:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Date-time of the last eCall
+        time_to_exhaust_inspection:
+          $ref: '#/components/schemas/property_duration'
+          description: Time until exhaust inspection
+        time_to_next_oil_service:
+          $ref: '#/components/schemas/property_duration'
+          description: Indicates the time remaining until the next oil service; if this limit was exceeded, this value indicates the time that has passed since then.
+        drive_in_inspection_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Next drive-in inspection date.
+        kilometers_to_next_service:
+          $ref: '#/components/schemas/property_length'
+          deprecated: true
+          description: The distance until next servicing of the vehicle
+        service_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Date of the earliest service. If this service is overdue, the date is in the past.
+        days_to_next_service:
+          $ref: '#/components/schemas/property_duration'
+          deprecated: true
+          description: Time until next servicing of the car
+        brake_fluid_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: Brake fluid's service status.
+        brake_fluid_change_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Brake fluid change date
+        inspection_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: Vehicle inspection service status.
+        service_distance_threshold:
+          $ref: '#/components/schemas/property_length'
+          description: Distance threshold for service
+        vehicle_check_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Vehicle check date (usually after a predetermined distance).
+        next_oil_service_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Next oil service date.
+        vehicle_check_distance_to:
+          $ref: '#/components/schemas/property_length'
+          description: The distance until next vehicle check.
+        condition_based_services:
+          description: Condition based services
+          items:
+            $ref: '#/components/schemas/property_condition_based_service'
+          type: array
+        legal_inspection_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Next legally required inspection date
+        automatic_teleservice_call_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Automatic teleservice call date
+        next_inspection_distance_to:
+          $ref: '#/components/schemas/property_length'
+          description: Distance until the next inspection.
+        vehicle_check_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: Vehicle check service status.
+        distance_to_next_service:
+          $ref: '#/components/schemas/property_length'
+          description: The distance until next servicing of the vehicle
+        service_status:
+          $ref: '#/components/schemas/property_service_status'
+          description: 'Consolidated status regarding service requirements. OK: no current service requirement, WARNING: at least one service has reported requirement, CRITICAL: at least one service is overdue.'
+    property_acceleration:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_acceleration'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_spring_rate:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_spring_rate'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_lock_safety:
+      description: Lock safety
+      enum:
+        - safe
+        - unsafe
+      type: string
+    custom_type_window_location:
+      description: Window location
+      enum:
+        - front_left
+        - front_right
+        - rear_right
+        - rear_left
+        - hatch
+      type: string
+    property_check_control_message:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_check_control_message'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_action_item:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_action_item'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_driver_card_present:
+      additionalProperties: false
+      description: Driver card present
+      properties:
+        card_present:
+          description: Card present
+          enum:
+            - not_present
+            - present
+          type: string
+        driver_number:
+          description: The driver number
+          type: integer
+      required:
+        - driver_number
+        - card_present
+      type: object
+    custom_type_hmkit_version:
+      additionalProperties: false
+      description: HMKit version
+      properties:
+        major:
+          description: HMKit version major number
+          type: integer
+        minor:
+          description: HMKit version minor number
+          type: integer
+        patch:
+          description: HMKit version patch number
+          type: integer
+      required:
+        - major
+        - minor
+        - patch
+      type: object
+    property_charging_time_display:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_display
+            - display_duration
+            - no_display_duration
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    crash:
+      properties:
+        automatic_ecall:
+          $ref: '#/components/schemas/property_enabled_state'
+          description: Automatic emergency call enabled state
+        impact_zone:
+          description: Impact zone of the crash
+          items:
+            $ref: '#/components/schemas/property_impact_zone'
+          type: array
+        incidents:
+          description: Incidents
+          items:
+            $ref: '#/components/schemas/property_crash_incident'
+          type: array
+        severity:
+          $ref: '#/components/schemas/property_uinteger'
+          description: Severity of the crash (from 0 to 7 - very high severity)
+        status:
+          $ref: '#/components/schemas/property_status'
+          description: The system effect an inpact had on the vehicle.
+        tipped_state:
+          $ref: '#/components/schemas/property_tipped_state'
+          description: Tipped state
+        type:
+          $ref: '#/components/schemas/property_type'
+          description: Type
+    unit_illuminance:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - lux
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    cruise_control:
+      properties:
+        acc_target_speed:
+          $ref: '#/components/schemas/property_speed'
+          description: The target speed of the Adaptive Cruise Control
+        adaptive_cruise_control:
+          $ref: '#/components/schemas/property_active_state'
+          description: Adaptive Cruise Control
+        cruise_control:
+          $ref: '#/components/schemas/property_active_state'
+          description: Cruise control
+        limiter:
+          $ref: '#/components/schemas/property_limiter'
+          description: Limiter
+        target_speed:
+          $ref: '#/components/schemas/property_speed'
+          description: The target speed
+    property_flashers:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - emergency_flasher_active
+            - left_flasher_active
+            - right_flasher_active
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_active_selected_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_active_selected_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_brake_service_due_date:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_brake_service_due_date'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_trouble_code:
+      additionalProperties: false
+      description: Trouble code
+      properties:
+        ecu_id:
+          description: Electronic Control Unit identifier
+          type: string
+        id:
+          description: Identifier
+          type: string
+        occurrences:
+          description: Number of occurrences
+          type: integer
+        status:
+          description: Status
+          type: string
+        system:
+          description: System
+          enum:
+            - unknown
+            - body
+            - chassis
+            - powertrain
+            - network
+          type: string
+      required:
+        - occurrences
+        - id
+        - ecu_id
+        - status
+        - system
+      type: object
+    property_driving_mode_energy_consumption:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_driving_mode_energy_consumption'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_electric_current:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_electric_current'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_driving_mode_phev:
+      description: Driving mode PHEV
+      enum:
+        - not_in_traction
+        - in_charge
+        - full_electric
+        - hybrid_serial
+        - thermic
+        - hybrid_parallel
+      type: string
+    property_parking_light_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - 'off'
+            - left
+            - right
+            - both
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    remote_control:
+      properties:
+        angle:
+          $ref: '#/components/schemas/property_angle'
+          description: Wheel base angle
+        control_mode:
+          $ref: '#/components/schemas/property_control_mode'
+          description: Control mode
+    property_person_detected:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_person_detected'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_reduction_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_reduction_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_on_off_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_on_off_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_trouble_code:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_trouble_code'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_oem_trouble_code_value:
+      additionalProperties: false
+      description: OEM trouble code key-pair with identifier
+      properties:
+        id:
+          description: Identifier for the trouble code
+          type: string
+        key_value:
+          $ref: '#/components/schemas/custom_type_key_value'
+          description: Key-value pair for the trouble code
+          type: object
+      required:
+        - id
+        - key_value
+      type: object
+    charging_session:
+      properties:
+        business_errors:
+          description: Business errors
+          items:
+            $ref: '#/components/schemas/property_string'
+          type: array
+        calculated_energy_charged:
+          $ref: '#/components/schemas/property_energy'
+          description: Calculated amount of energy charged during the session
+        charging_cost:
+          $ref: '#/components/schemas/property_charging_cost'
+          description: Charging cost information
+        displayed_start_state_of_charge:
+          $ref: '#/components/schemas/property_percentage'
+          description: Displayed state of charge at start to the driver
+        displayed_state_of_charge:
+          $ref: '#/components/schemas/property_percentage'
+          description: Displayed state of charge to the driver
+        end_time:
+          $ref: '#/components/schemas/property_timestamp'
+          description: End time of the charging session
+        energy_charged:
+          $ref: '#/components/schemas/property_energy'
+          description: Energy charged during the session
+        location:
+          $ref: '#/components/schemas/property_charging_location'
+          description: Charging location address
+        odometer:
+          $ref: '#/components/schemas/property_length'
+          description: The vehicle odometer value in a given units
+        preconditioning_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Preconditioning is active or not
+        public_charging_points:
+          description: Matching public charging points.
+          items:
+            $ref: '#/components/schemas/property_charging_point'
+          type: array
+        start_time:
+          $ref: '#/components/schemas/property_timestamp'
+          description: Start time of the charging session
+        time_zone:
+          $ref: '#/components/schemas/property_string'
+          description: Time zone of the charging session
+        total_charging_duration:
+          $ref: '#/components/schemas/property_duration'
+          description: Total time charging was active during the session
+    custom_type_charging_location:
+      additionalProperties: false
+      description: Charging location address
+      properties:
+        formatted_address:
+          description: Full formatted address
+          type: string
+        municipality:
+          description: Municipality component of the address
+          type: string
+        street_address:
+          description: Street address component
+          type: string
+      required:
+        - municipality
+        - formatted_address
+        - street_address
+      type: object
+    light_conditions:
+      properties:
+        inside_light:
+          $ref: '#/components/schemas/property_illuminance'
+          description: Measured inside illuminance
+        outside_light:
+          $ref: '#/components/schemas/property_illuminance'
+          description: Measured outside illuminance
+    honk_horn_flash_lights:
+      properties:
+        flashers:
+          $ref: '#/components/schemas/property_flashers'
+          description: Flashers
+    parking_brake:
+      properties:
+        status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Status
+    custom_type_coordinates:
+      additionalProperties: false
+      description: Coordinates
+      properties:
+        latitude:
+          description: Latitude
+          type: number
+        longitude:
+          description: Longitude
+          type: number
+      required:
+        - latitude
+        - longitude
+      type: object
+    property_fuel_level_accuracy:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - measured
+            - calculated
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_weekday_time:
+      additionalProperties: false
+      description: Weekday time
+      properties:
+        time:
+          $ref: '#/components/schemas/custom_type_time'
+          description: Time
+          type: object
+        weekday:
+          $ref: '#/components/schemas/custom_type_weekday'
+          description: Weekday
+      required:
+        - weekday
+        - time
+      type: object
+    property_driving_mode_phev:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_driving_mode_phev'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_vehicle_moving:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_moving
+            - moving
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_energy:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - joules
+            - kilojoules
+            - watt_hours
+            - kilowatt_hours
+            - ampere_hours
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    usage:
+      properties:
+        recuperation_power:
+          $ref: '#/components/schemas/property_power'
+          description: Recuperation energy of the drivetrain.
+        electric_duration_since_reset:
+          $ref: '#/components/schemas/property_duration'
+          description: Duration of travelling using electricity since reset
+        average_weekly_distance_long_run:
+          $ref: '#/components/schemas/property_length'
+          description: Average weekyl distance over long term
+        driving_modes_energy_consumptions:
+          description: Driving modes energy consumptions
+          items:
+            $ref: '#/components/schemas/property_driving_mode_energy_consumption'
+          type: array
+        electric_distance_last_trip:
+          $ref: '#/components/schemas/property_length'
+          description: Distance travelled with electricity in last trip
+        average_weekly_distance:
+          $ref: '#/components/schemas/property_length'
+          description: Average weekly distance
+        rapid_deceleration_grade:
+          $ref: '#/components/schemas/property_grade'
+          description: Grade given for rapid deceleration over time
+        fuel_consumption_rate_last_trip:
+          $ref: '#/components/schemas/property_fuel_efficiency'
+          description: Liquid fuel consumption rate during last trip
+        rapid_acceleration_grade:
+          $ref: '#/components/schemas/property_grade'
+          description: Grade given for rapid acceleration over time
+        eco_score_constant:
+          $ref: '#/components/schemas/property_percentage'
+          description: Eco-score rating constant
+        driving_duration_last_trip:
+          $ref: '#/components/schemas/property_duration'
+          description: Duration of last trip
+        electric_consumption_average:
+          $ref: '#/components/schemas/property_energy_efficiency'
+          description: Average electric energy consumption calculated based on the last 20km
+        acceleration_durations:
+          description: Durations of normal or other accelerations.
+          items:
+            $ref: '#/components/schemas/property_acceleration_duration'
+          type: array
+        current_fuel_consumption:
+          $ref: '#/components/schemas/property_fuel_efficiency'
+          description: Current fuel consumption
+        last_trip_energy_consumption:
+          $ref: '#/components/schemas/property_energy'
+          description: Energy consumption in the last trip
+        electric_consumption_rate_since_start:
+          $ref: '#/components/schemas/property_energy_efficiency'
+          description: Electric energy consumption rate since the start of a trip
+        fuel_consumption_rate_since_reset:
+          $ref: '#/components/schemas/property_fuel_efficiency'
+          description: Liquid fuel consumption rate since reset
+        average_speed:
+          $ref: '#/components/schemas/property_speed'
+          description: Average speed at data collection.
+        trip_meters:
+          description: Independent meter that can be reset at any time by the driver
+          items:
+            $ref: '#/components/schemas/property_trip_meter'
+          type: array
+        average_speed_since_reset:
+          $ref: '#/components/schemas/property_speed'
+          description: Average speed since reset
+        last_trip_date:
+          $ref: '#/components/schemas/property_timestamp'
+          description: The last trip date
+        last_trip_average_energy_recuperation:
+          $ref: '#/components/schemas/property_energy_efficiency'
+          description: Energy recuperation rate for last trip
+        last_trip_fuel_consumption:
+          $ref: '#/components/schemas/property_volume'
+          description: Fuel consumption in the last trip
+        driving_duration_since_reset:
+          $ref: '#/components/schemas/property_duration'
+          description: Duration of travelling since reset
+        electric_consumption_rate_since_reset:
+          $ref: '#/components/schemas/property_energy_efficiency'
+          description: Electric energy consumption rate since a reset
+        eco_score_free_wheel:
+          $ref: '#/components/schemas/property_percentage'
+          description: Eco-score rating for free-wheeling
+        driving_modes_activation_periods:
+          description: Driving modes activation periods
+          items:
+            $ref: '#/components/schemas/property_driving_mode_activation_period'
+          type: array
+        fuel_distance_since_reset:
+          $ref: '#/components/schemas/property_length'
+          description: Distance travelled with (liquid) fuel since reset
+        eco_score_bonus_range:
+          $ref: '#/components/schemas/property_length'
+          description: Eco-score bonus range
+        acceleration_evaluation:
+          $ref: '#/components/schemas/property_percentage'
+          description: Acceleration evaluation percentage
+        electric_distance_since_reset:
+          $ref: '#/components/schemas/property_length'
+          description: Distance travelled with electricity since reset
+        average_fuel_consumption:
+          $ref: '#/components/schemas/property_fuel_efficiency'
+          description: Average fuel consumption for current trip
+        distance_over_time:
+          $ref: '#/components/schemas/property_distance_over_time'
+          description: Distance driven over a given time period
+        mileage_after_last_trip:
+          $ref: '#/components/schemas/property_length'
+          deprecated: true
+          description: Mileage after the last trip
+        eco_score_total:
+          $ref: '#/components/schemas/property_percentage'
+          description: Overall eco-score rating
+        braking_evaluation:
+          $ref: '#/components/schemas/property_percentage'
+          description: Braking evaluation percentage
+        odometer_after_last_trip:
+          $ref: '#/components/schemas/property_length'
+          description: Odometer after the last trip
+        last_trip_electric_portion:
+          $ref: '#/components/schemas/property_percentage'
+          description: Portion of the last trip used in electric mode
+        average_speed_last_trip:
+          $ref: '#/components/schemas/property_speed'
+          description: Average speed during last trip
+        electric_duration_last_trip:
+          $ref: '#/components/schemas/property_duration'
+          description: Duration of travelling using electricity during last trip
+        fuel_distance_last_trip:
+          $ref: '#/components/schemas/property_length'
+          description: Distance travelled with (liquid) fuel during last trip
+        safety_driving_score:
+          $ref: '#/components/schemas/property_percentage'
+          description: Safety driving score as percentage
+        driving_style_evaluation:
+          $ref: '#/components/schemas/property_percentage'
+          description: Driving style evaluation percentage
+        late_night_grade:
+          $ref: '#/components/schemas/property_grade'
+          description: Grade given for late night driving over time
+        last_trip_battery_remaining:
+          $ref: '#/components/schemas/property_percentage'
+          description: Battery % remaining after last trip
+    property_length:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_length'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_condition_based_service:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_condition_based_service'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_charge_mode:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - immediate
+            - timer_based
+            - inductive
+            - conductive
+            - push_button
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_condition_based_service:
+      additionalProperties: false
+      description: Condition based service
+      properties:
+        description:
+          description: Description
+          type: string
+        due_status:
+          description: Due status
+          enum:
+            - ok
+            - pending
+            - overdue
+          type: string
+        id:
+          description: CBS identifier
+          type: integer
+        month:
+          description: Value between 1 and 12
+          type: integer
+        text:
+          description: CBS text
+          type: string
+        year:
+          description: The year
+          type: integer
+      required:
+        - year
+        - month
+        - id
+        - due_status
+        - text
+        - description
+      type: object
+    custom_type_availability:
+      additionalProperties: false
+      description: Availability
+      properties:
+        applies_per:
+          description: Rate limit applies per
+          enum:
+            - app
+            - vehicle
+          type: string
+        rate_limit:
+          $ref: '#/components/schemas/unit_frequency'
+          description: Frequency denoting the rate limit
+        update_rate:
+          description: Update rate
+          enum:
+            - trip_high
+            - trip
+            - trip_start_end
+            - trip_end
+            - unknown
+            - not_available
+            - on_change
+          type: string
+      required:
+        - update_rate
+        - rate_limit
+        - applies_per
+      type: object
+    custom_type_zone:
+      additionalProperties: false
+      description: Zone
+      properties:
+        horizontal:
+          description: Horizontal component of the matrix
+          type: integer
+        vertical:
+          description: Vertical component of the matrix
+          type: integer
+      required:
+        - horizontal
+        - vertical
+      type: object
+    property_limiter:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_set
+            - higher_speed_requested
+            - lower_speed_requested
+            - speed_fixed
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_power:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - watts
+            - milliwatts
+            - kilowatts
+            - megawatts
+            - horsepower
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_ignition_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_ignition_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_volume:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_volume'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    response403:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                type: string
+              title:
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          type: string
+    property_bulb_failures:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - turn_signal_left
+            - turn_signal_right
+            - low_beam
+            - low_beam_left
+            - low_beam_right
+            - high_beam
+            - high_beam_left
+            - high_beam_right
+            - fog_light_front
+            - fog_light_rear
+            - stop
+            - position
+            - day_running
+            - trailer_turn
+            - trailer_turn_left
+            - trailer_turn_right
+            - trailer_stop
+            - trailer_electrical_failure
+            - multiple
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_current_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - alternating_current
+            - direct_current
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_energy_efficiency:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - kwh_per_100_kilometers
+            - miles_per_kwh
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_tire_temperature:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_tire_temperature'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_tire_pressure_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_tire_pressure_status'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_reading_lamp:
+      additionalProperties: false
+      description: Reading lamp
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location'
+          description: Location
+        state:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+      required:
+        - location
+        - state
+      type: object
+    custom_type_axle:
+      description: Axle
+      enum:
+        - front
+        - rear
+      type: string
+    custom_type_charging_cost:
+      additionalProperties: false
+      description: Charging cost information
+      properties:
+        calculated_charging_cost:
+          description: Calculated charging cost
+          type: number
+        calculated_savings:
+          description: Calculated savings from charging
+          type: number
+        currency:
+          description: Currency ISO code
+          type: string
+        simulated_immediate_charging_cost:
+          description: Simulated charging costs
+          type: number
+      required:
+        - currency
+        - calculated_charging_cost
+        - calculated_savings
+        - simulated_immediate_charging_cost
+      type: object
+    custom_type_trip_meter:
+      additionalProperties: false
+      description: Independent meter that can be reset at any time by the driver
+      properties:
+        distance:
+          $ref: '#/components/schemas/unit_length'
+          description: Distance
+        id:
+          description: ID
+          type: integer
+      required:
+        - id
+        - distance
+      type: object
+    property_trip_meter:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_trip_meter'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    messaging:
+      properties:
+        handle:
+          $ref: '#/components/schemas/property_string'
+          description: The optional handle of message
+        text:
+          $ref: '#/components/schemas/property_string'
+          description: The text
+    property_illuminance:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_illuminance'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_failure:
+      additionalProperties: false
+      description: Failure
+      properties:
+        description:
+          description: Failure description
+          type: string
+        reason:
+          description: Reason
+          enum:
+            - rate_limit
+            - execution_timeout
+            - format_error
+            - unauthorised
+            - unknown
+            - pending
+            - oem_error
+            - privacy_mode_active
+          type: string
+      required:
+        - reason
+        - description
+      type: object
+    property_acoustic_limit:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_action
+            - automatic
+            - unlimited
+            - limited
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_angle:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - degrees
+            - radians
+            - revolutions
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_engine_type:
+      description: Engine type
+      enum:
+        - unknown
+        - all_electric
+        - combustion_engine
+        - phev
+        - hydrogen
+        - hydrogen_hybrid
+        - petrol
+        - electric
+        - gas
+        - diesel
+        - gasoline
+        - cng
+        - lpg
+        - hybrid
+      type: string
+    property_battery_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - active
+            - balancing
+            - external_load
+            - load
+            - error
+            - initialising
+            - conditioning
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    rooftop_control:
+      properties:
+        convertible_roof_state:
+          $ref: '#/components/schemas/property_convertible_roof_state'
+          description: Convertible roof state
+        dimming:
+          $ref: '#/components/schemas/property_percentage'
+          description: 1.0 (100%) is opaque, 0.0 (0%) is transparent
+        position:
+          $ref: '#/components/schemas/property_percentage'
+          description: 1.0 (100%) is fully open, 0.0 (0%) is closed
+        sunroof_rain_event:
+          $ref: '#/components/schemas/property_sunroof_rain_event'
+          description: Sunroof event happened in case of rain
+        sunroof_state:
+          $ref: '#/components/schemas/property_sunroof_state'
+          description: Sunroof state
+        sunroof_tilt_state:
+          $ref: '#/components/schemas/property_sunroof_tilt_state'
+          description: Sunroof tilt state
+        tilt_position:
+          $ref: '#/components/schemas/property_percentage'
+          description: 1.0 (100%) is fully tilted, 0.0 (0%) is not
+    property_sunroof_rain_event:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_event
+            - in_stroke_position_because_of_rain
+            - automatically_in_stroke_position
+            - timer
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_angular_velocity:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_angular_velocity'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_departure_time_display:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_display
+            - reachable
+            - not_reachable
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_window_position:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_window_position'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_diesel_exhaust_filter_status:
+      additionalProperties: false
+      description: Diesel exhaust filter status
+      properties:
+        cleaning:
+          description: Cleaning
+          enum:
+            - unknown
+            - in_progress
+            - complete
+            - interrupted
+          type: string
+        component:
+          description: Component
+          enum:
+            - unknown
+            - exhaust_filter
+            - diesel_particulate_filter
+            - overboost_code_regulator
+            - off_board_regeneration
+          type: string
+        status:
+          description: Status
+          enum:
+            - unknown
+            - normal_operation
+            - overloaded
+            - at_limit
+            - over_limit
+          type: string
+      required:
+        - status
+        - component
+        - cleaning
+      type: object
+    custom_type_temperature_extreme:
+      additionalProperties: false
+      description: Temperature extreme
+      properties:
+        extreme:
+          description: Extreme
+          enum:
+            - highest
+            - lowest
+          type: string
+        temperature:
+          $ref: '#/components/schemas/unit_temperature'
+          description: Temperature
+      required:
+        - extreme
+        - temperature
+      type: object
+    lights:
+      properties:
+        ambient_light_colour:
+          $ref: '#/components/schemas/property_rgb_colour'
+          description: Ambient light colour
+        emergency_brake_light:
+          $ref: '#/components/schemas/property_active_state'
+          description: Emergency brake light
+        fog_lights:
+          description: Fog lights
+          items:
+            $ref: '#/components/schemas/property_light'
+          type: array
+        front_exterior_light:
+          $ref: '#/components/schemas/property_front_exterior_light'
+          description: Front exterior light
+        interior_lights:
+          description: Interior lights
+          items:
+            $ref: '#/components/schemas/property_light'
+          type: array
+        parking_light_status:
+          $ref: '#/components/schemas/property_parking_light_status'
+          description: Indicates the status of the parking light.
+        reading_lamps:
+          description: Reading lamps
+          items:
+            $ref: '#/components/schemas/property_reading_lamp'
+          type: array
+        rear_exterior_light:
+          $ref: '#/components/schemas/property_active_state'
+          description: Rear exterior light
+        reverse_light:
+          $ref: '#/components/schemas/property_active_state'
+          description: Reverse light
+        switch_position:
+          $ref: '#/components/schemas/property_switch_position'
+          description: Position of the rotary light switch
+    property_teleservice_availability:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - pending
+            - idle
+            - successful
+            - error
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_energy_efficiency:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_energy_efficiency'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_crash_incident:
+      additionalProperties: false
+      description: Crash incident
+      properties:
+        location:
+          description: Location
+          enum:
+            - front
+            - lateral
+            - rear
+          type: string
+        repairs:
+          description: Repairs
+          enum:
+            - unknown
+            - needed
+            - not_needed
+          type: string
+        severity:
+          description: Severity
+          enum:
+            - very_high
+            - high
+            - medium
+            - low
+            - unknown
+          type: string
+      required:
+        - location
+        - severity
+        - repairs
+      type: object
+    property_last_warning_reason:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - no_alarm
+            - basic_alarm
+            - door_front_left
+            - door_front_right
+            - door_rear_left
+            - door_rear_right
+            - hood
+            - trunk
+            - common_alm_in
+            - panic
+            - glovebox
+            - center_box
+            - rear_box
+            - sensor_vta
+            - its
+            - its_slv
+            - tps
+            - horn
+            - hold_com
+            - remote
+            - unknown
+            - siren
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    response503:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Failure when fetching data from OEM
+                type: string
+              title:
+                example: Service Unavailable
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: e4828bf1-8687-4f7b-b8c7-6c4223e2b842
+          type: string
+    unit_volume:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - liters
+            - milliliters
+            - centiliters
+            - deciliters
+            - cubic_millimeters
+            - cubic_centimeters
+            - cubic_decimeters
+            - cubic_meters
+            - cubic_inches
+            - cubic_feet
+            - fluid_ounces
+            - gallons
+            - imperial_fluid_ounces
+            - imperial_gallons
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_departure_time:
+      additionalProperties: false
+      description: Departure time
+      properties:
+        state:
+          $ref: '#/components/schemas/custom_type_active_state'
+          description: Active state
+        time:
+          $ref: '#/components/schemas/custom_type_time'
+          description: Time
+          type: object
+      required:
+        - state
+        - time
+      type: object
+    property_front_exterior_light:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - active
+            - active_with_full_beam
+            - drl
+            - automatic
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_sport_chrono:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - inactive
+            - active
+            - reset
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_lane_keep_assist_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_lane_keep_assist_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_eco_driving_threshold:
+      additionalProperties: false
+      description: Eco driving threshold
+      properties:
+        type:
+          description: Type
+          enum:
+            - zero
+            - one
+          type: string
+        value:
+          description: Value
+          type: number
+      required:
+        - type
+        - value
+      type: object
+    property_vin:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          maxLength: 17
+          minLength: 17
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_brake_service_due_date:
+      additionalProperties: false
+      description: Brake service due date
+      properties:
+        axle:
+          $ref: '#/components/schemas/custom_type_axle'
+          description: Axle
+        due_date:
+          description: Due date
+          format: date-time
+          type: string
+      required:
+        - axle
+        - due_date
+      type: object
+    response401:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Failure when fetching data from OEM
+                type: string
+              title:
+                example: Service Unavailable
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          type: string
+    property_gear_mode:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - manual
+            - park
+            - reverse
+            - neutral
+            - drive
+            - low_gear
+            - sport
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_windscreen_needs_replacement:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - unknown
+            - no_replacement_needed
+            - replacement_needed
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_event_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - idle
+            - front_left
+            - front_middle
+            - front_right
+            - right
+            - rear_right
+            - rear_middle
+            - rear_left
+            - left
+            - unknown
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    unit_acceleration:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - meters_per_second_squared
+            - gravity
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    custom_type_tire_pressure:
+      additionalProperties: false
+      description: Tire pressure
+      properties:
+        location:
+          $ref: '#/components/schemas/custom_type_location_wheel'
+          description: Location wheel
+        pressure:
+          $ref: '#/components/schemas/unit_pressure'
+          description: Tire pressure
+      required:
+        - location
+        - pressure
+      type: object
+    property_grade:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_grade'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    engine:
+      properties:
+        limp_mode:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates wheter the engine is in fail-safe mode.
+        preconditioning_active:
+          $ref: '#/components/schemas/property_active_state'
+          description: Pre-conditioning is running.
+        preconditioning_enabled:
+          $ref: '#/components/schemas/property_enabled_state'
+          description: Use of the engine pre-conditioning is enabled.
+        preconditioning_error:
+          $ref: '#/components/schemas/property_preconditioning_error'
+          description: Reason for not carrying out pre-conditioning.
+        preconditioning_remaining_time:
+          $ref: '#/components/schemas/property_duration'
+          description: Remaining time of pre-conditioning.
+        preconditioning_status:
+          $ref: '#/components/schemas/property_preconditioning_status'
+          description: Status of the pre-conditioning system.
+        start_stop_enabled:
+          $ref: '#/components/schemas/property_enabled_state'
+          description: Indicates if the automatic start-stop system is enabled or not
+        start_stop_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates wheter the start-stop system is currently active or not
+        status:
+          $ref: '#/components/schemas/property_on_off_state'
+          description: Status
+    adas:
+      properties:
+        alertness_system_status:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates if the driver alertness warning is active or inactive.
+        automated_parking_brake:
+          $ref: '#/components/schemas/property_active_state'
+          description: Automatic brake state
+        blind_spot_warning_state:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates whether the blind spot warning system is active or not.
+        blind_spot_warning_system:
+          $ref: '#/components/schemas/property_on_off_state'
+          description: Indicates whether the blind spot warning system is turned on or not.
+        blind_spot_warning_system_coverage:
+          $ref: '#/components/schemas/property_blind_spot_warning_system_coverage'
+          description: Blind spot warning system coverage.
+        forward_collision_warning_system:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates whether the forward collision warning system is active or inactive.
+        lane_keep_assist_system:
+          $ref: '#/components/schemas/property_on_off_state'
+          description: Indicates if the lane keep assist system is turned on or not.
+        lane_keep_assists_states:
+          description: Lane keeping assist state indicating the vehicle is actively controlling the wheels.
+          items:
+            $ref: '#/components/schemas/property_lane_keep_assist_state'
+          type: array
+        launch_control:
+          $ref: '#/components/schemas/property_active_state'
+          description: State of launch control activation.
+        park_assists:
+          description: If the alarm is active and the driver has muted or not park assists.
+          items:
+            $ref: '#/components/schemas/property_park_assist'
+          type: array
+        rear_cross_warning_system:
+          $ref: '#/components/schemas/property_active_state'
+          description: Indicates whether the rear cross warning system is active or not.
+        status:
+          $ref: '#/components/schemas/property_on_off_state'
+          description: Indicates whether the driver assistance system is active or not.
+    property_active_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_active_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_convertible_roof_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - closed
+            - open
+            - emergency_locked
+            - closed_secured
+            - open_secured
+            - hard_top_mounted
+            - intermediate_position
+            - loading_position
+            - loading_position_immediate
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    chassis_settings:
+      properties:
+        current_chassis_position:
+          $ref: '#/components/schemas/property_length'
+          description: The chassis position calculated from the lowest point
+        current_spring_rates:
+          description: The current values for the spring rates
+          items:
+            $ref: '#/components/schemas/property_spring_rate'
+          type: array
+        driving_mode:
+          $ref: '#/components/schemas/property_driving_mode'
+          description: Driving mode
+        maximum_chassis_position:
+          $ref: '#/components/schemas/property_length'
+          description: The maximum possible value for the chassis position
+        maximum_spring_rates:
+          description: The maximum possible values for the spring rates
+          items:
+            $ref: '#/components/schemas/property_spring_rate'
+          type: array
+        minimum_chassis_position:
+          $ref: '#/components/schemas/property_length'
+          description: The minimum possible value for the chassis position
+        minimum_spring_rates:
+          description: The minimum possible values for the spring rates
+          items:
+            $ref: '#/components/schemas/property_spring_rate'
+          type: array
+        sport_chrono:
+          $ref: '#/components/schemas/property_sport_chrono'
+          description: Sport chrono
+    property_speed:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_speed'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_electric_potential_difference:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/unit_electric_potential_difference'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_tire_pressure:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_tire_pressure'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_sunroof_state:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - closed
+            - open
+            - intermediate
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_time:
+      additionalProperties: false
+      description: Time
+      properties:
+        hour:
+          description: Value between 0 and 23
+          type: integer
+        minute:
+          description: Value between 0 and 59
+          type: integer
+      required:
+        - hour
+        - minute
+      type: object
+    property_acceleration_duration:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_acceleration_duration'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    doors:
+      properties:
+        inside_locks:
+          description: Inside lock states for the given doors
+          items:
+            $ref: '#/components/schemas/property_lock'
+          type: array
+        inside_locks_state:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Inside locks state for the whole vehicle (combines all specific lock states if available)
+        locks:
+          description: Lock states for the given doors
+          items:
+            $ref: '#/components/schemas/property_lock'
+          type: array
+        locks_state:
+          $ref: '#/components/schemas/property_lock_state'
+          description: Locks state for the whole vehicle (combines all specific lock states if available)
+        positions:
+          description: Door positions for the given doors
+          items:
+            $ref: '#/components/schemas/property_door_position'
+          type: array
+    property_wheel_rpm:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_wheel_rpm'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_fluid_level:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_fluid_level'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    custom_type_active_state:
+      description: Active state
+      enum:
+        - inactive
+        - active
+      type: string
+    custom_type_start_stop:
+      description: Start-Stop
+      enum:
+        - start
+        - stop
+      type: string
+    unit_length:
+      additionalProperties: false
+      properties:
+        unit:
+          enum:
+            - meters
+            - millimeters
+            - centimeters
+            - decimeters
+            - kilometers
+            - megameters
+            - inches
+            - feet
+            - yards
+            - miles
+            - scandinavian_miles
+            - nautical_miles
+          type: string
+        value:
+          type: number
+      required:
+        - unit
+        - value
+      type: object
+    property_light:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_light'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+  securitySchemes:
+    VehicleDataAuth:
+      flows:
+        authorizationCode:
+          authorizationUrl: https://owner-panel.sandbox.high-mobiliy.com/oauth/new
+          scopes:
+            vehicle:data: all configured vehicle data
+          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
+        clientCredentials:
+          scopes:
+            vehicle:data: all all configured vehicle data
+          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
+      type: oauth2
+info:
+  description: |-
+    This endpoint allows you to retrieve vehicle data through a RESTful interface.
+
+    Authentication: 
+     * For driver flow use [OAuth2](https://docs.high-mobility.com/api-references/code-references/oauth2/reference/v1/) using `authorization_code` grant type to obtain access token.
+     * For fleet flow use OAuth2 using `client_credentials` grant type to obtain access token.
+
+
+
+    Sandbox server: `https://sandbox.api.high-mobility.com`
+
+
+    Production server: `https://api.high-mobility.com`
+  title: Vehicle Data API
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /v1/vehicle-data/autoapi-13/{vin}:
+    get:
+      parameters:
+        - description: Vehicle Identification number
+          in: path
+          name: vin
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+          description: successful operation
+        '401':
+          content:
+            application/json:
+              examples:
+                Consent is removed by OEM:
+                  value:
+                    errors:
+                      - detail: Consent is removed by OEM
+                        title: Not Authorized
+                    request_id: 2c85d1f9a23623ac5deeb7eecba61a5f
+                Invalid JWT Payload:
+                  value:
+                    errors:
+                      - detail: Invalid JWT Payload
+                        title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+                Invalid authorization header:
+                  value:
+                    errors:
+                      - detail: Missing or invalid authorization header
+                        title: Not Authorized
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+                Invalid token:
+                  value:
+                    errors:
+                      - detail: Invalid token
+                        title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+              schema:
+                $ref: '#/components/schemas/response401'
+          description: Not Authorized
+        '403':
+          content:
+            application/json:
+              examples:
+                No active consent:
+                  value:
+                    errors:
+                      - detail: No active consent for this vehicle
+                        title: Forbidden
+                    request_id: 5c88d1f11a23624ac6deeb8eecba62a5f
+                Privacy mode is active:
+                  value:
+                    errors:
+                      - detail: Privacy mode is active
+                        title: Forbidden
+                    request_id: 2c85d1f9a23623ac5deeb7eecba61a5f
+              schema:
+                $ref: '#/components/schemas/response403'
+          description: Forbidden
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response422'
+          description: Unprocessable Entity
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response429'
+          description: Too Many Requests
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response500'
+          description: Internal Server Error
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response503'
+          description: Service Unavailable
+        '504':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response504'
+          description: Timeout
+      security:
+        - VehicleDataAuth:
+            - vehicle:data
+      tags:
+        - Data API
+servers:
+  - url: https://sandbox.api.high-mobility.com
+  - url: https://api.high-mobility.com
+
