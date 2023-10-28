@@ -1,45 +1,162 @@
+openapi: 3.0.3
+info:
+  title: OAuth2 API
+  description: >-
+    The OAuth2 API provides you an interface to create access tokens which could be used for :
+
+      * Vehicle resource : Access and refresh access tokens, which are issued on a VIN-basis to be used with any of the pull-based data APIs.
+      * Application resource: Access tokens, which are used to access an application resource. e.g Clearance APIs, Eligibility API and Vehicle data for fleets.
+
+
+      The OAuth2 server addresses are listed in your application view within the platform console.
+
+      Sandbox server: `https://sandbox.api.high-mobility.com`
+
+      Production server: `https://api.high-mobility.com`
+
+
+  version: '1.0'
+
+servers:
+  - url: https://api.high-mobility.com
+  - url: https://sandbox.api.high-mobility.com
 tags:
   - name: OAuth2
     description: Operations about OAuth2
-swagger: '2.0'
-info:
-  version: '1.0'
-  title: OAuth2 API
-  description: >-
-    The OAuth2 API provides you an interface to create and refresh Access Tokens, which are issued on a VIN-basis to be used with any of the pull-based data APIs:
-      
-      * [REST API](/api-references/code-references/rest/reference/v5/)
-      * [GraphQL API](/api-references/code-references/graph-ql/v1/)
-      * [Node.js SDK](/api-references/code-references/node-js/hmkit/)
-      * [iOS SDK](http://localhost:4000/api-references/code-references/ios/telematics/telematics/)
-      * [Android SDK](/api-references/code-references/android/hmkit/)
-    
-    The OAuth2 server addresses are listed in your application view within the platform console.
-    
 paths:
   /v1/access_tokens:
     post:
       tags:
         - OAuth2
       summary: 'Creates and renews AccessTokens'
-      description: This API implements rfc7009 and rfc7636
+      description: This API implements rfc7009, rfc7636 and rfc6749
       responses:
         '200':
-          schema:
-            $ref: '#/definitions/AccessTokensReponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensReponse'
+              examples:
+                "ConsentFlow:web: Get access token":
+                  value:
+                    access_token: 81bcb5ee-3aa1-4fc6-bc54-79019af30a45
+                    expires_in: 3600
+                    refresh_token: b39c3380-a8cf-48fe-ad80-d70279a4a5d6
+                    scope: diagnostics.get.mileage doors.get.locks windows.get.positions
+                    status: approved
+                    token_type: bearer
+                "ConsentFlow:web: Refresh access token":
+                  value:
+                    access_token: 81bcb5ee-3aa1-4fc6-bc54-79019af30a45
+                    expires_in: 3600
+                    refresh_token: b39c3380-a8cf-48fe-ad80-d70279a4a5d6
+                    scope: diagnostics.get.mileage doors.get.locks windows.get.positions
+                    status: approved
+                    token_type: bearer
+                "ConsentFlow:in-app: Get access token":
+                  value:
+                    access_token: 81bcb5ee-3aa1-4fc6-bc54-79019af30a45
+                    expires_in: 3600
+                    refresh_token: b39c3380-a8cf-48fe-ad80-d70279a4a5d6
+                    scope: diagnostics.get.mileage doors.get.locks windows.get.positions
+                    status: approved
+                    token_type: bearer
+                "ConsentFlow:in-app: Refresh access token":
+                  value:
+                    access_token: 81bcb5ee-3aa1-4fc6-bc54-79019af30a45
+                    expires_in: 3600
+                    refresh_token: b39c3380-a8cf-48fe-ad80-d70279a4a5d6
+                    scope: diagnostics.get.mileage doors.get.locks windows.get.positions
+                    status: approved
+                    token_type: bearer
+                "ApplicationApiKey: Get access token using client_credentials":
+                  value:
+                    access_token: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc5NjU5NTgsImlhdCI6MTY5Nzk2NTY1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0MDAwL3YxL2F1dGhfdG9rZW5zIiwic2NvcGUiOiJmbGVldDpjbGVhcmFuY2UgdmVoaWNsZTplbGlnaWJpbGl0eS1jaGVjayB2ZWhpY2xlOmRhdGEiLCJzdWIiOiIzNTZmZjA3OS01ZGMzLTRjZmEtOWY3Yy05MTNhOTdlYzZjMjQiLCJ2ZXIiOjF9.pfbRQ4hDBwyPAAe4qdfFnfLQ9bceDIzxY6sVjDy9LD1v8uAueQ4qIIbSNQc2rm9gWHilwXS9Z-BeSN5GhnMrwA
+                    expires_in: 3600
+                    scope: fleet:clearance vehicle:eligibility-check vehicle:data
+                    token_type: bearer
+                "ApplicationApiKey: Get access token using client_credentials with client_assertion":
+                  value:
+                    access_token: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc5NjU5NTgsImlhdCI6MTY5Nzk2NTY1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0MDAwL3YxL2F1dGhfdG9rZW5zIiwic2NvcGUiOiJmbGVldDpjbGVhcmFuY2UgdmVoaWNsZTplbGlnaWJpbGl0eS1jaGVjayB2ZWhpY2xlOmRhdGEiLCJzdWIiOiIzNTZmZjA3OS01ZGMzLTRjZmEtOWY3Yy05MTNhOTdlYzZjMjQiLCJ2ZXIiOjF9.pfbRQ4hDBwyPAAe4qdfFnfLQ9bceDIzxY6sVjDy9LD1v8uAueQ4qIIbSNQc2rm9gWHilwXS9Z-BeSN5GhnMrwA
+                    expires_in: 3600
+                    scope: fleet:clearance vehicle:eligibility-check vehicle:data
+                    token_type: bearer
           description: Success
         '400':
-          schema:
-            $ref: '#/definitions/AccessTokensError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensError'
+              examples:
+                "Missing required params":
+                  value:
+                    error: invalid_request
+                    error_description: client_id can't be blank, client_secret can't be blank, grant_type can't be blank
+                "Invalid client_secret":
+                  value:
+                    error: invalid_request
+                    error_description: client_secret is invalid
+                "ConsentFlow:web: invalid code":
+                  value:
+                    error: invalid_request
+                    error_description: code is invalid
+
           description: Error
         '500':
           description: Server Errors
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/AccessTokensRequest'
-      operationId: ApiWeb.OAuthAccessTokenController.create
+
+      requestBody:
+        description: OAuth request payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessTokensRequest'
+            examples:
+             "ConsentFlow:web: Get access token":
+                description: After the user has finished the consent flow, the oauth client needs to exchange authorization `code` with `access_token`
+                value:
+                  grant_type: authorization_code
+                  code: "7672e33d-fdc0-47f0-bd17-6c1e727271f8"
+                  redirect_uri: "http://localhost/mycallback"
+                  client_id: "09ce38c6-5cd7-47b0-b271-235414e938c6"
+                  client_secret: "rzeVs5nnx5OCMQejjfQTjLE8Jb2ReFSU"
+             "ConsentFlow:web: Refresh access token":
+                description: When an access token is expired, the oauth client needs to refresh access token and obtain a new `access_token`
+                value:
+                  grant_type: refresh
+                  client_id: "09ce38c6-5cd7-47b0-b271-235414e938c6"
+                  client_secret: "rzeVs5nnx5OCMQejjfQTjLE8Jb2ReFSU"
+                  refresh_token: "6f3ab59b-9fb5-42ba-8e5b-574757fbffc8"
+             "ConsentFlow:in-app: Get access token":
+                description: Same as `ConsentFlow:web` examples but `client_secret` is not needed. Also `redirect_url` must be match with oauth client's "URL-scheme"
+                value:
+                  grant_type: authorization_code
+                  code: "7672e33d-fdc0-47f0-bd17-6c1e727271f8"
+                  redirect_uri: "com.hm.1533642514-lsgujv3umopt"
+                  client_id: "09ce38c6-5cd7-47b0-b271-235414e938c6"
+                  code_verifier: "the-random-generated-verifier"
+             "ConsentFlow:in-app: Refresh access token":
+                description: Same as `ConsentFlow:web` examples but `client_secret` is not needed.
+                value:
+                  grant_type: refresh
+                  client_id: "09ce38c6-5cd7-47b0-b271-235414e938c6"
+                  refresh_token: "6f3ab59b-9fb5-42ba-8e5b-574757fbffc8"
+             "ApplicationApiKey: Get access token using client_credentials":
+                description: The client credentials grant is used when applications request an access token to access their own resources, not on behalf of a user
+                value:
+                  grant_type: client_credentials
+                  client_id: "09ce38c6-5cd7-47b0-b271-235414e938c6"
+                  client_secret: "rzeVs5nnx5OCMQejjfQTjLE8Jb2ReFSU"
+             "ApplicationApiKey: Get access token using client_credentials with client_assertion":
+                description: The client credentials grant is used when applications request an access token to access their own resources, not on behalf of a user. In this method a private key is used to create JWT as `client_assertion`
+                value:
+                  grant_type: client_credentials
+                  client_assertion_type: urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+                  client_id: "40568550-5ace-4d72-b45b-f46679b620aa"
+                  client_assertion: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjQwMDAvdjEiLCJpc3MiOiI1ZTNjYzM0OS0xYzZmLTQ5NzUtYWVhYS05ZDMxOTA4NjE5MGIiLCJ2ZXIiOjIsImlhdCI6MTY5ODIzMjUwNywianRpIjoic2VqTG8xMnRENzNZSFE9PSJ9.HTZp4E5CJvGgk-XnWrKizQ6itqHmARXuE4iBYYztJ-6EGNTMAzkdSUMZB7aWSjfcXQyS9-08xp3yBrmf-9QWAA
+
+
     delete:
       tags:
         - OAuth2
@@ -49,182 +166,205 @@ paths:
         '200':
           description: Success
         '400':
-          schema:
-            $ref: '#/definitions/AccessTokensError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokensError'
           description: Error
         '503':
           description: Server Errors
-      parameters:
-        - in: body
-          name: body
-          schema:
-            $ref: '#/definitions/AccessTokensRevoke'
-      operationId: ApiWeb.OAuthAccessTokenController.delete
+      requestBody:
+        description: OAuth delete payload
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccessTokensRevoke'
+
   /v1/vehicleinfo:
     get:
       tags:
         - OAuth2
       parameters:
-         - type: string
-           required: true
-           name: Authorization
-           in: header
-           description: Bearer token   
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Bearer token
+
+
       summary: 'Checks AccessTokens vehicleinfo'
       description: Returns vehicleinfo associated with access token
       responses:
         '200':
-          schema:
-            $ref: '#/definitions/VehicleInfoResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleInfoResponse'
           description: Success
         '401':
-          schema:
-            $ref: '#/definitions/VehicleInfoError'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleInfoError'
           description: Error
         '500':
           description: Server Errors
-      operationId: ApiWeb.VehicleInfoController.show
-definitions:
-  AccessTokensReponse:
-    type: object
-    title: AccessTokensReponse
-    required:
-      - expires_in
-      - access_token
-      - token_type
-    properties:
-      validity_start_date:
-        type: string
-        description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
-      validity_end_date:
-        type: string
-        description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
-      token_type:
-        type: string
-        description: Token type
-      scope:
-        type: string
-        description: List of scopes
-      refresh_token:
-        type: string
-        description: Refresh token should be used after the access token is expired to fetch a new access token
-      expires_in:
-        type: integer
-        description: Expiration time in seconds
-      authorization_id:
-        type: string
-        description: Authorization Id could be used later on in authorization_changed Webhook
-      access_token:
-        type: string
-        description: Access token
-      status:
-        type: string
-        description: In BMW and MINI case, the status is pending until the car owner grants access in BMW ConnectedDrive Portal
-        enum:
-          - pending
-          - approved
-    example:
-      validity_start_date: '2018-11-01T00:01:02.094533Z'
-      validity_end_date: '2020-12-31T10:20:37.094533Z'
-      token_type: bearer
-      scope: diagnostics.mileage door_locks.locks windows.windows_positions
-      refresh_token: 7f7a9be0-04c9-4202-a59f-35d55079b6ba
-      expires_in: 600
-      access_token: a50e89e5-093c-4727-8101-4c6e81addabe
-      status: pending
-    description: Access Tokens
-  AccessTokensRequest:
-    type: object
-    properties:
-      grant_type:
-        type: string
-        enum:
-          - authorization_code
-          - refresh_token
-        description: Grant Type.
-      code:
-        type: string
-        description: Authorization code that the client previously received from the authorization server. Required when grant_type is authorization_code.
-      redirect_uri:
-        type: string
-        description: The redirect URI in the token request must be an exact match of the redirect URI that was used when generating the authorization code. Required for when grant_type is authorization_code.
-      refresh_token:
-        type: string
-        description: Refresh token that the client previously received from the authorization server. Required when grant_type is refresh_token.
-      client_id:
-        type: string
-        description: Client ID used for authentication.
-      client_secret:
-        type: string
-        description: Client Secret used for authentication, only used in Server-Side Apps
-      code_verifier:
-        type: string
-        description: Code verifier(PKCE), only used in Mobile and Native Apps
-    required:
-      - grant_type
-      - client_id
-  AccessTokensRevoke:
-    type: object
-    properties:
-      token:
-        type: string
-        description: Access Token or Refresh Token that will be used in the revocation.
-      client_id:
-        type: string
-        description: Client ID used for authentication.
-      client_secret:
-        type: string
-        description: Client Secret used for authentication, only used in Server-Side Apps
-      token_type_hint:
-        type: string
-        enum:
-          - refresh_token
-          - access_token
-        description: Token hint used to identify which type of token is inside the token property.
-    required:
-      - client_id
-      - client_secret
-      - token
-  AccessTokensError:
-    type: object
-    title: AccessTokensError
-    required:
-      - error
-    properties:
-      error_description:
-        type: string
-        description: Error description
-      error:
-        type: string
-        description: Error code
-    description: Error details
-  VehicleInfoResponse:
-    type: object
-    title: VehicleInfoResponse
-    required:
-      - vin
-      - sub
-    properties:
-      vin:
-        type: string
-        description: 'VIN associated with the access token'
-      sub:
-        type: string
-        description: 'sub associated with the access token'
-    example:
-      vin: 'VIN00000000000001'
-      sub: '00000000-0000-0000-0000-000000000000'
-    description: Vehicle Info
-  VehicleInfoError:
-    type: object
-    title: VehicleInfoError
-    required:
-      - error
-    properties:
-      error_description:
-        type: string
-        description: Error description
-      error:
-        type: string
-        description: Error code
-    description: Error details
+
+
+components:
+  schemas:
+    AccessTokensReponse:
+      type: object
+      title: AccessTokensReponse
+      required:
+        - expires_in
+        - access_token
+        - token_type
+      properties:
+        validity_start_date:
+          type: string
+          description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+        validity_end_date:
+          type: string
+          description: 'Date and Time in ISO8601 format example: ''2018-11-06T10:20:37.094533Z'''
+        token_type:
+          type: string
+          description: Token type
+        scope:
+          type: string
+          description: List of scopes
+        refresh_token:
+          type: string
+          description: Refresh token should be used after the access token is expired to fetch a new access token
+        expires_in:
+          type: integer
+          description: Expiration time in seconds
+        authorization_id:
+          type: string
+          description: Authorization Id could be used later on in authorization_changed Webhook
+        access_token:
+          type: string
+          description: Access token
+        status:
+          type: string
+          description: In BMW and MINI case, the status is pending until the car owner grants access in BMW ConnectedDrive Portal
+          enum:
+            - pending
+            - approved
+      example:
+        validity_start_date: '2018-11-01T00:01:02.094533Z'
+        validity_end_date: '2020-12-31T10:20:37.094533Z'
+        token_type: bearer
+        scope: diagnostics.mileage door_locks.locks windows.windows_positions
+        refresh_token: 7f7a9be0-04c9-4202-a59f-35d55079b6ba
+        expires_in: 600
+        access_token: a50e89e5-093c-4727-8101-4c6e81addabe
+        status: pending
+      description: Access Tokens
+    AccessTokensRequest:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          enum:
+            - authorization_code
+            - refresh_token
+            - client_credentials
+          description: Grant Type.
+        code:
+          type: string
+          description: Authorization code that the client previously received from the authorization server. Required when grant_type is authorization_code.
+        redirect_uri:
+          type: string
+          description: The redirect URI in the token request must be an exact match of the redirect URI that was used when generating the authorization code. Required for when grant_type is authorization_code.
+        refresh_token:
+          type: string
+          description: Refresh token that the client previously received from the authorization server. Required when grant_type is refresh_token.
+        client_id:
+          type: string
+          description: Client ID used for authentication.
+        client_secret:
+          type: string
+          description: Client Secret used for authentication, only used in Server-Side Apps
+        code_verifier:
+          type: string
+          description: Code verifier(PKCE), only used in Mobile and Native Apps
+        client_assertion:
+          description: Only used with the combination of client_credentials grant_type and client_assertion_type
+          type: string
+        client_assertion_type:
+          description: Only used with the combination of client_credentials grant_type and client_assertion
+          type: string
+          enum:
+            - urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+      required:
+        - grant_type
+        - client_id
+    AccessTokensRevoke:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Access Token or Refresh Token that will be used in the revocation.
+        client_id:
+          type: string
+          description: Client ID used for authentication.
+        client_secret:
+          type: string
+          description: Client Secret used for authentication, only used in Server-Side Apps
+        token_type_hint:
+          type: string
+          enum:
+            - refresh_token
+            - access_token
+          description: Token hint used to identify which type of token is inside the token property.
+      required:
+        - client_id
+        - client_secret
+        - token
+    AccessTokensError:
+      type: object
+      title: AccessTokensError
+      required:
+        - error
+      properties:
+        error_description:
+          type: string
+          description: Error description
+        error:
+          type: string
+          description: Error code
+      description: Error details
+    VehicleInfoResponse:
+      type: object
+      title: VehicleInfoResponse
+      required:
+        - vin
+        - sub
+      properties:
+        vin:
+          type: string
+          description: 'VIN associated with the access token'
+        sub:
+          type: string
+          description: 'sub associated with the access token'
+      example:
+        vin: 'VIN00000000000001'
+        sub: '00000000-0000-0000-0000-000000000000'
+      description: Vehicle Info
+    VehicleInfoError:
+      type: object
+      title: VehicleInfoError
+      required:
+        - error
+      properties:
+        error_description:
+          type: string
+          description: Error description
+        error:
+          type: string
+          description: Error code
+      description: Error details
