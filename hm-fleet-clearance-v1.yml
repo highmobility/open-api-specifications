@@ -259,6 +259,7 @@ paths:
 
   /v1/fleets/access_tokens:
     post:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
