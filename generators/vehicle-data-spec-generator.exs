@@ -248,7 +248,7 @@ defmodule Loader do
       },
       "info" => %{
         "description" =>
-          "This endpoint allows you to retrieve vehicle data through a RESTful interface.\n\nAuthentication: \n * For driver flow use [OAuth2](https://docs.high-mobility.com/api-references/code-references/oauth2/reference/v1/) using `authorization_code` grant type to obtain access token.\n * For fleet flow use OAuth2 using `client_credentials` grant type to obtain access token.\n\n\n\nSandbox server: `https://sandbox.api.high-mobility.com`\n\n\nProduction server: `https://api.high-mobility.com`",
+          "This endpoint allows you to retrieve vehicle data through a RESTful interface.\n\nAuthentication: \n * For driver flow use [OAuth2](https://docs.high-mobility.com/api-references/code-references/oauth2/reference/v1/) using `authorization_code` grant type to obtain access token.\n * For fleet flow use [OAuth2](https://docs.staging.high-mobility.net/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.\n\n\n\nSandbox server: `https://sandbox.api.high-mobility.com`\n\n\nProduction server: `https://api.high-mobility.com`",
         "title" => "Vehicle Data API",
         "version" => "1.0.0"
       },
