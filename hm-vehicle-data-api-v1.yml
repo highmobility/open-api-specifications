@@ -5379,7 +5379,7 @@ info:
 
     Authentication: 
      * For driver flow use [OAuth2](https://docs.high-mobility.com/api-references/code-references/oauth2/reference/v1/) using `authorization_code` grant type to obtain access token.
-     * For fleet flow use OAuth2 using `client_credentials` grant type to obtain access token.
+     * For fleet flow use [OAuth2](https://docs.staging.high-mobility.net/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.
 
 
 
