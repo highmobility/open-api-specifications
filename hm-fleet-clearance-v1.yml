@@ -1,14 +1,15 @@
+
 openapi: 3.0.3
 info:
   title: Fleet Clearance API
   description: |-
     By using the Fleet Clearance API endpoints, it's possible for fleet operators to activate and deactivate data access to their vehicles.
     
-    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+    In order to use the API endpoints you will need to retrieve an access token using the [OAuth API](/api-references/code-references/oauth2/reference/v1/) with `client_credentials` grant
     
-    Sandbox server: `https://sandbox.api.high-mobility.com`
-    
-    Production server: `https://api.high-mobility.com`
+    * Sandbox server: `https://sandbox.api.high-mobility.com`
+    * Production server: `https://api.high-mobility.com`
+
   contact:
     email: support@high-mobility.com
   version: 1.0.0
@@ -23,7 +24,8 @@ paths:
   /v1/fleets/vehicles:
     post:
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Resource
       parameters:
@@ -71,7 +73,8 @@ paths:
 
     get:
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Resource
       parameters:
@@ -111,7 +114,8 @@ paths:
   /v1/fleets/vehicles/{vin}:
     get:
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Resource
       parameters:
@@ -162,7 +166,8 @@ paths:
 
     delete:
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Resource
       parameters:
@@ -227,7 +232,8 @@ paths:
     post:
       deprecated: true
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Resource
       parameters:
@@ -261,7 +267,8 @@ paths:
     post:
       deprecated: true
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - fleet:clearance
       tags:
         - Fleet Vehicle Access Token
       parameters:
@@ -696,8 +703,10 @@ components:
       description: Error details
 
   securitySchemes:
-    ServiceAccountToken:
-      type: apiKey
-      name: Authorization
-      in: header
-      description: 'Bearer token'
+    FleetClearanceAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            fleet:clearance: fleet clearance
+          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
+      type: oauth2

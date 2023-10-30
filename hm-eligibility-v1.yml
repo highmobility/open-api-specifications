@@ -5,12 +5,12 @@ info:
     This API allows lookups to see if a vehicle is eligible for telematics data.
     
     
-    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+    In order to use the API endpoints you will need to retrieve an access token using the [OAuth API](/api-references/code-references/oauth2/reference/v1/) with `client_credentials` grant
     
     * Sandbox server: `https://sandbox.api.high-mobility.com`
     * Production server: `https://api.high-mobility.com`
     
-    Note that in production, the brands of the VINs that are being checked have to first be activated for yourapplication before you can do lookups.
+    Note that in production, the brands of the VINs that are being checked have to first be activated for your application before you can do lookups.
   contact:
     email: support@high-mobility.com
   version: 1.0.0
@@ -26,7 +26,8 @@ paths:
     post:
       deprecated: false
       security:
-        - ServiceAccountToken: []
+        - FleetClearanceAuth:
+          - vehicle:eligibility-check
       tags:
         - Eligibility
       summary: ''
@@ -167,11 +168,10 @@ components:
       description: Error details
 
   securitySchemes:
-    ServiceAccountToken:
-      type: apiKey
-      name: Authorization
-      in: header
-      description: >-
-        This is a Bearer token. Service Account Token is a temporary token for
-        server to service communication, find out more how to generate one at
-        https://high-mobility.com/learn/documentation/cloud-api/service-account-api/intro/
+    FleetClearanceAuth:
+      flows:
+        clientCredentials:
+          scopes:
+            vehicle:eligibility-check: eligibility check
+          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
+      type: oauth2
