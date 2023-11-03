@@ -72,13 +72,13 @@ paths:
                 "ApplicationApiKey: Get access token using client_credentials":
                   value:
                     access_token: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc5NjU5NTgsImlhdCI6MTY5Nzk2NTY1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0MDAwL3YxL2F1dGhfdG9rZW5zIiwic2NvcGUiOiJmbGVldDpjbGVhcmFuY2UgdmVoaWNsZTplbGlnaWJpbGl0eS1jaGVjayB2ZWhpY2xlOmRhdGEiLCJzdWIiOiIzNTZmZjA3OS01ZGMzLTRjZmEtOWY3Yy05MTNhOTdlYzZjMjQiLCJ2ZXIiOjF9.pfbRQ4hDBwyPAAe4qdfFnfLQ9bceDIzxY6sVjDy9LD1v8uAueQ4qIIbSNQc2rm9gWHilwXS9Z-BeSN5GhnMrwA
-                    expires_in: 3600
+                    expires_in: 300
                     scope: fleet:clearance vehicle:eligibility-check vehicle:data
                     token_type: bearer
                 "ApplicationApiKey: Get access token using client_credentials with client_assertion":
                   value:
                     access_token: eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTc5NjU5NTgsImlhdCI6MTY5Nzk2NTY1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo0MDAwL3YxL2F1dGhfdG9rZW5zIiwic2NvcGUiOiJmbGVldDpjbGVhcmFuY2UgdmVoaWNsZTplbGlnaWJpbGl0eS1jaGVjayB2ZWhpY2xlOmRhdGEiLCJzdWIiOiIzNTZmZjA3OS01ZGMzLTRjZmEtOWY3Yy05MTNhOTdlYzZjMjQiLCJ2ZXIiOjF9.pfbRQ4hDBwyPAAe4qdfFnfLQ9bceDIzxY6sVjDy9LD1v8uAueQ4qIIbSNQc2rm9gWHilwXS9Z-BeSN5GhnMrwA
-                    expires_in: 3600
+                    expires_in: 300
                     scope: fleet:clearance vehicle:eligibility-check vehicle:data
                     token_type: bearer
           description: Success
