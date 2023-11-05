@@ -1,4 +1,3 @@
-
 openapi: 3.0.3
 info:
   title: Fleet Clearance API
@@ -51,7 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/ClearanceUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '403':
           content:
@@ -96,7 +95,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/ClearanceUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '403':
           content:
@@ -143,7 +142,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/ClearanceUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '403':
           content:
@@ -194,7 +193,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/ClearanceUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '403':
           content:
@@ -295,7 +294,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/ClearanceUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '403':
           content:
@@ -342,7 +341,7 @@ components:
               source: Authorization
               title: Forbidden
 
-    UnauthorizedErrors:
+    ClearanceUnauthorizedErrors:
       type: object
       title: Errors
       properties:

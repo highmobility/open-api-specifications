@@ -26,7 +26,7 @@ paths:
     post:
       deprecated: false
       security:
-        - FleetClearanceAuth:
+        - EligibilityAuth:
           - vehicle:eligibility-check
       tags:
         - Eligibility
@@ -42,7 +42,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UnauthorizedErrors'
+                $ref: '#/components/schemas/EligibilityUnauthorizedErrors'
           description: When an invalid ServiceAccountToken is used.
         '422':
           content:
@@ -125,7 +125,7 @@ components:
       required:
         - vin
         - brand
-    UnauthorizedErrors:
+    EligibilityUnauthorizedErrors:
       type: object
       title: Errors
       properties:
@@ -168,7 +168,7 @@ components:
       description: Error details
 
   securitySchemes:
-    FleetClearanceAuth:
+    EligibilityAuth:
       flows:
         clientCredentials:
           scopes:
