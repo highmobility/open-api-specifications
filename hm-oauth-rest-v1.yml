@@ -100,7 +100,10 @@ paths:
                   value:
                     error: invalid_request
                     error_description: code is invalid
-
+                "ApplicationApiKey: expired key":
+                  value:
+                    error: invalid_request
+                    error_description: client_assertion is signed with an expired key 
           description: Error
         '500':
           description: Server Errors
