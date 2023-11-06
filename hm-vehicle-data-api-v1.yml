@@ -5393,6 +5393,7 @@ openapi: 3.0.3
 paths:
   /v1/vehicle-data/autoapi-13/{vin}:
     get:
+      summary: Vehicle Data
       parameters:
         - description: Vehicle Identification number
           in: path

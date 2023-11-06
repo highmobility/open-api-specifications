@@ -30,7 +30,7 @@ paths:
           - vehicle:eligibility-check
       tags:
         - Eligibility
-      summary: ''
+      summary: Check vehicle eligibility
       responses:
         '200':
           content:
@@ -50,7 +50,6 @@ paths:
               schema:        
                 $ref: '#/components/schemas/GeneralErrors'
           description: Errors such as invalid VIN and brand call failed
-      operationId: ApiWeb.EligibilityController.create
       requestBody:
         content:
           application/json:

@@ -22,18 +22,12 @@ servers:
 paths:
   /v1/fleets/vehicles:
     post:
+      summary: Create a clearance
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Resource
-      parameters:
-        - name: Authorization
-          in: header
-          description: 'Bearer token'
-          required: true
-          schema:
-            type: string
+        - Fleet Clearance Resource
       requestBody:
         content:
           application/json:
@@ -71,19 +65,12 @@ paths:
 
 
     get:
+      summary: Get all clearances
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Resource
-      parameters:
-        - name: Authorization
-          in: header
-          description: 'Bearer token'
-          required: true
-          schema:
-            type: string
-
+        - Fleet Clearance Resource
       responses:
         '200':
           content:
@@ -105,25 +92,19 @@ paths:
           description: When the application doesn't have fleet access.
         '500':
           description: Server Errors
-      operationId: ApiWeb.FleetImportController.index
       description: >-
         Get the status of VINs that have previously been registered for data
         access clearance.
 
   /v1/fleets/vehicles/{vin}:
     get:
+      summary: Get clearance for a vin
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Resource
+        - Fleet Clearance Resource
       parameters:
-        - name: Authorization
-          in: header
-          description: 'Bearer token'
-          required: true
-          schema:
-            type: string
         - name: vin
           in: path
           required: true
@@ -164,18 +145,13 @@ paths:
         access clearance.
 
     delete:
+      summary: Delete clearance
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Resource
+        - Fleet Clearance Resource
       parameters:
-        - name: Authorization
-          in: header
-          description: 'Bearer token'
-          required: true
-          schema:
-            type: string
         - name: vin
           in: path
           required: true
@@ -229,12 +205,13 @@ paths:
 
   /v1/fleets/{vin}/cancel_activation:
     post:
+      summary: Cancel clearance
       deprecated: true
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Resource
+        - Fleet Clearance Resource
       parameters:
         - name: Authorization
           in: header
@@ -258,25 +235,18 @@ paths:
         '500':
           description: Server Errors
 
-      operationId: ApiWeb.FleetCancelActivationController.create
       description: >-
         Deprecated: use DELETE /v1/fleet/vehicles/{vin} end point instead
 
   /v1/fleets/access_tokens:
     post:
+      summary: Get access token
       deprecated: true
       security:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Vehicle Access Token
-      parameters:
-        - name: Authorization
-          in: header
-          description: 'Bearer token'
-          required: true
-          schema:
-            type: string
+        - Fleet Clearance Resource
       responses:
         '200':
           content:
