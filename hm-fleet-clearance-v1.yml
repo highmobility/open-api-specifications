@@ -403,6 +403,9 @@ components:
             - toyota
             - lexus
             - porsche
+            - maserati
+            - kia
+            - tesla
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -528,6 +531,9 @@ components:
             - toyota
             - lexus
             - porsche
+            - maserati
+            - kia
+            - tesla
             - sandbox
         changelog:
            type: array
