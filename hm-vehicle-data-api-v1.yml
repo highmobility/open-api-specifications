@@ -2483,6 +2483,23 @@ components:
         - direction
         - acceleration
       type: object
+    response408:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: Vehicle is offline or asleep
+                type: string
+              title:
+                example: Request Timeout
+                type: string
+            type: object
+          type: array
+        request_id:
+          description: The request tracking id. Provide request_id when facing issue
+          example: a8306c7c-9f57-453c-8189-d06118944770
+          type: string
     property_temperature_extreme:
       additionalProperties: false
       minProperties: 1
@@ -5377,7 +5394,7 @@ info:
   description: |-
     This endpoint allows you to retrieve vehicle data through a RESTful interface.
 
-    Authentication: 
+    Authentication:
      * For driver flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth/) using `authorization_code` grant type to obtain access token.
      * For fleet flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.
 
@@ -5393,7 +5410,6 @@ openapi: 3.0.3
 paths:
   /v1/vehicle-data/autoapi-13/{vin}:
     get:
-      summary: Vehicle Data
       parameters:
         - description: Vehicle Identification number
           in: path
@@ -5458,6 +5474,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/response403'
           description: Forbidden
+        '408':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response408'
+          description: Request Timeout
         '422':
           content:
             application/json:
@@ -5491,9 +5513,9 @@ paths:
       security:
         - VehicleDataAuth:
             - vehicle:data
+      summary: Vehicle Data
       tags:
         - Data API
 servers:
   - url: https://sandbox.api.high-mobility.com
   - url: https://api.high-mobility.com
-
