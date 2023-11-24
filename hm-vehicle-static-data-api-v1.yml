@@ -58,8 +58,8 @@ paths:
                     request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
           description: Not Authorized
       security:
-        - VehicleDataAuth:
-            - vehicle:data
+        - VehicleStaticDataAuth:
+            - vehicle:static-data
       tags:
         - Data API
 servers:
@@ -89,15 +89,10 @@ components:
           description: The request tracking id. Provide request_id when facing issue
           type: string  
   securitySchemes:
-    VehicleDataAuth:
+    VehicleStaticDataAuth:
       flows:
-        authorizationCode:
-          authorizationUrl: https://owner-panel.sandbox.high-mobiliy.com/oauth/new
-          scopes:
-            vehicle:data: all configured vehicle data
-          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
         clientCredentials:
           scopes:
             vehicle:data: all all configured vehicle data
           tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
-      type: oauth2  
+      type: oauth2
