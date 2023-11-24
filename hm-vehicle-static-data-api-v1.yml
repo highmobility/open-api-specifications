@@ -93,6 +93,6 @@ components:
       flows:
         clientCredentials:
           scopes:
-            vehicle:data: all all configured vehicle data
+            vehicle:static-data: static vehicle data
           tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
       type: oauth2
