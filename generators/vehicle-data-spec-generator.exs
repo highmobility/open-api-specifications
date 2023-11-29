@@ -257,6 +257,7 @@ defmodule Loader do
         "/v1/vehicle-data/autoapi-13/{vin}" => %{
           "get" => %{
             "tags" => ["Data API"],
+            "summary" => "Vehicle Data",
             "security" => [%{"VehicleDataAuth" => ["vehicle:data"]}],
             "parameters" => [
               %{
@@ -356,6 +357,14 @@ defmodule Loader do
                 },
                 "description" => "Forbidden"
               },
+              "408" => %{
+                "content" => %{
+                  "application/json" => %{
+                    "schema" => %{"$ref" => "#/components/schemas/response408"}
+                  }
+                },
+                "description" => "Request Timeout"
+              },
               "422" => %{
                 "content" => %{
                   "application/json" => %{
@@ -446,6 +455,28 @@ defmodule Loader do
           },
           "request_id" => %{
             "description" => "The request tracking id. Provide request_id when facing issue",
+            "type" => "string"
+          }
+        }
+      },
+      "response408" => %{
+        "properties" => %{
+          "errors" => %{
+            "items" => %{
+              "properties" => %{
+                "detail" => %{
+                  "example" => "Vehicle is offline or asleep",
+                  "type" => "string"
+                },
+                "title" => %{"example" => "Request Timeout", "type" => "string"}
+              },
+              "type" => "object"
+            },
+            "type" => "array"
+          },
+          "request_id" => %{
+            "description" => "The request tracking id. Provide request_id when facing issue",
+            "example" => "a8306c7c-9f57-453c-8189-d06118944770",
             "type" => "string"
           }
         }
