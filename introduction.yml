@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: High Mobility's OpenAPI Spec
+  x-logo:
+    url: https://highmobility.github.io/open-api-specifications/assets/hm-log.png
+    altText: High Mobility OpenAPI Spec
+  description: >-
+      Welcome to High Mobility Open API spec 
+
+
+
+  version: '1.0'
+
+externalDocs:
+  description: High Mobility's Developer Console
+  url: https://www.high-mobility.com
+
+paths: {}
