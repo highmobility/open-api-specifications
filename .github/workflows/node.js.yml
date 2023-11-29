@@ -18,5 +18,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build Docs
       run: |
-        npx --yes @redocly/cli join hm-oauth-rest-v1.yml  hm-vehicle-data-api-v1.yml   hm-fleet-clearance-v1.yml hm-eligibility-v1.yml   -o hm-apis.yaml
+        npx --yes @redocly/cli join introduction.yml hm-oauth-rest-v1.yml  hm-vehicle-data-api-v1.yml   hm-fleet-clearance-v1.yml hm-eligibility-v1.yml   -o hm-apis.yaml
         npx @redocly/cli build-docs hm-apis.yaml
