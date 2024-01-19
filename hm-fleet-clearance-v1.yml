@@ -533,7 +533,6 @@ components:
             - pending
             - revoking
             - revoked
-            - revoking
             - rejected
             - canceling
             - canceled
@@ -585,7 +584,6 @@ components:
             - pending
             - revoking
             - revoked
-            - revoking
             - rejected
             - canceling
             - canceled
