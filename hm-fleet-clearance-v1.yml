@@ -291,6 +291,9 @@ components:
         - vin: VIN0TESTVIN000000
           status: approved
           brand: mercedes-benz
+          tags:
+            foo: bar
+            bar: baz
           changelog:
             - timestamp: "2022-03-22T09:36:51"
               status: pending
@@ -361,18 +364,25 @@ components:
         vehicles:
           - vin: WBADT43452G296403
             brand: mercedes-benz
+            tags: {}
             control_measures:
               odometer:
                 value: 55271000
                 unit: kilometers
           - vin: WBADT43452G296404
             brand: bmw
+            tags: {}
           - vin: VIN012345678901234
             brand: ds
+            tags: {}
           - vin: VIN01234567890123
             brand: unknown
+            tags:
+              foo: bar
+              bar: baz
       required:
         - vehicles
+
 
     FleetVehicle:
       type: object
@@ -424,6 +434,10 @@ components:
                   enum:
                     - kilometers
                     - miles
+        tags:
+          type: object
+          additionalProperties:
+            type: string
 
     FleetVehiclePostResponse:
       type: object
@@ -440,8 +454,12 @@ components:
         vehicles:
           - vin: WBADT43452G296403
             status: pending
+            tags: {}
           - vin: WBADT43452G296404
             status: pending
+            tags:
+              foo: bar
+              bar: baz
           - vin: VIN012345678901234
             status: error
             description: vin should be 17 character(s)
@@ -477,9 +495,16 @@ components:
         description:
           type: string
           description: Optional description of the VIN
+        tags:
+          type: object
+          additionalProperties:
+            type: string
       example:
         vin: WBADT43452G296403
         status: pending
+        tags:
+          foo: bar
+          bar: baz
 
     FleetErrors:
       type: object
@@ -508,7 +533,6 @@ components:
             - pending
             - revoking
             - revoked
-            - revoking
             - rejected
             - canceling
             - canceled
@@ -539,7 +563,10 @@ components:
            type: array
            items:
              $ref: '#/components/schemas/FleetVinChangelog'
-
+        tags:
+          type: object
+          additionalProperties:
+            type: string
 
     FleetVinChangelog:
       type: object
@@ -557,7 +584,6 @@ components:
             - pending
             - revoking
             - revoked
-            - revoking
             - rejected
             - canceling
             - canceled
@@ -612,9 +638,16 @@ components:
           enum:
             - revoking
             - canceling
+        tags:
+          type: object
+          additionalProperties:
+            type: string
       example:
         vin: VIN0TESTVIN000000
         status: revoking
+        tags:
+          foo: bar
+          bar: baz
 
 
     AccessTokensResponse:
