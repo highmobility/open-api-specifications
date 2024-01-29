@@ -71,6 +71,130 @@ paths:
           - fleet:clearance
       tags:
         - Fleet Clearance Resource
+      parameters:
+        - in: query
+          name: filter
+          schema:
+            type: object
+          required: false
+          description: URL Encoded JSON
+          examples:
+            vin_eq:
+              summary: Filter by VIN - Equality
+              value:
+                vin:
+                  operator: eq
+                  value: EXVETESTVIN000001
+            vin_in:
+              summary: Filter by VIN - Inclusion
+              value:
+                vin:
+                  operator: in
+                  value:
+                    - EXVETESTVIN000001
+                    - EXVETESTVIN000002
+            status_eq:
+              summary: Filter by Status - Equality
+              value:
+                status:
+                  operator: eq
+                  value: approved
+            status_in:
+              summary: Filter by Status - Inclusion
+              value:
+                status:
+                  operator: in
+                  value:
+                    - approved
+                    - rejected
+            tags_eq:
+              summary: Filter by Tags - Equality
+              value:
+                status:
+                  operator: eq
+                  value:
+                    some_key: some_value
+            tags_contains:
+              summary: Filter by Tags - Contains
+              value:
+                status:
+                  operator: contains
+                  value:
+                    some_key: some_value
+            brand_eq:
+              summary: Filter by Brand - Equality
+              value:
+                brand:
+                  operator: eq
+                  value: bmw
+            brand_in:
+              summary: Filter by Brand - Inclusion
+              value:
+                brand:
+                  operator: in
+                  value:
+                    - bmw
+                    - mercedes-benz
+            approved_at_eq:
+              summary: Filter by Approval Date - Equality
+              value:
+                approved_at:
+                  operator: eq
+                  value: "1999-03-31T00:00:00Z"
+            approved_at_lt:
+              summary: Filter by Approval Date - Less than
+              value:
+                approved_at:
+                  operator: lt
+                  value: "1999-03-31T00:00:00Z"
+            approved_at_gt:
+              summary: Filter by Approval Date - Greater than
+              value:
+                approved_at:
+                  operator: gt
+                  value: "1999-03-31T00:00:00Z"
+            approved_at_lte:
+              summary: Filter by Approval Date - Less than or Equal
+              value:
+                approved_at:
+                  operator: lte
+                  value: "1999-03-31T00:00:00Z"
+            approved_at_gte:
+              summary: Filter by Approval Date - Greater than or Equal
+              value:
+                approved_at:
+                  operator: gte
+                  value: "1999-03-31T00:00:00Z"
+            inserted_at_eq:
+              summary: Filter by Insertion Date - Equality
+              value:
+                inserted_at:
+                  operator: eq
+                  value: "1999-03-31T00:00:00Z"
+            inserted_at_lt:
+              summary: Filter by Insertion Date - Less than
+              value:
+                inserted_at:
+                  operator: lt
+                  value: "1999-03-31T00:00:00Z"
+            inserted_at_gt:
+              summary: Filter by Insertion Date - Greater than
+              value:
+                inserted_at:
+                  operator: gt
+                  value: "1999-03-31T00:00:00Z"
+            inserted_at_lte:
+              summary: Filter by Insertion Date - Less than or Equal
+              value:
+                inserted_at:
+                  operator: lte
+                  value: "1999-03-31T00:00:00Z"
+            inserted_at_gte:
+              summary: Filter by Insertion Date - Greater than or Equal
+              value:
+                inserted_at:
+                  operator: gte
+                  value: "1999-03-31T00:00:00Z"
       responses:
         '200':
           content:
