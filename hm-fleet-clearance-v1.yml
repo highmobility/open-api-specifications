@@ -110,14 +110,14 @@ paths:
             tags_eq:
               summary: Filter by Tags - Equality
               value:
-                status:
+                tags:
                   operator: eq
                   value:
                     some_key: some_value
             tags_contains:
               summary: Filter by Tags - Contains
               value:
-                status:
+                tags:
                   operator: contains
                   value:
                     some_key: some_value
