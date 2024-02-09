@@ -489,10 +489,6 @@ components:
           - vin: WBADT43452G296403
             brand: mercedes-benz
             tags: {}
-            control_measures:
-              odometer:
-                value: 55271000
-                unit: kilometers
           - vin: WBADT43452G296404
             brand: bmw
             tags: {}
@@ -543,6 +539,7 @@ components:
             - sandbox
           description: Vehicle Brand
         control_measures:
+          deprecated: true
           type: object
           properties:
             odometer:
