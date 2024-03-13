@@ -536,6 +536,7 @@ components:
             - maserati
             - kia
             - tesla
+            - volvo-cars
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -679,6 +680,7 @@ components:
             - maserati
             - kia
             - tesla
+            - volvo-cars
             - sandbox
         changelog:
            type: array
