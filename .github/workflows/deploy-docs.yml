@@ -13,7 +13,7 @@ jobs:
     - name: Build Docs
       run: |
         mkdir -p docs/v1
-        npx --yes @redocly/cli join introduction.yml hm-oauth-rest-v1.yml  hm-vehicle-data-api-v1.yml   hm-fleet-clearance-v1.yml hm-eligibility-v1.yml   -o hm-apis.yaml
+        npx --yes @redocly/cli join introduction.yml hm-oauth-rest-v1.yml  hm-vehicle-data-api-v1.yml hm-vehicle-static-data-api-v1.yml   hm-fleet-clearance-v1.yml hm-eligibility-v1.yml   -o hm-apis.yaml
         npx @redocly/cli build-docs --disableGoogleFont --output=docs/v1/index.html hm-apis.yaml
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@v4

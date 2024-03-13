@@ -7,13 +7,13 @@ info:
 
 
 
-    Sandbox server: `https://sandbox.api.high-mobility.com`
-
-
-    Production server: `https://api.high-mobility.com`
+    Servers:
+    * Production server: `https://api.high-mobility.com`
   title: Vehicle Static Data API(Draft)
   version: 1.0.0
 openapi: 3.0.3
+
+
 paths:
   /v1/vehicle-static-data/{vin}:
     get:
@@ -30,13 +30,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response'
+                $ref: '#/components/schemas/VehicleStaticDataResponse'
+              examples:
+                successful:
+                  value:
+                    manufacturer:
+                      brand: "Jeep"
+                      sub_model: "80th Anniversary Plug-In Hybrid 4WD"
+                      type_group_name: "Compass"
+                      model: "Compass (M7)(2020->)"
+                      sales_description: "Compass 1.3 Plug-In Hybrid (EURO 6d) 80th Annivers"
+                    equipment:
+                      series_equipment:
+                        - description: "airbag driver side/passenger side"
+                          positions: []
+                          manufacturer_id: null
+                        - descripion: "navigation package"
+                          positions:
+                            - description: "driver assistance system: traffic sign detection (TSR)"
+                          manufacturer_id: "JPE"
+                      special_equipment:
+                        - description: "Winter package"
+                          positions:
+                            - description: "windshield wiper heated"
+                          manufacturer_id: AAC                     
           description: successful operation
         '401':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/response401'            
+                $ref: '#/components/schemas/VehicleStaticDataResponse401'            
               examples:
                 Invalid authorization header:
                   value:
@@ -61,18 +84,56 @@ paths:
         - VehicleStaticDataAuth:
             - vehicle:static-data
       tags:
-        - Data API
+        - Static Data API
 servers:
   - url: https://sandbox.api.high-mobility.com
   - url: https://api.high-mobility.com
   
 components:  
   schemas:
-    response:
+    VehicleStaticDataManufacturer:
       properties:
-        data:
-          type: object
-    response401:
+        brand:
+          type: string
+        sub_model:
+          type: string
+        type_group_name:
+          type: string
+        model:
+          type: string
+        sales_description:
+          type: string
+    VehicleStaticDataEquipment:
+      properties:
+        series_equipment:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleStaticDataEquipmentList'
+        special_equipment:
+          type: array
+          items:
+            $ref: '#/components/schemas/VehicleStaticDataEquipmentList'
+
+    VehicleStaticDataEquipmentList:
+      properties:
+        manufacturer_id:
+          type: string
+        description:
+          type: string
+        positions:
+          type: array
+          items:
+            type: string
+          
+    
+    VehicleStaticDataResponse:
+      properties:
+        manufacturer:
+          $ref: '#/components/schemas/VehicleStaticDataManufacturer'
+        equipment:
+          $ref: '#/components/schemas/VehicleStaticDataEquipment'
+
+    VehicleStaticDataResponse401:
       properties:
         errors:
           items:
