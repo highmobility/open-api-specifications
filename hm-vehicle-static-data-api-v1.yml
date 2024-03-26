@@ -40,6 +40,9 @@ paths:
                       type_group_name: "Compass"
                       model: "Compass (M7)(2020->)"
                       sales_description: "Compass 1.3 Plug-In Hybrid (EURO 6d) 80th Annivers"
+                      vehicle_main_type_key: "111"
+                      vehicle_sub_type_key: "30"
+                      vehicle_type_key: "1"
                     equipment:
                       series_equipment:
                         - description: "airbag driver side/passenger side"
@@ -103,6 +106,12 @@ components:
           type: string
         sales_description:
           type: string
+        vehicle_main_type_key:
+          type: string
+        vehicle_sub_type_key:
+          type: string
+        vehicle_type_key:
+          type: string
     VehicleStaticDataEquipment:
       properties:
         series_equipment:
@@ -124,8 +133,7 @@ components:
           type: array
           items:
             type: string
-          
-    
+
     VehicleStaticDataResponse:
       properties:
         manufacturer:
