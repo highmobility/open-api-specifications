@@ -9,7 +9,7 @@ info:
 
     Servers:
     * Production server: `https://api.high-mobility.com`
-  title: Vehicle Static Data API(Draft)
+  title: Static Data API
   version: 1.0.0
 openapi: 3.0.3
 
