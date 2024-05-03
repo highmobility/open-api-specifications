@@ -114,6 +114,26 @@ components:
           format: date-time
           type: string
       type: object
+    property_hybrid_operating_mode:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - auto_charge_deplete
+            - auto_charge_sustain
+            - forced_charge_sustain
+            - forced_electric
+            - forced_non_electric
+            - temporary_charge_sustain
+            - prioritize_charge_generation
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
     property_lock:
       additionalProperties: false
       minProperties: 1
@@ -275,6 +295,12 @@ components:
         current_limit:
           $ref: '#/components/schemas/property_electric_current'
           description: Limit for the charging current.
+        hybrid_operating_mode:
+          $ref: '#/components/schemas/property_hybrid_operating_mode'
+          description: Operating mode of the hybrid vehicle.
+        station_status:
+          $ref: '#/components/schemas/property_station_status'
+          description: Status of the charging station.
         charging_window_chosen:
           $ref: '#/components/schemas/property_charging_window_chosen'
           description: Charging window chosen
@@ -317,6 +343,12 @@ components:
         current_type:
           $ref: '#/components/schemas/property_current_type'
           description: Type of current in use
+        battery_charge_transfer_event:
+          $ref: '#/components/schemas/property_battery_charge_transfer_event'
+          description: Indicates that the high-voltage battery lost state of charge due to an energy transfer to the 12V battery.
+        station_power_type:
+          $ref: '#/components/schemas/property_station_power_type'
+          description: The power type of the connected charging station.
         charger_voltage_dc:
           $ref: '#/components/schemas/property_electric_potential_difference'
           deprecated: true
@@ -396,6 +428,9 @@ components:
         battery_cooling_temperature:
           $ref: '#/components/schemas/property_temperature'
           description: Battery cooling temperature.
+        battery_performance_status:
+          $ref: '#/components/schemas/property_battery_performance_status'
+          description: Performance status of the xEV battery.
         estimated_range:
           $ref: '#/components/schemas/property_length'
           description: Estimated range
@@ -425,6 +460,9 @@ components:
           $ref: '#/components/schemas/property_power'
           deprecated: true
           description: Charging rate
+        station_displayed_status:
+          $ref: '#/components/schemas/property_station_displayed_status'
+          description: Status shown on the display of the charging station.
         auxiliary_power:
           $ref: '#/components/schemas/property_power'
           description: Auxiliary power used for predictions.
@@ -434,6 +472,9 @@ components:
         battery_energy_chargable:
           $ref: '#/components/schemas/property_energy'
           description: Energy required until high-voltage battery is fully charged.
+        charger_power:
+          $ref: '#/components/schemas/property_power'
+          description: Power of the charger.
         smart_charging_option:
           $ref: '#/components/schemas/property_smart_charging_option'
           description: Smart charging option being used to charge with.
@@ -984,6 +1025,22 @@ components:
       required:
         - axle
         - state
+      type: object
+    property_battery_charge_transfer_event:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - low_voltage_battery_service_required
+            - low_voltage_battery_high_usage
+            - vehicle_service_required
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
       type: object
     custom_type_driver_time_state:
       additionalProperties: false
@@ -1720,7 +1777,7 @@ components:
             - headlights_right_failure
             - hybrid_system_fault
             - hybrid_system_fault_repaired_vehicle
-            - hydraulic_pressure_or_brake_fuild_insufficient
+            - hydraulic_pressure_or_brake_fluid_insufficient
             - lane_departure_fault
             - limited_visibility_aids_camera
             - tire_pressure_low
@@ -1730,7 +1787,7 @@ components:
             - parking_brake_control_failing
             - parking_space_measuring_system_failure
             - place_gear_to_parking
-            - power_steering_assitance_failure
+            - power_steering_assistance_failure
             - power_steering_failure
             - preheating_deactivated_battery_too_low
             - preheating_deactivated_fuel_level_too_low
@@ -2214,6 +2271,23 @@ components:
         engine_oil_temperature:
           $ref: '#/components/schemas/property_temperature'
           description: Engine oil temperature
+    property_station_power_type:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - ac_basic
+            - ac_smart
+            - dc_fast
+            - wireless
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
     power_takeoff:
       properties:
         engaged:
@@ -2470,7 +2544,7 @@ components:
       properties:
         acceleration:
           $ref: '#/components/schemas/unit_acceleration'
-          description: The accelaration
+          description: The acceleration
         direction:
           description: Direction
           enum:
@@ -3182,6 +3256,23 @@ components:
         yaw_rate:
           $ref: '#/components/schemas/property_angular_velocity'
           description: Yaw turning rate
+    property_battery_performance_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - normal
+            - caution
+            - reduced
+            - severly_reduced
+          type: string
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
     custom_type_tire_temperature:
       additionalProperties: false
       description: Tire temperature
@@ -3954,6 +4045,9 @@ components:
         average_weekly_distance:
           $ref: '#/components/schemas/property_length'
           description: Average weekly distance
+        last_trip_battery_regenerated:
+          $ref: '#/components/schemas/property_percentage'
+          description: Estimated electrical charge (in %) that was recovered through regeneration during a trip.
         rapid_deceleration_grade:
           $ref: '#/components/schemas/property_grade'
           description: Grade given for rapid deceleration over time
@@ -4237,6 +4331,24 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/custom_type_ignition_state'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_station_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_compatible
+            - not_detected
+            - digital_communication_established
+            - digital_communication_ended
+            - station_ready
+          type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
         timestamp:
@@ -5276,6 +5388,30 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/custom_type_acceleration_duration'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    property_station_displayed_status:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - not_plugged_in
+            - fault
+            - station_not_compatible
+            - station_not_detected
+            - in_progress
+            - scheduled
+            - paused
+            - stopped
+            - completed
+            - discharging
+            - not_ready
+          type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
         timestamp:
