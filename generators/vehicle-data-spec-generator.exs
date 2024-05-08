@@ -94,28 +94,57 @@ defmodule Loader do
   defp transform_capabilities(capabilities) do
     capabilities
     |> Enum.map(fn {key, value} ->
-      {key, transform_properties(value["properties"])}
+      {key, transform_properties(key, value["properties"])}
     end)
     |> Map.new()
   end
 
   defp transform_property_units(capabilities) do
     capabilities
-    |> Enum.flat_map(fn {_key, value} ->
-      transform_properties_detail(value["$defs"])
+    |> Enum.flat_map(fn {key, value} ->
+      transform_properties_detail(key, value["$defs"])
     end)
     |> Map.new()
   end
 
-  defp transform_properties(properties) do
+  defp transform_properties(capability, properties) do
     skip_props = ["vin", "nonce"]
 
     properties
     |> Enum.reject(fn {key, _value} -> key in skip_props end)
+    |> Enum.map(fn {key, value} ->
+      value =
+        case value do
+          %{"items" => %{"$ref" => ref}} ->
+            :ok
+
+            [_, _, _, prop] = String.split(ref, "/")
+
+            put_in(
+              value,
+              ["items", "$ref"],
+              "#/components/schemas/#{capability}_#{prop}"
+            )
+
+          _ ->
+            case value do
+              %{"$ref" => ref} ->
+                [_, _, _, prop] = String.split(ref, "/")
+
+                put_in(
+                  value,
+                  ["$ref"],
+                  "#/components/schemas/#{capability}_#{prop}"
+                )
+            end
+        end
+
+      {"#{key}", value}
+    end)
     |> Map.new()
   end
 
-  defp transform_properties_detail(defs) do
+  defp transform_properties_detail(capability, defs) do
     defs
     |> Enum.map(fn {key, value} ->
       props =
@@ -123,7 +152,7 @@ defmodule Loader do
         |> Enum.filter(fn {key, _} -> key not in ["availability"] end)
         |> Map.new()
 
-      {key, put_in(value, ["properties"], props)}
+      {"#{capability}_#{key}", put_in(value, ["properties"], props)}
     end)
     |> Map.new()
   end
@@ -248,7 +277,7 @@ defmodule Loader do
       },
       "info" => %{
         "description" =>
-          "This endpoint allows you to retrieve vehicle data through a RESTful interface.\n\nAuthentication: \n * For driver flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth/) using `authorization_code` grant type to obtain access token.\n * For fleet flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.\n\n\n\nSandbox server: `https://sandbox.api.high-mobility.com`\n\n\nProduction server: `https://api.high-mobility.com`",
+          "This endpoint allows you to retrieve vehicle data through a RESTful interface.\n\nAuthentication:\n * For driver flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth/) using `authorization_code` grant type to obtain access token.\n * For fleet flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.\n\n\n\nSandbox server: `https://sandbox.api.high-mobility.com`\n\n\nProduction server: `https://api.high-mobility.com`",
         "title" => "Vehicle Data API",
         "version" => "1.0.0"
       },
@@ -598,4 +627,6 @@ defmodule Loader do
   end
 end
 
-Loader.run() |> Jason.encode!() |> IO.puts()
+Loader.run()
+|> Jason.encode!()
+|> IO.puts()
