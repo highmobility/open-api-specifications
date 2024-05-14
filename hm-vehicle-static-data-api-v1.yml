@@ -105,7 +105,7 @@ paths:
         - Static Data API
   /v1/vehicle-static-data/{vin}/valuation:
     post:
-      summary: Vehicle Static Data
+      summary: Vehicle Valuation Data
       parameters:
         - description: Vehicle Identification number
           in: path
