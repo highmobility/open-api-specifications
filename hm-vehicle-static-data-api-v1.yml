@@ -138,6 +138,8 @@ paths:
                         source: odometer
                       - detail: has invalid format
                         source: registration_date
+                      - detail: can't be blank
+                        source: country_code
                     request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
           description: Unprocessable Content
         '504':
@@ -287,12 +289,6 @@ components:
           description: "Dat Key: BasePrice3 | Base value as determined by DAT, net, based on regular taxation (incl. equipment)"
           example: "15089.91"
 
-    VehicleStaticDataValuationRegistration:
-      properties:
-        obsolete:
-          type: boolean
-          description: "Dat Key: Obsolete | Registration. true: obsolete, false: up to date"
-          example: true
     VehicleStaticDataValuationCondition:
       properties:
         correction_factor_percentage:
@@ -359,10 +355,6 @@ components:
           format: decimal
           example: "1686.52"
           description: "Dat key: MileageCorr | Mileage adjustment (net)"
-        unit:
-          type: string
-          example: "kilometers"
-          description: "Dat key: SignMilageUnit | Unit of mileage"
     VehicleStaticDataValuationMeta:
       properties:
         last_valuation_date:
@@ -402,8 +394,6 @@ components:
       properties:
         price:
            $ref: '#/components/schemas/VehicleStaticDataValuationPrice'
-        registration:
-          $ref: "#/components/schemas/VehicleStaticDataValuationRegistration"
         condition:
           $ref: "#/components/schemas/VehicleStaticDataValuationCondition"
         odometer:
@@ -487,6 +477,10 @@ components:
         registration_date:
           type: string
           example: 2004-01-01
+        country_code:
+          type: string
+          example: DE
+          description: "The target market for the valuation. A two-letter country code as defined in the ISO 3166-1 standard."
     VehicleStaticValuationDataResponse:
       properties:
         valuation:
