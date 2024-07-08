@@ -476,7 +476,7 @@ components:
           example: 1222
         registration_date:
           type: string
-          example: 2004-01-01
+          example: 2010-01-01
         country_code:
           type: string
           example: DE
