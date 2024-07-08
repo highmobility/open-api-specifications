@@ -473,7 +473,7 @@ components:
       properties:
         odometer:
           type: number
-          example: 1222.01
+          example: 1222
         registration_date:
           type: string
           example: 2004-01-01
