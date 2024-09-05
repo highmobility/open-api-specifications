@@ -304,6 +304,9 @@ components:
         current_limit:
           $ref: '#/components/schemas/charging_property_electric_current'
           description: Limit for the charging current.
+        conserving_charge:
+          $ref: '#/components/schemas/charging_property_active_state'
+          description: Indicates if the vehicle is conserving charge.
         hybrid_operating_mode:
           $ref: '#/components/schemas/charging_property_hybrid_operating_mode'
           description: Operating mode of the hybrid vehicle.
@@ -395,6 +398,9 @@ components:
         battery_temperature_control_demand:
           $ref: '#/components/schemas/charging_property_battery_temperature_control_demand'
           description: Current demand of HV battery temperature control system.
+        charging_scenario:
+          $ref: '#/components/schemas/charging_property_charging_scenario'
+          description: Charging scenario.
         battery_level:
           $ref: '#/components/schemas/charging_property_percentage'
           description: Battery level percentage between 0.0-1.0
@@ -420,6 +426,9 @@ components:
         preconditioning_error:
           $ref: '#/components/schemas/charging_property_preconditioning_error'
           description: Preconditioning error if one is encountered
+        charging_rate_distance:
+          $ref: '#/components/schemas/charging_property_distance_over_time'
+          description: Range increase per time unit during ongoing charging process based on the average energy comsumption for driving.
         timers:
           description: Timers
           items:
@@ -837,6 +846,11 @@ components:
           items:
             $ref: '#/components/schemas/dashboard_lights_property_dashboard_light'
           type: array
+        dynamic_warnings:
+          description: Dynamic warnings
+          items:
+            $ref: '#/components/schemas/dashboard_lights_property_dynamic_warning'
+          type: array
     charging_property_enabled_state:
       additionalProperties: false
       minProperties: 1
@@ -986,6 +1000,7 @@ components:
             - digital_communication_established
             - digital_communication_ended
             - station_ready
+            - active
           type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
@@ -1554,6 +1569,7 @@ components:
             - foreign_object_detected
             - conditioning
             - flap_open
+            - ready_for_charging
           type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
@@ -2338,6 +2354,18 @@ components:
           format: date-time
           type: string
       type: object
+    charging_property_distance_over_time:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_distance_over_time'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
     remote_control_property_nonce:
       additionalProperties: false
       minProperties: 1
@@ -2410,6 +2438,37 @@ components:
           maxItems: 9
           minItems: 9
           type: array
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
+    charging_property_charging_scenario:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          enum:
+            - 'off'
+            - charging_to_departure_time_finished
+            - immediately_charging_finished
+            - optimised_charging_finished
+            - charging_to_departure_time_active
+            - immediately_charging_active
+            - optimised_charging_active
+            - charging_to_departure_time_waiting
+            - optimised_charging_waiting
+            - no_grid_voltage
+            - error_lock
+            - error_charging_system
+            - initialization_charging_communication
+            - immediately_optimised_charging_active
+            - immediately_optimised_charging_finished
+            - emergency_charging
+            - charging_interrupt_by_user
+            - plug_releasable
+          type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
         timestamp:
@@ -2807,6 +2866,9 @@ components:
         engine_oil_service_status:
           $ref: '#/components/schemas/diagnostics_property_service_status'
           description: Engine oil service status
+        estimated_primary_powertrain_range:
+          $ref: '#/components/schemas/diagnostics_property_length'
+          description: Estimated primary powertrain range
         diesel_exhaust_filter_status:
           description: Diesel exhaust filter status
           items:
@@ -4013,6 +4075,24 @@ components:
       required:
         - unit
         - value
+      type: object
+    custom_type_dynamic_warning:
+      additionalProperties: false
+      description: Dynamic warning
+      properties:
+        category:
+          description: Category of the warning
+          type: string
+        description:
+          description: Description of the warning
+          type: string
+        id:
+          description: Identifier of the warning
+          type: string
+      required:
+        - category
+        - id
+        - description
       type: object
     charging_session_property_charging_cost:
       additionalProperties: false
@@ -5463,6 +5543,7 @@ components:
             - green_flashing
             - initialising
             - error
+            - blue
           type: string
         failure:
           $ref: '#/components/schemas/custom_type_failure'
@@ -6944,6 +7025,18 @@ components:
         request_id:
           description: The request tracking id. Provide request_id when facing issue
           type: string
+    dashboard_lights_property_dynamic_warning:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        data:
+          $ref: '#/components/schemas/custom_type_dynamic_warning'
+        failure:
+          $ref: '#/components/schemas/custom_type_failure'
+        timestamp:
+          format: date-time
+          type: string
+      type: object
     charging_property_power:
       additionalProperties: false
       minProperties: 1
