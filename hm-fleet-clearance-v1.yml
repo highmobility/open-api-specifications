@@ -537,6 +537,8 @@ components:
             - kia
             - tesla
             - volvo-cars
+            - skoda
+            - audi
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -681,6 +683,8 @@ components:
             - kia
             - tesla
             - volvo-cars
+            - skoda
+            - audi
             - sandbox
         changelog:
            type: array
