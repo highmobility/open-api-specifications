@@ -530,6 +530,7 @@ components:
             - alfaromeo
             - ford
             - renault
+            - dacia
             - toyota
             - lexus
             - porsche
@@ -539,6 +540,9 @@ components:
             - volvo-cars
             - skoda
             - audi
+            - volkswagen
+            - seat
+            - cupra
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -676,6 +680,7 @@ components:
             - alfaromeo
             - ford
             - renault
+            - dacia
             - toyota
             - lexus
             - porsche
@@ -685,6 +690,9 @@ components:
             - volvo-cars
             - skoda
             - audi
+            - volkswagen
+            - seat
+            - cupra   
             - sandbox
         changelog:
            type: array
