@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "/json-schema/janus/0002/spec.json",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "number"
+    },
+    "message_id": {
+      "type": "string"
+    },
+    "vin": {
+      "type": "string"
+    },
+    "data": {
+      "$ref": "/json-schema/auto-api/0002/spec.json"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "message_id",
+    "vin",
+    "data"
+  ]
+}
