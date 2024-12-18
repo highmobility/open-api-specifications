@@ -1,0 +1,30 @@
+{
+  "diagnostics": {
+    "odometer": [
+      {
+        "data": {
+          "value": 2050,
+          "unit": "kilometers"
+        },
+        "timestamp": "2021-10-06T13:59:25.648943Z"
+      }
+    ],
+    "speed": [
+      {
+        "data": {
+          "value": 42,
+          "unit": "kilometers_per_hour"
+        },
+        "timestamp": "2021-10-06T13:59:25.648943Z"
+      }
+    ]
+  },
+  "race": {
+    "vehicle_moving": [
+      {
+        "data": "moving",
+        "timestamp": "2021-10-06T13:59:25.648943Z"
+      }
+    ]
+  }
+}

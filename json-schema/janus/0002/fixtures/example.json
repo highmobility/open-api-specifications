@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "message_id": "ABCDEF",
+  "vin": "EXVETESTVIN000001",
+  "data": {
+    "diagnostics": {
+      "odometer": [
+        {
+          "data": {
+            "value": 2050,
+            "unit": "kilometers"
+          },
+          "timestamp": "2021-10-06T13:59:25.648943Z"
+        }
+      ]
+    }
+  }
+}
