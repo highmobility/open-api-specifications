@@ -722,6 +722,9 @@ components:
             - rejected
             - canceling
             - canceled
+        reason:
+          type: string
+          description: 'Reason for rejection'
 
     FleetDeletionErrors:
       type: object
