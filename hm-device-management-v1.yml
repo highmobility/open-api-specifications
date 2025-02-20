@@ -22,6 +22,7 @@ securityDefinitions:
 paths:
   /v1/device_certificates/{id}:
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -56,6 +57,7 @@ paths:
       operationId: ApiWeb.DeviceCertificateController.show
       description: Retrieves a device certificate.
     delete:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -89,6 +91,7 @@ paths:
       description: Revokes a device certificate.
   /v1/device_certificates:
     post:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -123,6 +126,7 @@ paths:
       operationId: ApiWeb.DeviceCertificateController.create
       description: Creates a device certificate.
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
