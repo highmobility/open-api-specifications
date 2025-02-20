@@ -543,6 +543,7 @@ components:
             - volkswagen
             - seat
             - cupra
+            - polestar
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -692,7 +693,8 @@ components:
             - audi
             - volkswagen
             - seat
-            - cupra   
+            - cupra
+            - polestar
             - sandbox
         changelog:
            type: array
