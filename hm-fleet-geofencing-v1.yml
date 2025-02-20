@@ -4,10 +4,11 @@ info:
   version: '1.0'
   title: Fleet Geofencing API 
   description: >-
+    ⚠ This API is deprecated, if you have a question, please contact support@high-mobility.com.
+    
+    
     The Geofencing API allows fleet operators to define zones and assign them to vehicles in order to get notified once a vehicle enters or exits a zone.
-    
-    
-    In order to use the API endpoints you will need to retrieve an auth token using the [Service Account Token API](/api-references/code-references/service-account/reference/v1/).
+  
 securityDefinitions:
   ServiceAccountToken:
     type: apiKey
@@ -20,6 +21,7 @@ securityDefinitions:
 paths:
   /v1/fleets/geofencing/zones:
     post:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -65,6 +67,7 @@ paths:
             $ref: '#/definitions/Errors'
           description: Server errors
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -101,6 +104,7 @@ paths:
           description: Server errors
   /v1/fleets/geofencing/zones/{id}:
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -147,6 +151,7 @@ paths:
             $ref: '#/definitions/Errors'
           description: Server errors
     delete:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -194,6 +199,7 @@ paths:
           description: Server errors
   /v1/fleets/geofencing/notifications:
     post:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -246,6 +252,7 @@ paths:
             $ref: '#/definitions/Errors'
           description: Server errors
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -282,6 +289,7 @@ paths:
           description: Server errors
   /v1/fleets/geofencing/notifications/{id}:
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -328,6 +336,7 @@ paths:
             $ref: '#/definitions/Errors'
           description: Server errors
     delete:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -375,6 +384,7 @@ paths:
           description: Server errors
   /v1/fleets/geofencing/events/{vin}:
     get:
+      deprecated: true
       security:
         - ServiceAccountToken: []
       tags:
@@ -731,4 +741,3 @@ definitions:
               obtained through the service account API and sent as a header with
               the format "Authorization: Bearer <token>"
             source: Authorization
-
