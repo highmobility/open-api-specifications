@@ -120,6 +120,7 @@ components:
             - renault
             - toyota
             - lexus
+            - volvo-cars
             - sandbox
       required:
         - vin
