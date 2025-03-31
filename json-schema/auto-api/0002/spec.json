@@ -1,6 +1,6 @@
 {
  "$schema": "http://json-schema.org/draft-07/schema#",
- "$id": "/schemas/auto-api/default/0002/spec.json",
+ "$id": "/json-schema/auto-api/0002/spec.json",
  "type": "object",
  "minProperties": 1,
  "properties": {

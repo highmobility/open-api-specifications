@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "/janus-schema/0002/spec.json",
+  "$id": "/json-schema/janus/0002/spec.json",
   "type": "object",
   "properties": {
     "version": {
@@ -18,7 +18,7 @@
       "type": "string"
     },
     "data": {
-      "$ref": "/schemas/auto-api/default/0002/spec.json"
+      "$ref": "/json-schema/auto-api/0002/spec.json"
     }
   },
   "additionalProperties": false,
