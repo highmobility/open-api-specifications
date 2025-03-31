@@ -1,6 +1,7 @@
 {
   "version": 2,
   "message_id": "ABCDEF",
+  "application_id": "48aa1779-91c2-468e-97e9-ab112efd53b9",
   "vin": "EXVETESTVIN000001",
   "data": {
     "diagnostics": {
