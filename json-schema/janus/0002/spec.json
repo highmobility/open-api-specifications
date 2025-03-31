@@ -1,10 +1,15 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "/json-schema/janus/0002/spec.json",
+  "$id": "/janus-schema/0002/spec.json",
   "type": "object",
   "properties": {
     "version": {
-      "type": "number"
+      "type": "number",
+      "const": 2
+    },
+    "application_id": {
+      "type": "string",
+      "format": "uuid"
     },
     "message_id": {
       "type": "string"
@@ -13,12 +18,13 @@
       "type": "string"
     },
     "data": {
-      "$ref": "/json-schema/auto-api/0002/spec.json"
+      "$ref": "/schemas/auto-api/default/0002/spec.json"
     }
   },
   "additionalProperties": false,
   "required": [
     "version",
+    "application_id",
     "message_id",
     "vin",
     "data"
