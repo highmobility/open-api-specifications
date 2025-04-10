@@ -21,7 +21,7 @@
       "$ref": "/json-schema/auto-api/0002/spec.json"
     }
   },
-  "additionalProperties": false,
+  "additionalProperties": true,
   "required": [
     "version",
     "application_id",
