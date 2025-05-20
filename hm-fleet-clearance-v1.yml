@@ -60,6 +60,12 @@ paths:
           description: >-
             Invalid Input. It occurs when the payload is missing a params or the
             the application is not configured.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetTooManyRequestsErrors'
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.          
         '500':
           description: Server Errors
 
@@ -214,6 +220,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/FleetForbiddenErrors'
           description: When the application doesn't have fleet access.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetTooManyRequestsErrors'
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
         '500':
           description: Server Errors
       description: >-
@@ -261,6 +273,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/FleetErrors'
           description: Given resource not found
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetTooManyRequestsErrors'
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
         '500':
           description: Server Errors
 
@@ -321,6 +339,12 @@ paths:
                 $ref: '#/components/schemas/FleetCancellationErrors'
           description: >-
             When cancellation is not possible at this moment.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetTooManyRequestsErrors'
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
         '500':
           description: Server Errors
 
@@ -423,7 +447,19 @@ components:
               status: pending
             - timestamp: "2022-03-22T10:36:51"
               status: approved
-
+    FleetTooManyRequestsErrors:
+      type: object
+      title: Errors
+      properties:
+        errors:
+          description: List of errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          example:
+            - detail: retry after 10s
+              source: fleet-manager-api:2fbf7a88-28de-449a-aa90-fa79c65cc7a7
+              title: Too many requests
     FleetForbiddenErrors:
       type: object
       title: Errors
