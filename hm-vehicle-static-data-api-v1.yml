@@ -186,7 +186,6 @@ paths:
       tags:
         - Static Data API
 servers:
-  - url: https://sandbox.api.high-mobility.com
   - url: https://api.high-mobility.com
 
 components:
@@ -525,5 +524,5 @@ components:
         clientCredentials:
           scopes:
             vehicle:static-data: static vehicle data
-          tokenUrl: https://api.sandbox.high-mobility.com/v1/access_token
+          tokenUrl: https://api.high-mobility.com/v1/access_token
       type: oauth2

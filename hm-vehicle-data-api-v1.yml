@@ -7664,5 +7664,5 @@ paths:
       tags:
         - Data API
 servers:
-  - url: https://sandbox.api.high-mobility.com
   - url: https://api.high-mobility.com
+  - url: https://sandbox.api.high-mobility.com

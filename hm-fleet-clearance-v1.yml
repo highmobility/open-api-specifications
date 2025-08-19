@@ -16,8 +16,8 @@ externalDocs:
   description: High Mobility's Developer Console
   url: https://www.high-mobility.com
 servers:
-  - url: https://sandbox.api.high-mobility.com
   - url: https://api.high-mobility.com
+  - url: https://sandbox.api.high-mobility.com
 
 paths:
   /v1/fleets/vehicles:
