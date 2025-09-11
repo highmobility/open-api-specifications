@@ -1,6 +1,6 @@
 info:
   description: |-
-    This endpoint allows you to retrieve static  vehicle data through a RESTful interface.
+    This endpoint allows you to retrieve static vehicle data through a RESTful interface.
 
     Authentication:
      * For fleet flow use [OAuth2](https://docs.high-mobility.com/guides/platform/oauth2-client-credentials/) using `client_credentials` grant type to obtain access token.
@@ -16,6 +16,13 @@ info:
 openapi: 3.0.3
 
 
+tags:
+  - name: Fleet Clearance API
+    description: >-
+            This endpoint allows you to retrieve static vehicle data through a RESTful interface.
+            
+            The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-vehicle-static-data-api-v1.yml
+      
 paths:
   /v1/vehicle-static-data/{vin}:
     get:
