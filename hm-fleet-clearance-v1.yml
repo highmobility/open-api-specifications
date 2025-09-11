@@ -19,6 +19,12 @@ servers:
   - url: https://api.high-mobility.com
   - url: https://sandbox.api.high-mobility.com
 
+tags:
+  - name: Fleet Clearance API
+    description: >-
+            By using the Fleet Clearance API endpoints, it's possible for fleet operators to activate and deactivate data access to their vehicles.
+            
+            The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-fleet-clearance-v1.yml
 paths:
   /v1/fleets/vehicles:
     post:
@@ -27,7 +33,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       requestBody:
         content:
           application/json:
@@ -76,7 +82,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       parameters:
         - in: query
           name: filter
@@ -239,7 +245,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       parameters:
         - name: vin
           in: path
