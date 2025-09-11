@@ -298,7 +298,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       parameters:
         - name: vin
           in: path
