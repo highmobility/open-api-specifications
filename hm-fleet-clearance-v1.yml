@@ -365,7 +365,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       parameters:
         - name: Authorization
           in: header
@@ -400,7 +400,7 @@ paths:
         - FleetClearanceAuth:
           - fleet:clearance
       tags:
-        - Fleet Clearance Resource
+        - Fleet Clearance
       responses:
         '200':
           content:
