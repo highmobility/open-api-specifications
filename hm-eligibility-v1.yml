@@ -20,7 +20,12 @@ externalDocs:
 servers:
   - url: https://api.high-mobility.com
   - url: https://sandbox.api.high-mobility.com  
-
+tags:
+  - name: Eligibility API
+    description: >-
+            This API allows lookups to see if a vehicle is eligible for telematics data.
+            
+            The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-eligibility-v1.yml
 paths:
   /v1/eligibility:
     post:
