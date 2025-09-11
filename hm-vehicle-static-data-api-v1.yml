@@ -17,7 +17,7 @@ openapi: 3.0.3
 
 
 tags:
-  - name: Fleet Clearance API
+  - name: Static Data API
     description: >-
             This endpoint allows you to retrieve static vehicle data through a RESTful interface.
             
