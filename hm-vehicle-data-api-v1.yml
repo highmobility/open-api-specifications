@@ -7666,3 +7666,9 @@ paths:
 servers:
   - url: https://api.high-mobility.com
   - url: https://sandbox.api.high-mobility.com
+tags:
+  - name: Data API
+    description: >-
+            This endpoint allows you to retrieve vehicle data through a RESTful interface.
+            
+            The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-vehicle-data-api-v1.yml
