@@ -22,7 +22,10 @@ servers:
   - url: https://sandbox.api.high-mobility.com
 tags:
   - name: OAuth2
-    description: Operations about OAuth2
+    description: >-
+        The OAuth2 API provides you an interface to create access tokens.
+        
+        The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-oauth-rest-v1.yml
 paths:
   /v1/access_tokens:
     post:
