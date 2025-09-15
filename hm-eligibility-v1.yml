@@ -21,7 +21,7 @@ servers:
   - url: https://api.high-mobility.com
   - url: https://sandbox.api.high-mobility.com  
 tags:
-  - name: Eligibility API
+  - name: Eligibility
     description: >-
             This API allows lookups to see if a vehicle is eligible for telematics data.
             
