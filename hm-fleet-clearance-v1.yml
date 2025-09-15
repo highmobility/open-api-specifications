@@ -20,7 +20,7 @@ servers:
   - url: https://sandbox.api.high-mobility.com
 
 tags:
-  - name: Fleet Clearance API
+  - name: Fleet Clearance
     description: >-
             By using the Fleet Clearance API endpoints, it's possible for fleet operators to activate and deactivate data access to their vehicles.
             
