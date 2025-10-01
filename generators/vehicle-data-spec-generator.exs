@@ -259,14 +259,14 @@ defmodule Loader do
             "type" => "oauth2",
             "flows" => %{
               "authorizationCode" => %{
-                "authorizationUrl" => "https://owner-panel.sandbox.high-mobiliy.com/oauth/new",
-                "tokenUrl" => "https://api.sandbox.high-mobility.com/v1/access_token",
+                "authorizationUrl" => "https://owner-panel.high-mobiliy.com/oauth/new",
+                "tokenUrl" => "https://api.high-mobility.com/v1/access_token",
                 "scopes" => %{
                   "vehicle:data": "all configured vehicle data"
                 }
               },
               "clientCredentials" => %{
-                "tokenUrl" => "https://api.sandbox.high-mobility.com/v1/access_token",
+                "tokenUrl" => "https://api.high-mobility.com/v1/access_token",
                 "scopes" => %{
                   "vehicle:data" => "all all configured vehicle data"
                 }
@@ -439,8 +439,15 @@ defmodule Loader do
         }
       },
       "servers" => [
-        %{"url" => "https://sandbox.api.high-mobility.com"},
-        %{"url" => "https://api.high-mobility.com"}
+        %{"url" => "https://api.high-mobility.com"},
+        %{"url" => "https://sandbox.api.high-mobility.com"}
+      ],
+      "tags" => [
+        %{
+          "name" => "Data API",
+          "description" =>
+            "\nThis endpoint allows you to retrieve vehicle data through a RESTful interface.\nThe raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-vehicle-data-api-v1.yml"
+        }
       ]
     }
   end
