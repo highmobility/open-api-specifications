@@ -71,7 +71,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FleetTooManyRequestsErrors'
-          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.          
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying. There is no rate limit enforced at this moment for this endpoint, but we reserve the right to enable it if necessary. Please use this API moderately and avoid bursts of calls within a few seconds.
         '500':
           description: Server Errors
 
@@ -231,7 +231,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FleetTooManyRequestsErrors'
-          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying. There is no rate limit enforced at this moment for this endpoint, but we reserve the right to enable it if necessary. Please use this API moderately and avoid bursts of calls within a few seconds.
         '500':
           description: Server Errors
       description: >-
@@ -284,7 +284,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FleetTooManyRequestsErrors'
-          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying. This endpoint allows up to 60 calls per minute per application. 
         '500':
           description: Server Errors
 
@@ -350,7 +350,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FleetTooManyRequestsErrors'
-          description:  The client has sent too many requests in a given amount of time. Please wait before retrying.
+          description:  The client has sent too many requests in a given amount of time. Please wait before retrying. There is no rate limit enforced at this moment for this endpoint, but we reserve the right to enable it if necessary. Please use this API moderately and avoid bursts of calls within a few seconds.
         '500':
           description: Server Errors
 
