@@ -26,7 +26,12 @@ tags:
 paths:
   /v1/vehicle-static-data/{vin}:
     get:
-      summary: Vehicle Static Data
+      summary: | 
+        Vehicle Static Data.
+        
+        This is a proxy call to Dat's FinanceLine/soap/VehicleIdentificationService:getVehicleIdentificationByVin API.
+        
+        Docs: https://www.dat.de/fileadmin/de/support/interface-documentation/MG/SilverDAT_Schnittstellen-Kompendium_Mag/#/home/1798/20/21
       parameters:
         - description: Vehicle Identification number
           in: path
@@ -377,7 +382,12 @@ paths:
         - Static Data API
   /v1/vehicle-static-data/{vin}/valuation:
     post:
-      summary: Vehicle Valuation Data
+      summary: |
+        Vehicle Valuation Data.
+        
+        This is a proxy call to Dat's FinanceLine/soap/Evaluation:getVehicleEvaluation API.
+        
+        Docs: https://www.dat.de/fileadmin/de/support/interface-documentation/MG/SilverDAT_Schnittstellen-Kompendium_Mag/#/home/2156/20/21    
       parameters:
         - description: Vehicle Identification number
           in: path
