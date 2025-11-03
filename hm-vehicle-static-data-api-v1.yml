@@ -44,28 +44,293 @@ paths:
                 successful:
                   value:
                     manufacturer:
-                      brand: "Jeep"
-                      sub_model: "80th Anniversary Plug-In Hybrid 4WD"
-                      type_group_name: "Compass"
-                      model: "Compass (M7)(2020->)"
-                      sales_description: "Compass 1.3 Plug-In Hybrid (EURO 6d) 80th Annivers"
-                      vehicle_main_type_key: "111"
-                      vehicle_sub_type_key: "30"
-                      vehicle_type_key: "1"
+                      vehicle_main_type_key: '160'
+                      vehicle_sub_type_key: '63'
+                      vehicle_type_key: '1'
+                      sub_model: 220 i Luxury Line
+                      type_group_name: '2'
+                      brand: BMW
+                      model: Serie 2 Gran Tourer (F46)(2015->)
+                      sales_description: 2er Gran Tourer - 220i Luxury Line
                     equipment:
                       series_equipment:
-                        - description: "airbag driver side/passenger side"
-                          positions: []
-                          manufacturer_id: null
-                        - descripion: "navigation package"
-                          positions:
-                            - description: "driver assistance system: traffic sign detection (TSR)"
-                          manufacturer_id: "JPE"
+                      - description: airbag driver side
+                        positions: []
+                        manufacturer_id: 
+                      - description: airbag driver side/passenger side
+                        positions: []
+                        manufacturer_id: 
+                      - description: airbag passenger side
+                        positions: []
+                        manufacturer_id: 
+                      - description: airbag passenger side deactivatable
+                        positions: []
+                        manufacturer_id: 5DA
+                      - description: ambient lighting
+                        positions: []
+                        manufacturer_id: 
+                      - description: antilock braking system (ABS)
+                        positions: []
+                        manufacturer_id: 
+                      - description: automatic air-conditioning system 2-zone with automatic recirculation
+                          control
+                        positions: []
+                        manufacturer_id: '534'
+                      - description: automatic transmission - with Steptronic (8-speed)
+                        positions: []
+                        manufacturer_id: 
+                      - description: 'body: 5-door'
+                        positions: []
+                        manufacturer_id: 
+                      - description: brake assistant
+                        positions: []
+                        manufacturer_id: 
+                      - description: cargo space cover / roll-up cover
+                        positions: []
+                        manufacturer_id: 
+                      - description: center armrest front
+                        positions: []
+                        manufacturer_id: 
+                      - description: center armrest rear
+                        positions: []
+                        manufacturer_id: 
+                      - description: central locking system with remote control
+                        positions: []
+                        manufacturer_id: 
+                      - description: Check-Control system
+                        positions: []
+                        manufacturer_id: 
+                      - description: chrome line Exterieur
+                        positions: []
+                        manufacturer_id: '346'
+                      - description: cruise control with brake function
+                        positions: []
+                        manufacturer_id: '544'
+                      - description: daytime running lights LED
+                        positions: []
+                        manufacturer_id: 
+                      - description: 'driver assistance system: alertness assistant'
+                        positions: []
+                        manufacturer_id: 
+                      - description: 'driver assistance system: collision warning system with brake function'
+                        positions:
+                        - description: 'driver assistance system: Active Guard (brake assistant)'
+                        manufacturer_id: 
+                      - description: 'driver assistance system: driving-experience switch'
+                        positions: []
+                        manufacturer_id: 
+                      - description: dynamic brake light
+                        positions: []
+                        manufacturer_id: 
+                      - description: dynamic stability control (DSC)
+                        positions: []
+                        manufacturer_id: 
+                      - description: dynamic traction control (DTC)
+                        positions: []
+                        manufacturer_id: 
+                      - description: engine 2,0 liter - 141 kW 16V
+                        positions: []
+                        manufacturer_id: 
+                      - description: exhaust system (dual pipe system) with chrome trim covers
+                        positions: []
+                        manufacturer_id: 
+                      - description: exterior mirror electrically adjustable
+                        positions:
+                        - description: turn signal light in exterior mirror integrated
+                        manufacturer_id: 
+                      - description: exterior mirror vehicle colour
+                        positions:
+                        - description: turn signal light in exterior mirror integrated
+                        manufacturer_id: 
+                      - description: floor mats velours
+                        positions: []
+                        manufacturer_id: '423'
+                      - description: front fog lights LED
+                        positions: []
+                        manufacturer_id: 5A1
+                      - description: hands-free system Bluetooth with USB audio port
+                        positions: []
+                        manufacturer_id: 
+                      - description: head airbag system front
+                        positions: []
+                        manufacturer_id: 
+                      - description: head airbag system rear
+                        positions: []
+                        manufacturer_id: 
+                      - description: headlight LED
+                        positions: []
+                        manufacturer_id: 5A2
+                      - description: heat protection glazing tinted
+                        positions: []
+                        manufacturer_id: 
+                      - description: immobilizer
+                        positions: []
+                        manufacturer_id: 
+                      - description: instrument panel with contrast seam
+                        positions: []
+                        manufacturer_id: 
+                      - description: interior equipment instrument panel - below Piano Black
+                        positions: []
+                        manufacturer_id: 
+                      - description: interior equipment interior trim strips hardwood Fineline
+                        positions: []
+                        manufacturer_id: 4LR
+                      - description: Isofix mounts for child seat at rear seat
+                        positions: []
+                        manufacturer_id: 
+                      - description: liftgate control automatic
+                        positions: []
+                        manufacturer_id: '316'
+                      - description: Light-alloy rims
+                        positions: []
+                        manufacturer_id: 
+                      - description: light and rain sensor
+                        positions: []
+                        manufacturer_id: '521'
+                      - description: Light package
+                        positions: []
+                        manufacturer_id: '563'
+                      - description: low emissions according to emission standard Euro 6
+                        positions: []
+                        manufacturer_id: 
+                      - description: Luxury Line
+                        positions: []
+                        manufacturer_id: 7LE
+                      - description: model refinement
+                        positions: []
+                        manufacturer_id: 
+                      - description: multiple function for steering wheel
+                        positions: []
+                        manufacturer_id: '249'
+                      - description: outside temperature display
+                        positions: []
+                        manufacturer_id: 
+                      - description: parking brake electric
+                        positions: []
+                        manufacturer_id: 
+                      - description: personalization system (Personal Profile)
+                        positions: []
+                        manufacturer_id: 
+                      - description: power outlet (12V outlet) in center console and trunk/load space
+                          (4-fold)
+                        positions: []
+                        manufacturer_id: 
+                      - description: power steering Servotronic
+                        positions: []
+                        manufacturer_id: 
+                      - description: rear seat backrest split/folding (40:20:40)
+                        positions: []
+                        manufacturer_id: 
+                      - description: 'seat covers/upholstery: leather Dakota perforated'
+                        positions: []
+                        manufacturer_id: PDMY
+                      - description: seat heating front
+                        positions: []
+                        manufacturer_id: '494'
+                      - description: seats rear mechanical adjustable
+                        positions: []
+                        manufacturer_id: 
+                      - description: 'Service system: ConnectedDrive Services'
+                        positions: []
+                        manufacturer_id: 6AK
+                      - description: 'Service system: intelligent emergency call incl. TeleServices'
+                        positions: []
+                        manufacturer_id: 6AC
+                      - description: 'Service system: Remote Services'
+                        positions: []
+                        manufacturer_id: 6AP
+                      - description: shift point indicator
+                        positions: []
+                        manufacturer_id: 
+                      - description: shift/selector lever leather
+                        positions: []
+                        manufacturer_id: 
+                      - description: sidebag front
+                        positions: []
+                        manufacturer_id: 
+                      - description: sidebag rear
+                        positions: []
+                        manufacturer_id: 
+                      - description: start/stop system (function)
+                        positions: []
+                        manufacturer_id: 
+                      - description: steering column (steering wheel) mechanic. adjustable
+                        positions: []
+                        manufacturer_id: 
+                      - description: steering wheel (sport/leather)
+                        positions: []
+                        manufacturer_id: '255'
+                      - description: Storage package
+                        positions: []
+                        manufacturer_id: '493'
+                      - description: theft protection for wheels (rim locks)
+                        positions: []
+                        manufacturer_id: 2PA
+                      - description: tire pressure control system
+                        positions: []
+                        manufacturer_id: 2VB
+                      - description: trip computer
+                        positions: []
+                        manufacturer_id: 
                       special_equipment:
-                        - description: "Winter package"
-                          positions:
-                            - description: "windshield wiper heated"
-                          manufacturer_id: AAC
+                      - description: 3rd seat row
+                        positions: []
+                        manufacturer_id: 4UB
+                      - description: alarm system
+                        positions: []
+                        manufacturer_id: '302'
+                      - description: Business package
+                        positions:
+                        - description: 'navigation system: Navigation (USB)'
+                        - description: colour monitor (6,5 inch)
+                        - description: lumbar support seat front left and right, electrically adjustable
+                        - description: interior mirror with automatic dimming
+                        manufacturer_id: 9BD
+                      - description: 'driver assistance system: Driving Assistant'
+                        positions:
+                        - description: 'driver assistance system: high-beam assistant'
+                        - description: 'driver assistance system: speed limit display'
+                        - description: 'driver assistance system: collision warning system with brake
+                            function'
+                        - description: 'driver assistance system: Active Guard (brake assistant)'
+                        - description: 'driver assistance system: lane-departure warning system'
+                        manufacturer_id: 5AS
+                      - description: Entertainment package
+                        positions:
+                        - description: CD drive
+                        - description: DAB-Tuner (radio reception digital)
+                        - description: sound system Harman-Kardon
+                        - description: 'Service system: Apple CarPlay information (preparation)'
+                        manufacturer_id: 9D5
+                      - description: Exclusive package
+                        positions:
+                        - description: metallic paintwork
+                        - description: panoramic roof (glass)
+                        - description: sun protection glazing (rear darkened)
+                        - description: roof liner anthracite (BMW Individual)
+                        - description: seats front electrically adjustable
+                        manufacturer_id: 9D8
+                      - description: 'fuel tank: enlarged'
+                        positions: []
+                        manufacturer_id: 1AG
+                      - description: Park-Distance-Control (PDC) front and rear
+                        positions: []
+                        manufacturer_id: '508'
+                      - description: reversing camera
+                        positions: []
+                        manufacturer_id: 3AG
+                      - description: roof rails aluminium satined
+                        positions: []
+                        manufacturer_id: 3AT
+                      - description: seats front electrically adjustable (left with Memory)
+                        positions: []
+                        manufacturer_id: '459'
+                      - description: sports seats front
+                        positions: []
+                        manufacturer_id: '481'
+                      - description: veh. without model lettering
+                        positions: []
+                        manufacturer_id: '320'
           description: successful operation
         '504':
           description: Service unavailable
