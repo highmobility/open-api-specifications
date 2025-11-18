@@ -33421,6 +33421,114 @@
       "additionalProperties": false
      }
     },
+    "state_of_health": {
+     "description": "State of health of the high-voltage battery (can be greater than 1.0 due to production variance).",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
+        "type": "number"
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
     "nonce": {
      "type": "object",
      "properties": {
