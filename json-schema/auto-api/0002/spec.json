@@ -15884,7 +15884,13 @@
            "oil_change_warning",
            "inspection_warning",
            "diesel_oil_filter_water_presence",
-           "engine_drag_torque_control_failure"
+           "engine_drag_torque_control_failure",
+           "high_beam_left_failure",
+           "high_beam_right_failure",
+           "daytime_running_light_left_failure",
+           "daytime_running_light_right_failure",
+           "side_mark_lights_failure",
+           "licence_plate_light_failure"
           ]
          },
          "state": {
@@ -16805,7 +16811,13 @@
           "oil_change_warning",
           "inspection_warning",
           "diesel_oil_filter_water_presence",
-          "engine_drag_torque_control_failure"
+          "engine_drag_torque_control_failure",
+          "high_beam_left_failure",
+          "high_beam_right_failure",
+          "daytime_running_light_left_failure",
+          "daytime_running_light_right_failure",
+          "side_mark_lights_failure",
+          "licence_plate_light_failure"
          ]
         },
         "state": {
@@ -26993,7 +27005,8 @@
         "type": "string",
         "enum": [
          "alternating_current",
-         "direct_current"
+         "direct_current",
+         "wireless"
         ]
        },
        "timestamp": {
@@ -32320,7 +32333,10 @@
          "digital_communication_established",
          "digital_communication_ended",
          "station_ready",
-         "active"
+         "active",
+         "initialising",
+         "fault",
+         "inactive"
         ]
        },
        "timestamp": {
@@ -33430,6 +33446,140 @@
        "data": {
         "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
         "type": "number"
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "distance_since_charging": {
+     "description": "The distance driven since the last charging session",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "meters",
+           "millimeters",
+           "centimeters",
+           "decimeters",
+           "kilometers",
+           "megameters",
+           "inches",
+           "feet",
+           "yards",
+           "miles",
+           "scandinavian_miles",
+           "nautical_miles"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
        },
        "timestamp": {
         "type": "string",
@@ -35445,7 +35595,8 @@
        "type": "string",
        "enum": [
         "alternating_current",
-        "direct_current"
+        "direct_current",
+        "wireless"
        ]
       },
       "timestamp": {
@@ -38491,7 +38642,10 @@
         "digital_communication_established",
         "digital_communication_ended",
         "station_ready",
-        "active"
+        "active",
+        "initialising",
+        "fault",
+        "inactive"
        ]
       },
       "timestamp": {
@@ -57596,7 +57750,10 @@
           "type": "string",
           "enum": [
            "kwh_per_100_kilometers",
-           "miles_per_kwh"
+           "miles_per_kwh",
+           "kilometers_per_kwh",
+           "miles_per_gallon_equivalent",
+           "miles_per_imperial_gallon_equivalent"
           ]
          },
          "value": {
@@ -57937,7 +58094,8 @@
           "enum": [
            "liters_per_100_kilometers",
            "miles_per_imperial_gallon",
-           "miles_per_gallon"
+           "miles_per_gallon",
+           "kilometers_per_liter"
           ]
          },
          "value": {
@@ -58062,7 +58220,8 @@
           "enum": [
            "liters_per_100_kilometers",
            "miles_per_imperial_gallon",
-           "miles_per_gallon"
+           "miles_per_gallon",
+           "kilometers_per_liter"
           ]
          },
          "value": {
@@ -58939,7 +59098,10 @@
           "type": "string",
           "enum": [
            "kwh_per_100_kilometers",
-           "miles_per_kwh"
+           "miles_per_kwh",
+           "kilometers_per_kwh",
+           "miles_per_gallon_equivalent",
+           "miles_per_imperial_gallon_equivalent"
           ]
          },
          "value": {
@@ -59063,7 +59225,10 @@
           "type": "string",
           "enum": [
            "kwh_per_100_kilometers",
-           "miles_per_kwh"
+           "miles_per_kwh",
+           "kilometers_per_kwh",
+           "miles_per_gallon_equivalent",
+           "miles_per_imperial_gallon_equivalent"
           ]
          },
          "value": {
@@ -59702,6 +59867,7 @@
     },
     "fuel_consumption_rate_last_trip": {
      "description": "Liquid fuel consumption rate during last trip",
+     "deprecated": true,
      "type": "array",
      "items": {
       "type": "object",
@@ -59714,7 +59880,8 @@
           "enum": [
            "liters_per_100_kilometers",
            "miles_per_imperial_gallon",
-           "miles_per_gallon"
+           "miles_per_gallon",
+           "kilometers_per_liter"
           ]
          },
          "value": {
@@ -59839,7 +60006,8 @@
           "enum": [
            "liters_per_100_kilometers",
            "miles_per_imperial_gallon",
-           "miles_per_gallon"
+           "miles_per_gallon",
+           "kilometers_per_liter"
           ]
          },
          "value": {
@@ -61349,7 +61517,10 @@
           "type": "string",
           "enum": [
            "kwh_per_100_kilometers",
-           "miles_per_kwh"
+           "miles_per_kwh",
+           "kilometers_per_kwh",
+           "miles_per_gallon_equivalent",
+           "miles_per_imperial_gallon_equivalent"
           ]
          },
          "value": {
@@ -61989,6 +62160,1092 @@
        "data": {
         "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
         "type": "number"
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_last_trip": {
+     "description": "Energy consumption spread across different categories for the last trip automatically detected.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "consumption": {
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "joules",
+             "kilojoules",
+             "watt_hours",
+             "kilowatt_hours",
+             "ampere_hours"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ],
+          "description": "Energy consumption in the given category"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "consumption"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_since_reset": {
+     "description": "Energy consumption spread across different categories since the last reset.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "consumption": {
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "joules",
+             "kilojoules",
+             "watt_hours",
+             "kilowatt_hours",
+             "ampere_hours"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ],
+          "description": "Energy consumption in the given category"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "consumption"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_since_charging": {
+     "description": "Energy consumption spread across different categories since the last charging session.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "consumption": {
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "joules",
+             "kilojoules",
+             "watt_hours",
+             "kilowatt_hours",
+             "ampere_hours"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ],
+          "description": "Energy consumption in the given category"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "consumption"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_percentages_last_trip": {
+     "description": "Energy consumption percentages spread across different categories for the last trip automatically detected.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption percentage",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "percentage": {
+          "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "percentage"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_percentages_since_reset": {
+     "description": "Energy consumption percentages spread across different categories since the last reset.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption percentage",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "percentage": {
+          "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "percentage"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "energy_consumption_percentages_since_charging": {
+     "description": "Energy consumption percentages spread across different categories since the last charging session.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Energy consumption percentage",
+        "type": "object",
+        "properties": {
+         "category": {
+          "description": "Category",
+          "type": "string",
+          "enum": [
+           "other",
+           "driving",
+           "climate",
+           "battery"
+          ]
+         },
+         "percentage": {
+          "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "category",
+         "percentage"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "average_speed_since_charging": {
+     "description": "Average speed since the last charging session.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "meters_per_second",
+           "kilometers_per_hour",
+           "miles_per_hour",
+           "knots"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "fuel_consumption_rate_since_start": {
+     "description": "Liquid fuel consumption rate since start",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "liters_per_100_kilometers",
+           "miles_per_imperial_gallon",
+           "miles_per_gallon",
+           "kilometers_per_liter"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
        },
        "timestamp": {
         "type": "string",
@@ -63150,6 +64407,276 @@
      "minProperties": 1,
      "additionalProperties": false
     },
+    "property_energy_consumption": {
+     "type": "object",
+     "properties": {
+      "data": {
+       "description": "Energy consumption",
+       "type": "object",
+       "properties": {
+        "category": {
+         "description": "Category",
+         "type": "string",
+         "enum": [
+          "other",
+          "driving",
+          "climate",
+          "battery"
+         ]
+        },
+        "consumption": {
+         "type": "object",
+         "properties": {
+          "unit": {
+           "type": "string",
+           "enum": [
+            "joules",
+            "kilojoules",
+            "watt_hours",
+            "kilowatt_hours",
+            "ampere_hours"
+           ]
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "unit",
+          "value"
+         ],
+         "description": "Energy consumption in the given category"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "category",
+        "consumption"
+       ]
+      },
+      "timestamp": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "failure": {
+       "description": "Failure",
+       "type": "object",
+       "properties": {
+        "reason": {
+         "description": "Reason",
+         "type": "string",
+         "enum": [
+          "rate_limit",
+          "execution_timeout",
+          "format_error",
+          "unauthorised",
+          "unknown",
+          "pending",
+          "oem_error",
+          "privacy_mode_active"
+         ]
+        },
+        "description": {
+         "description": "Failure description",
+         "type": "string"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "reason",
+        "description"
+       ]
+      },
+      "availability": {
+       "description": "Availability",
+       "type": "object",
+       "properties": {
+        "update_rate": {
+         "description": "Update rate",
+         "type": "string",
+         "enum": [
+          "trip_high",
+          "trip",
+          "trip_start_end",
+          "trip_end",
+          "unknown",
+          "not_available",
+          "on_change"
+         ]
+        },
+        "rate_limit": {
+         "description": "Frequency denoting the rate limit",
+         "type": "object",
+         "properties": {
+          "unit": {
+           "type": "string",
+           "enum": [
+            "hertz",
+            "millihertz",
+            "kilohertz",
+            "megahertz",
+            "gigahertz",
+            "times_per_minute",
+            "times_per_hour",
+            "times_per_day"
+           ]
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "unit",
+          "value"
+         ]
+        },
+        "applies_per": {
+         "description": "Rate limit applies per",
+         "type": "string",
+         "enum": [
+          "app",
+          "vehicle"
+         ]
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "update_rate",
+        "rate_limit",
+        "applies_per"
+       ]
+      }
+     },
+     "minProperties": 1,
+     "additionalProperties": false
+    },
+    "property_energy_consumption_percentage": {
+     "type": "object",
+     "properties": {
+      "data": {
+       "description": "Energy consumption percentage",
+       "type": "object",
+       "properties": {
+        "category": {
+         "description": "Category",
+         "type": "string",
+         "enum": [
+          "other",
+          "driving",
+          "climate",
+          "battery"
+         ]
+        },
+        "percentage": {
+         "description": "Percentage value between 0.0 - 1.0 (0% - 100%)",
+         "type": "number"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "category",
+        "percentage"
+       ]
+      },
+      "timestamp": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "failure": {
+       "description": "Failure",
+       "type": "object",
+       "properties": {
+        "reason": {
+         "description": "Reason",
+         "type": "string",
+         "enum": [
+          "rate_limit",
+          "execution_timeout",
+          "format_error",
+          "unauthorised",
+          "unknown",
+          "pending",
+          "oem_error",
+          "privacy_mode_active"
+         ]
+        },
+        "description": {
+         "description": "Failure description",
+         "type": "string"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "reason",
+        "description"
+       ]
+      },
+      "availability": {
+       "description": "Availability",
+       "type": "object",
+       "properties": {
+        "update_rate": {
+         "description": "Update rate",
+         "type": "string",
+         "enum": [
+          "trip_high",
+          "trip",
+          "trip_start_end",
+          "trip_end",
+          "unknown",
+          "not_available",
+          "on_change"
+         ]
+        },
+        "rate_limit": {
+         "description": "Frequency denoting the rate limit",
+         "type": "object",
+         "properties": {
+          "unit": {
+           "type": "string",
+           "enum": [
+            "hertz",
+            "millihertz",
+            "kilohertz",
+            "megahertz",
+            "gigahertz",
+            "times_per_minute",
+            "times_per_hour",
+            "times_per_day"
+           ]
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "unit",
+          "value"
+         ]
+        },
+        "applies_per": {
+         "description": "Rate limit applies per",
+         "type": "string",
+         "enum": [
+          "app",
+          "vehicle"
+         ]
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "update_rate",
+        "rate_limit",
+        "applies_per"
+       ]
+      }
+     },
+     "minProperties": 1,
+     "additionalProperties": false
+    },
     "property_energy_efficiency": {
      "type": "object",
      "properties": {
@@ -63160,7 +64687,10 @@
          "type": "string",
          "enum": [
           "kwh_per_100_kilometers",
-          "miles_per_kwh"
+          "miles_per_kwh",
+          "kilometers_per_kwh",
+          "miles_per_gallon_equivalent",
+          "miles_per_imperial_gallon_equivalent"
          ]
         },
         "value": {
@@ -63281,7 +64811,8 @@
          "enum": [
           "liters_per_100_kilometers",
           "miles_per_imperial_gallon",
-          "miles_per_gallon"
+          "miles_per_gallon",
+          "kilometers_per_liter"
          ]
         },
         "value": {
@@ -85595,6 +87126,517 @@
       "additionalProperties": false
      }
     },
+    "service_warning": {
+     "description": "Represents the type of service required and how soon it must be performed.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "description": "Service warning",
+        "type": "object",
+        "properties": {
+         "due": {
+          "description": "Due",
+          "type": "string",
+          "enum": [
+           "no_service_required",
+           "almost",
+           "due",
+           "overdue"
+          ]
+         },
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "unknown",
+           "regular_maintenance",
+           "engine_hours",
+           "distance_driven"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "due",
+         "reason"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "last_service_date": {
+     "description": "Date of the last service performed on the vehicle.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "last_service_distance": {
+     "description": "Distance reading at the time of the last service.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "meters",
+           "millimeters",
+           "centimeters",
+           "decimeters",
+           "kilometers",
+           "megameters",
+           "inches",
+           "feet",
+           "yards",
+           "miles",
+           "scandinavian_miles",
+           "nautical_miles"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
+    "next_inspection_distance": {
+     "description": "Distance reading at which the next inspection is due.",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "meters",
+           "millimeters",
+           "centimeters",
+           "decimeters",
+           "kilometers",
+           "megameters",
+           "inches",
+           "feet",
+           "yards",
+           "miles",
+           "scandinavian_miles",
+           "nautical_miles"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
     "nonce": {
      "type": "object",
      "properties": {
@@ -86733,6 +88775,137 @@
         "ok",
         "warning",
         "critical"
+       ]
+      },
+      "timestamp": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "failure": {
+       "description": "Failure",
+       "type": "object",
+       "properties": {
+        "reason": {
+         "description": "Reason",
+         "type": "string",
+         "enum": [
+          "rate_limit",
+          "execution_timeout",
+          "format_error",
+          "unauthorised",
+          "unknown",
+          "pending",
+          "oem_error",
+          "privacy_mode_active"
+         ]
+        },
+        "description": {
+         "description": "Failure description",
+         "type": "string"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "reason",
+        "description"
+       ]
+      },
+      "availability": {
+       "description": "Availability",
+       "type": "object",
+       "properties": {
+        "update_rate": {
+         "description": "Update rate",
+         "type": "string",
+         "enum": [
+          "trip_high",
+          "trip",
+          "trip_start_end",
+          "trip_end",
+          "unknown",
+          "not_available",
+          "on_change"
+         ]
+        },
+        "rate_limit": {
+         "description": "Frequency denoting the rate limit",
+         "type": "object",
+         "properties": {
+          "unit": {
+           "type": "string",
+           "enum": [
+            "hertz",
+            "millihertz",
+            "kilohertz",
+            "megahertz",
+            "gigahertz",
+            "times_per_minute",
+            "times_per_hour",
+            "times_per_day"
+           ]
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "unit",
+          "value"
+         ]
+        },
+        "applies_per": {
+         "description": "Rate limit applies per",
+         "type": "string",
+         "enum": [
+          "app",
+          "vehicle"
+         ]
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "update_rate",
+        "rate_limit",
+        "applies_per"
+       ]
+      }
+     },
+     "minProperties": 1,
+     "additionalProperties": false
+    },
+    "property_service_warning": {
+     "type": "object",
+     "properties": {
+      "data": {
+       "description": "Service warning",
+       "type": "object",
+       "properties": {
+        "due": {
+         "description": "Due",
+         "type": "string",
+         "enum": [
+          "no_service_required",
+          "almost",
+          "due",
+          "overdue"
+         ]
+        },
+        "reason": {
+         "description": "Reason",
+         "type": "string",
+         "enum": [
+          "unknown",
+          "regular_maintenance",
+          "engine_hours",
+          "distance_driven"
+         ]
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "due",
+        "reason"
        ]
       },
       "timestamp": {
@@ -93794,7 +95967,8 @@
           "enum": [
            "liters_per_100_kilometers",
            "miles_per_imperial_gallon",
-           "miles_per_gallon"
+           "miles_per_gallon",
+           "kilometers_per_liter"
           ]
          },
          "value": {
@@ -95519,6 +97693,133 @@
       "additionalProperties": false
      }
     },
+    "average_electric_consumption": {
+     "description": "Average electric consumption during the trip",
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "data": {
+        "type": "object",
+        "properties": {
+         "unit": {
+          "type": "string",
+          "enum": [
+           "kwh_per_100_kilometers",
+           "miles_per_kwh",
+           "kilometers_per_kwh",
+           "miles_per_gallon_equivalent",
+           "miles_per_imperial_gallon_equivalent"
+          ]
+         },
+         "value": {
+          "type": "number"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "unit",
+         "value"
+        ]
+       },
+       "timestamp": {
+        "type": "string",
+        "format": "date-time"
+       },
+       "failure": {
+        "description": "Failure",
+        "type": "object",
+        "properties": {
+         "reason": {
+          "description": "Reason",
+          "type": "string",
+          "enum": [
+           "rate_limit",
+           "execution_timeout",
+           "format_error",
+           "unauthorised",
+           "unknown",
+           "pending",
+           "oem_error",
+           "privacy_mode_active"
+          ]
+         },
+         "description": {
+          "description": "Failure description",
+          "type": "string"
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "reason",
+         "description"
+        ]
+       },
+       "availability": {
+        "description": "Availability",
+        "type": "object",
+        "properties": {
+         "update_rate": {
+          "description": "Update rate",
+          "type": "string",
+          "enum": [
+           "trip_high",
+           "trip",
+           "trip_start_end",
+           "trip_end",
+           "unknown",
+           "not_available",
+           "on_change"
+          ]
+         },
+         "rate_limit": {
+          "description": "Frequency denoting the rate limit",
+          "type": "object",
+          "properties": {
+           "unit": {
+            "type": "string",
+            "enum": [
+             "hertz",
+             "millihertz",
+             "kilohertz",
+             "megahertz",
+             "gigahertz",
+             "times_per_minute",
+             "times_per_hour",
+             "times_per_day"
+            ]
+           },
+           "value": {
+            "type": "number"
+           }
+          },
+          "additionalProperties": false,
+          "required": [
+           "unit",
+           "value"
+          ]
+         },
+         "applies_per": {
+          "description": "Rate limit applies per",
+          "type": "string",
+          "enum": [
+           "app",
+           "vehicle"
+          ]
+         }
+        },
+        "additionalProperties": false,
+        "required": [
+         "update_rate",
+         "rate_limit",
+         "applies_per"
+        ]
+       }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+     }
+    },
     "nonce": {
      "type": "object",
      "properties": {
@@ -96339,6 +98640,129 @@
      "minProperties": 1,
      "additionalProperties": false
     },
+    "property_energy_efficiency": {
+     "type": "object",
+     "properties": {
+      "data": {
+       "type": "object",
+       "properties": {
+        "unit": {
+         "type": "string",
+         "enum": [
+          "kwh_per_100_kilometers",
+          "miles_per_kwh",
+          "kilometers_per_kwh",
+          "miles_per_gallon_equivalent",
+          "miles_per_imperial_gallon_equivalent"
+         ]
+        },
+        "value": {
+         "type": "number"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "unit",
+        "value"
+       ]
+      },
+      "timestamp": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "failure": {
+       "description": "Failure",
+       "type": "object",
+       "properties": {
+        "reason": {
+         "description": "Reason",
+         "type": "string",
+         "enum": [
+          "rate_limit",
+          "execution_timeout",
+          "format_error",
+          "unauthorised",
+          "unknown",
+          "pending",
+          "oem_error",
+          "privacy_mode_active"
+         ]
+        },
+        "description": {
+         "description": "Failure description",
+         "type": "string"
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "reason",
+        "description"
+       ]
+      },
+      "availability": {
+       "description": "Availability",
+       "type": "object",
+       "properties": {
+        "update_rate": {
+         "description": "Update rate",
+         "type": "string",
+         "enum": [
+          "trip_high",
+          "trip",
+          "trip_start_end",
+          "trip_end",
+          "unknown",
+          "not_available",
+          "on_change"
+         ]
+        },
+        "rate_limit": {
+         "description": "Frequency denoting the rate limit",
+         "type": "object",
+         "properties": {
+          "unit": {
+           "type": "string",
+           "enum": [
+            "hertz",
+            "millihertz",
+            "kilohertz",
+            "megahertz",
+            "gigahertz",
+            "times_per_minute",
+            "times_per_hour",
+            "times_per_day"
+           ]
+          },
+          "value": {
+           "type": "number"
+          }
+         },
+         "additionalProperties": false,
+         "required": [
+          "unit",
+          "value"
+         ]
+        },
+        "applies_per": {
+         "description": "Rate limit applies per",
+         "type": "string",
+         "enum": [
+          "app",
+          "vehicle"
+         ]
+        }
+       },
+       "additionalProperties": false,
+       "required": [
+        "update_rate",
+        "rate_limit",
+        "applies_per"
+       ]
+      }
+     },
+     "minProperties": 1,
+     "additionalProperties": false
+    },
     "property_event": {
      "type": "object",
      "properties": {
@@ -96462,7 +98886,8 @@
          "enum": [
           "liters_per_100_kilometers",
           "miles_per_imperial_gallon",
-          "miles_per_gallon"
+          "miles_per_gallon",
+          "kilometers_per_liter"
          ]
         },
         "value": {
