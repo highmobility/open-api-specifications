@@ -14,18 +14,303 @@ info:
   contact:
     email: support@high-mobility.com
 openapi: 3.0.3
-
-
 tags:
-  - name: Static Data API
-    description: >-
-            This endpoint allows you to retrieve static vehicle data through a RESTful interface.
-            
-            The raw Swagger specification is available at https://github.com/highmobility/open-api-specifications/blob/main/hm-vehicle-static-data-api-v1.yml
-      
+- name: Static Data API
+
 paths:
+  /v1/vehicle-static-data/{vin}/data:
+    get:
+      tags:
+      - Static Data API
+      summary: "Vehicle Data.\n\nThis is a proxy call to Dat's FinanceLine/soap/VehicleIdentificationService:getVehicleData\
+        \ API.\n\nDocs: https://www.dat.de/fileadmin/de/support/interface-documentation/MG/SilverDAT_Schnittstellen-Kompendium_Mag/#/home/1987/20/21\
+        \    \n"
+      description: Returns vehicle static data for the given VIN.
+      parameters:
+      - description: Vehicle Identification number
+        in: path
+        name: vin
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataDataResponse'
+              examples:
+                Example:
+                  value:
+                    vehicle:
+                      manufacturer:
+                        brand:
+                          id: '285'
+                          name: Kia
+                        container:
+                          id: DE009
+                          name: DE - Van5 2.0 , Titanium, 2010 - 2015
+                        kba_numbers:
+                        - 8516/AUM
+                        - 1566/AUR
+                        model:
+                          id: '135'
+                          name: C-Max (CB7)(2012->)
+                        product_group:
+                          code: '5023'
+                          name: Van
+                        rental_car_class: '6'
+                        sales_description: C-Max 2.0 TDCi DPF Titanium
+                        sub_model:
+                          id: '12'
+                          name: Titanium
+                          variant: '10'
+                        vehicle_type:
+                          id: '1'
+                          name: Passenger car, SUV, small van
+                      specs:
+                        body:
+                          doors: '5'
+                          seats: '5'
+                          structure:
+                            description: Van
+                            type: Van
+                          trunk:
+                            size:
+                              max: '1723'
+                              standard: '432'
+                        dimensions:
+                          height: '1626'
+                          length: '4380'
+                          wheelbase: '2648'
+                          width:
+                            mirrors: '2022'
+                            standard: '1828'
+                        drivetrain:
+                          axles:
+                            driven: '1'
+                            total: '2'
+                          code: FA
+                          transmission:
+                            gears: '6'
+                            type: automatic
+                          type: FWD
+                        emissions:
+                          class:
+                            code: E5
+                            description: E5
+                            efficiency:
+                              nedc: B
+                          co2:
+                            nedc: '135'
+                          pricing:
+                            per_ton:
+                              high: '200'
+                              low: '60'
+                              medium: '127'
+                            range:
+                              end_year: '2035'
+                              start_year: '2026'
+                        engine:
+                          construction:
+                            capacity: '1997'
+                            cycle: '4'
+                            cylinders:
+                              arrangement: R
+                              count: '4'
+                          output:
+                            power:
+                              hp: '140'
+                              kw: '103'
+                              max:
+                                at_rpm: '3750'
+                            torque:
+                              max:
+                                at_rpm: '1750'
+                              nm: '320'
+                        fuel:
+                          average_price:
+                            electricity: '0.312'
+                            fuel: '1.649'
+                            year: '2024'
+                          capacity: '60'
+                          consumption:
+                            nedc:
+                              city: '6.4'
+                              combined: '5.1'
+                              highway: '4.4'
+                            wltp:
+                              city: '7.2'
+                              combined: '5.6'
+                              motorway: '5.5'
+                              petrol_equivalent: '5.6'
+                              rural: '4.9'
+                              town: '5.8'
+                          type:
+                            category: D
+                            code: D
+                            name: Diesel
+                        insurance_class:
+                          casco:
+                            complete: '17'
+                            partial: '21'
+                          liability: '18'
+                        performance:
+                          acceleration: '9.6'
+                          max_speed: '201'
+                        weight:
+                          limits:
+                            payload: '562'
+                            roof: '75'
+                            trailer:
+                              braked: '1500'
+                              unbraked: '740'
+                          total: '2050'
+                          unloaded: '1488'
+                        wheels:
+                          tires:
+                            size:
+                              front: 215/55R16
+                              rear: 215/55R16
+                      valuation:
+                        price:
+                          original:
+                            gross: '28000.49'
+                            net: '23530'
+                            vat_rate: '19'
+        '504':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataResponseError'
+              examples:
+                When Dat API fails:
+                  value:
+                    errors:
+                    - detail: Error while querying external services. Please try again
+                        later
+                      title: Service unavailable
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+          description: Service unavailable
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataResponseError'
+              examples:
+                Invalid authorization header:
+                  value:
+                    errors:
+                    - detail: Missing or invalid authorization header
+                      title: Not Authorized
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+                ExpiredToken:
+                  value:
+                    errors:
+                    - detail: Expired token
+                      title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+                Invalid JWT Payload:
+                  value:
+                    errors:
+                    - detail: Invalid JWT Payload
+                      title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+          description: Not Authorized
+      security:
+      - VehicleStaticDataAuth:
+        - vehicle:static-data  
+  /v1/vehicle-static-data/{vin}/valuation:
+    post:
+      summary: |
+        Vehicle Valuation Data.
+        
+        This is a proxy call to Dat's FinanceLine/soap/Evaluation:getVehicleEvaluation API.
+        
+        Docs: https://www.dat.de/fileadmin/de/support/interface-documentation/MG/SilverDAT_Schnittstellen-Kompendium_Mag/#/home/2156/20/21    
+      parameters:
+        - description: Vehicle Identification number
+          in: path
+          name: vin
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleStaticValuationDataRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticValuationDataResponse'
+          description: successful operation
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataResponse422'
+              examples:
+                Missing Params:
+                  value:
+                    errors:
+                      - detail: can't be blank
+                        source: odometer
+                      - detail: has invalid format
+                        source: registration_date
+                      - detail: can't be blank
+                        source: country_code
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+          description: Unprocessable Content
+        '504':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataResponseError'
+              examples:
+                When Dat API fails:
+                  value:
+                    errors:
+                      - detail: Error while querying external services. Please try again later
+                        title: Service unavailable
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+          description: Service unavailable
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleStaticDataResponseError'
+              examples:
+                Invalid authorization header:
+                  value:
+                    errors:
+                      - detail: Missing or invalid authorization header
+                        title: Not Authorized
+                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
+                ExpiredToken:
+                  value:
+                    errors:
+                      - detail: Expired token
+                        title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+                Invalid JWT Payload:
+                  value:
+                    errors:
+                      - detail: Invalid JWT Payload
+                        title: Not Authorized
+                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
+          description: Not Authorized
+      security:
+        - VehicleStaticDataAuth:
+            - vehicle:static-data
+      tags:
+        - Static Data API
   /v1/vehicle-static-data/{vin}:
     get:
+      deprecated: true
       summary: | 
         Vehicle Static Data.
         
@@ -380,96 +665,8 @@ paths:
             - vehicle:static-data
       tags:
         - Static Data API
-  /v1/vehicle-static-data/{vin}/valuation:
-    post:
-      summary: |
-        Vehicle Valuation Data.
-        
-        This is a proxy call to Dat's FinanceLine/soap/Evaluation:getVehicleEvaluation API.
-        
-        Docs: https://www.dat.de/fileadmin/de/support/interface-documentation/MG/SilverDAT_Schnittstellen-Kompendium_Mag/#/home/2156/20/21    
-      parameters:
-        - description: Vehicle Identification number
-          in: path
-          name: vin
-          required: true
-          schema:
-            type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VehicleStaticValuationDataRequest'
-      responses:
-        '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VehicleStaticValuationDataResponse'
-          description: successful operation
-        '422':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VehicleStaticDataResponse422'
-              examples:
-                Missing Params:
-                  value:
-                    errors:
-                      - detail: can't be blank
-                        source: odometer
-                      - detail: has invalid format
-                        source: registration_date
-                      - detail: can't be blank
-                        source: country_code
-                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
-          description: Unprocessable Content
-        '504':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VehicleStaticDataResponseError'
-              examples:
-                When Dat API fails:
-                  value:
-                    errors:
-                      - detail: Error while querying external services. Please try again later
-                        title: Service unavailable
-                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
-          description: Service unavailable
-        '401':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VehicleStaticDataResponseError'
-              examples:
-                Invalid authorization header:
-                  value:
-                    errors:
-                      - detail: Missing or invalid authorization header
-                        title: Not Authorized
-                    request_id: 89c6b29a-caca-449d-9a60-e2ca21a60fe3
-                ExpiredToken:
-                  value:
-                    errors:
-                      - detail: Expired token
-                        title: Not Authorized
-                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
-                Invalid JWT Payload:
-                  value:
-                    errors:
-                      - detail: Invalid JWT Payload
-                        title: Not Authorized
-                    request_id: 32c6b29a-caca-449d-9a60-e2ca21a60fe3
-          description: Not Authorized
-      security:
-        - VehicleStaticDataAuth:
-            - vehicle:static-data
-      tags:
-        - Static Data API
 servers:
-  - url: https://api.high-mobility.com
-
+- url: https://api.high-mobility.com
 components:
   schemas:
     VehicleStaticDataValuationPricePurchase:
@@ -477,181 +674,201 @@ components:
         net:
           type: string
           format: decimal
-          description: "Dat key: PurchasePrice | Dealer purchase price, net (incl. equipment)."
-          example: "15571.43"
+          description: 'Dat key: PurchasePrice | Dealer purchase price, net (incl.
+            equipment).'
+          example: '15571.43'
         gross:
           type: string
           format: decimal
-          description: "Dat key: PurchasePriceGross | Dealer purchase price, gross (incl. equipment)."
-          example: "15571.43"
+          description: 'Dat key: PurchasePriceGross | Dealer purchase price, gross
+            (incl. equipment).'
+          example: '15571.43'
     VehicleStaticDataValuationPriceOriginal:
       properties:
         net:
           type: string
           format: decimal
-          description: "Dat key: OriginalPrice | List original price according to DAT + Market index without optional equipment"
-          example: "26324"
+          description: 'Dat key: OriginalPrice | List original price according to
+            DAT + Market index without optional equipment'
+          example: '26324'
         gross:
           type: string
           format: decimal
-          description: "Dat key: OriginalPriceGross | List original price according to DAT + Market index without optional equipment"
-          example: "31325"
+          description: 'Dat key: OriginalPriceGross | List original price according
+            to DAT + Market index without optional equipment'
+          example: '31325'
     VehicleStaticDataValuationPriceSales:
       properties:
         net:
           type: string
           format: decimal
-          description: "Dat key: SalesPrice | Dealer sales price, net (including equipment)"
-          example: "17576.10"
+          description: 'Dat key: SalesPrice | Dealer sales price, net (including equipment)'
+          example: '17576.10'
         gross:
           type: string
           format: decimal
-          description: "Dat key: SalesPriceGross | Dealer sales price, gross (including equipment)"
-          example: "17956.99"
-
+          description: 'Dat key: SalesPriceGross | Dealer sales price, gross (including
+            equipment)'
+          example: '17956.99'
     VehicleStaticDataValuationPriceEquipment:
       properties:
         original:
           type: string
           format: decimal
-          description: "Dat key: EquipmentOriginalPrice | List original price of equipment"
-          example: "0"
+          description: 'Dat key: EquipmentOriginalPrice | List original price of equipment'
+          example: '0'
         value:
           type: string
           format: decimal
-          description: "Dat key:EquipmentPrice | Valuated price of equipment"
-          example: "0"
+          description: Dat key:EquipmentPrice | Valuated price of equipment
+          example: '0'
         value_type:
           type: string
-          description: "Dat Key: EquipmentSign"
-          example: "calculated value"
-
+          description: 'Dat Key: EquipmentSign'
+          example: calculated value
     VehicleStaticDataValuationMargin:
       properties:
         net:
           type: string
           format: decimal
-          description: "Dat key: Margin |Trade margin net"
-          example: "2004.67"
+          description: 'Dat key: Margin |Trade margin net'
+          example: '2004.67'
         gross:
           type: string
           format: decimal
-          description: "Dat key: MarginGross | Trade margin gross"
-          example: "2385.56"
-
+          description: 'Dat key: MarginGross | Trade margin gross'
+          example: '2385.56'
     VehicleStaticDataValuationPriceInitialRegistrationCorrection:
       type: string
       format: decimal
-      description: "Dat key: InitialRegistrationCorr | First-registration adjustment (net)"
-      example: "617.39"
+      description: 'Dat key: InitialRegistrationCorr | First-registration adjustment
+        (net)'
+      example: '617.39'
     VehicleStaticDataValuationPriceTires:
       properties:
         default:
           type: string
           format: decimal
-          description: "Dat key: DefaultTiresPrice | Considered value of the standard tires (50%)"
-          example: "254.00"
-
+          description: 'Dat key: DefaultTiresPrice | Considered value of the standard
+            tires (50%)'
+          example: '254.00'
     VehicleStaticDataValuationPriceBase:
       properties:
-        "1":
+        '1':
           type: string
           format: decimal
-          description: "Dat Key: BasePrice | Reference value according to DAT  +Market index (net based on regular taxation) without optional equipment"
-          example: "12786.00"
-        "2":
+          description: 'Dat Key: BasePrice | Reference value according to DAT  +Market
+            index (net based on regular taxation) without optional equipment'
+          example: '12786.00'
+        '2':
           type: string
           format: decimal
-          description: "Dat Key: BasePrice2 | Reference value according to DAT adjusted by mileage and first-registration adjustment; base value determined by DAT, net based on regular taxation"
-          example: "15089.91"
-        "3":
+          description: 'Dat Key: BasePrice2 | Reference value according to DAT adjusted
+            by mileage and first-registration adjustment; base value determined by
+            DAT, net based on regular taxation'
+          example: '15089.91'
+        '3':
           type: string
           format: decimal
-          description: "Dat Key: BasePrice3 | Base value as determined by DAT, net, based on regular taxation (incl. equipment)"
-          example: "15089.91"
-
+          description: 'Dat Key: BasePrice3 | Base value as determined by DAT, net,
+            based on regular taxation (incl. equipment)'
+          example: '15089.91'
     VehicleStaticDataValuationCondition:
       properties:
         correction_factor_percentage:
           type: string
           format: number
-          description: "Dat key: Condition/ConditionCorrectionFactorPerc | User value of condition adjustment in percent of the dealer selling price. Values range from 70 to 130."
-          example: "100"
+          description: 'Dat key: Condition/ConditionCorrectionFactorPerc | User value
+            of condition adjustment in percent of the dealer selling price. Values
+            range from 70 to 130.'
+          example: '100'
         correction_amount:
           type: object
           properties:
             net:
               type: string
               format: decimal
-              example: "0.00"
-              description: "Dat key: Condition/ConditionCorrectionAmount | Adjustment sum determined on the basis of parameter ConditionCorrectionFactorPerc as net value"
+              example: '0.00'
+              description: 'Dat key: Condition/ConditionCorrectionAmount | Adjustment
+                sum determined on the basis of parameter ConditionCorrectionFactorPerc
+                as net value'
             gross:
               type: string
               format: decimal
-              example: "0.00"
-              description: "Dat key: Condition/ConditionCorrectionAmountGross | Adjustment sum determined on the basis of parameter ConditionCorrectionFactorPerc as gross value"
+              example: '0.00'
+              description: 'Dat key: Condition/ConditionCorrectionAmountGross | Adjustment
+                sum determined on the basis of parameter ConditionCorrectionFactorPerc
+                as gross value'
         number_of_owners:
           type: string
           format: number
-          example: "1"
-          description: "Dat key: Condition/NumberOfOwnersN | Number of owners"
+          example: '1'
+          description: 'Dat key: Condition/NumberOfOwnersN | Number of owners'
         sub_total:
           type: object
           properties:
-            "1":
+            '1':
               type: object
               properties:
                 net:
                   type: string
                   format: decimal
-                  example: "15089.91"
-                  description: "Dat key: Condition/ConditionSubTotal1 | Subtotal 1, including: IncreaseInValue, DecreaseInValue, TiresMountedValue, TiresUnmountedValue as net value"
+                  example: '15089.91'
+                  description: 'Dat key: Condition/ConditionSubTotal1 | Subtotal 1,
+                    including: IncreaseInValue, DecreaseInValue, TiresMountedValue,
+                    TiresUnmountedValue as net value'
                 gross:
                   type: string
                   format: decimal
-                  example: "17956.99"
-                  description: "Dat key: Condition/ConditionSubTotal1Gross | Subtotal 1, including: IncreaseInValue, DecreaseInValue, TiresMountedValue, TiresUnmountedValue as gross value"
-            "2":
+                  example: '17956.99'
+                  description: 'Dat key: Condition/ConditionSubTotal1Gross | Subtotal
+                    1, including: IncreaseInValue, DecreaseInValue, TiresMountedValue,
+                    TiresUnmountedValue as gross value'
+            '2':
               type: object
               properties:
                 net:
                   type: string
                   format: decimal
-                  example: "15089.91"
-                  description: "Dat key: Condition/ConditionSubTotal2 | Subtotal 2, including: OwnerCorrectionAmount, ConditionCorrectionAmount, RepairCosts as net value"
+                  example: '15089.91'
+                  description: 'Dat key: Condition/ConditionSubTotal2 | Subtotal 2,
+                    including: OwnerCorrectionAmount, ConditionCorrectionAmount, RepairCosts
+                    as net value'
                 gross:
                   type: string
                   format: decimal
-                  example: "17956.99"
-                  description: "Dat key: Condition/ConditionSubTotal2Gross | Subtotal 2, including: OwnerCorrectionAmount, ConditionCorrectionAmount, RepairCosts as gross value"
+                  example: '17956.99'
+                  description: 'Dat key: Condition/ConditionSubTotal2Gross | Subtotal
+                    2, including: OwnerCorrectionAmount, ConditionCorrectionAmount,
+                    RepairCosts as gross value'
     VehicleStaticDataValuationOdometer:
       properties:
         reference:
           type: string
           format: number
-          example: "103000"
-          description: "Dat key: ReferenceMileage | Reference driving route according to DAT (km)"
+          example: '103000'
+          description: 'Dat key: ReferenceMileage | Reference driving route according
+            to DAT (km)'
         correction:
           type: string
           format: decimal
-          example: "1686.52"
-          description: "Dat key: MileageCorr | Mileage adjustment (net)"
+          example: '1686.52'
+          description: 'Dat key: MileageCorr | Mileage adjustment (net)'
     VehicleStaticDataValuationMeta:
       properties:
         last_valuation_date:
           type: string
           format: datetime
-          description: "Dat key: LastValuationDate | Date of this valuation"
-          example: "2024-05-02T11:17:02.838+02:00"
+          description: 'Dat key: LastValuationDate | Date of this valuation'
+          example: '2024-05-02T11:17:02.838+02:00'
         residual_value_model:
           type: string
-          description: "Dat key: ResidualValueModel | Residual-value model"
+          description: 'Dat key: ResidualValueModel | Residual-value model'
           example: dat
         type:
           type: string
-          description: "Dat key: ValuationType | Evaluation type"
+          description: 'Dat key: ValuationType | Evaluation type'
           example: valuation
-
     VehicleStaticDataValuationPrice:
       properties:
         base:
@@ -659,91 +876,90 @@ components:
         purchase:
           $ref: '#/components/schemas/VehicleStaticDataValuationPricePurchase'
         orginal:
-          $ref: "#/components/schemas/VehicleStaticDataValuationPriceOriginal"
+          $ref: '#/components/schemas/VehicleStaticDataValuationPriceOriginal'
         sales:
-          $ref: "#/components/schemas/VehicleStaticDataValuationPriceSales"
+          $ref: '#/components/schemas/VehicleStaticDataValuationPriceSales'
         equipment:
-          $ref: "#/components/schemas/VehicleStaticDataValuationPriceEquipment"
+          $ref: '#/components/schemas/VehicleStaticDataValuationPriceEquipment'
         tires:
-          $ref: "#/components/schemas/VehicleStaticDataValuationPriceTires"
+          $ref: '#/components/schemas/VehicleStaticDataValuationPriceTires'
         margin:
-          $ref: "#/components/schemas/VehicleStaticDataValuationMargin"
+          $ref: '#/components/schemas/VehicleStaticDataValuationMargin'
         initial_registration_correction:
-          $ref: "#/components/schemas/VehicleStaticDataValuationPriceInitialRegistrationCorrection"
-
+          $ref: '#/components/schemas/VehicleStaticDataValuationPriceInitialRegistrationCorrection'
     VehicleStaticDataValuation:
       properties:
         price:
-           $ref: '#/components/schemas/VehicleStaticDataValuationPrice'
+          $ref: '#/components/schemas/VehicleStaticDataValuationPrice'
         condition:
-          $ref: "#/components/schemas/VehicleStaticDataValuationCondition"
+          $ref: '#/components/schemas/VehicleStaticDataValuationCondition'
         odometer:
-          $ref: "#/components/schemas/VehicleStaticDataValuationOdometer"
+          $ref: '#/components/schemas/VehicleStaticDataValuationOdometer'
         meta:
-          $ref: "#/components/schemas/VehicleStaticDataValuationMeta"
+          $ref: '#/components/schemas/VehicleStaticDataValuationMeta'
     VehicleStaticDataManufacturer:
       properties:
         brand:
           type: string
           example: Jeep
-          description: "Dat key: ManufacturerName"
+          description: 'Dat key: ManufacturerName'
         sub_model:
           type: string
-          example: "80th Anniversary Plug-In Hybrid 4WD"
-          description: "Dat key: SubModelName"
+          example: 80th Anniversary Plug-In Hybrid 4WD
+          description: 'Dat key: SubModelName'
         type_group_name:
           type: string
-          example: "Compass"
-          description: "Dat key: MainTypeGroupName"
+          example: Compass
+          description: 'Dat key: MainTypeGroupName'
         model:
           type: string
-          example: "Compass (M7)(2020->)"
-          description: "Dat key: "
+          example: Compass (M7)(2020->)
+          description: 'Dat key: '
         sales_description:
           type: string
-          example: "Compass 1.3 Plug-In Hybrid (EURO 6d) 80th Annivers"
-          description: "Dat key: SalesDescription"
+          example: Compass 1.3 Plug-In Hybrid (EURO 6d) 80th Annivers
+          description: 'Dat key: SalesDescription'
         vehicle_main_type_key:
           type: string
-          example: "111"
-          description: "Dat key: VINResult/VINECodes/VINECode/VehicleMainTypeKey"
+          example: '111'
+          description: 'Dat key: VINResult/VINECodes/VINECode/VehicleMainTypeKey'
         vehicle_sub_type_key:
           type: string
-          example: "30"
-          description: "Dat key: VINResult/VINECodes/VINECode/VehicleSubTypeKey"
+          example: '30'
+          description: 'Dat key: VINResult/VINECodes/VINECode/VehicleSubTypeKey'
         vehicle_type_key:
           type: string
-          example: "1"
-          description: "Dat key: VINResult/VINECodes/VINECode/VehicleTypeKey"
+          example: '1'
+          description: 'Dat key: VINResult/VINECodes/VINECode/VehicleTypeKey'
     VehicleStaticDataEquipment:
       properties:
         series_equipment:
           type: array
           items:
             $ref: '#/components/schemas/VehicleStaticDataEquipmentList'
-          description: "Dat key: Equipment/SeriesEquipment"
+          description: 'Dat key: Equipment/SeriesEquipment'
         special_equipment:
           type: array
           items:
             $ref: '#/components/schemas/VehicleStaticDataEquipmentList'
-          description: "Dat key: Equipment/SpecialEquipment"
+          description: 'Dat key: Equipment/SpecialEquipment'
     VehicleStaticDataEquipmentList:
       properties:
         manufacturer_id:
           type: string
-          example: "JPE"
-          description: "Dat key: SeriesEquipment/EquipmentPosition/ManufacturerEquipmentId"
+          example: JPE
+          description: 'Dat key: SeriesEquipment/EquipmentPosition/ManufacturerEquipmentId'
         description:
           type: string
-          example: "airbag driver side/passenger side"
-          description: "Dat key: SeriesEquipment/EquipmentPosition/Description"
+          example: airbag driver side/passenger side
+          description: 'Dat key: SeriesEquipment/EquipmentPosition/Description'
         positions:
           type: array
           items:
             type: string
           example:
-            - description: "driver assistance system: traffic sign detection (TSR)"
-          description: "Dat key: EquipmentPosition/ContainedEquipmentPositions values"
+          - description: 'driver assistance system: traffic sign detection (TSR)'
+          description: 'Dat key: EquipmentPosition/ContainedEquipmentPositions values'
     VehicleStaticDataResponse:
       properties:
         manufacturer:
@@ -761,7 +977,8 @@ components:
         country_code:
           type: string
           example: DE
-          description: "The target market for the valuation. A two-letter country code as defined in the ISO 3166-1 standard."
+          description: The target market for the valuation. A two-letter country code
+            as defined in the ISO 3166-1 standard.
     VehicleStaticValuationDataResponse:
       properties:
         valuation:
@@ -800,6 +1017,331 @@ components:
         request_id:
           description: The request tracking id. Provide request_id when facing issue
           type: string
+    VehicleStaticDataDataResponse:
+      type: object
+      properties:
+        vehicle:
+          type: object
+          properties:
+            manufacturer:
+              type: object
+              properties:
+                brand:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                container:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                kba_numbers:
+                  type: array
+                  items:
+                    type: string
+                model:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                product_group:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                    name:
+                      type: string
+                rental_car_class:
+                  type: string
+                sales_description:
+                  type: string
+                sub_model:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    variant:
+                      type: string
+                vehicle_type:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+            specs:
+              type: object
+              properties:
+                body:
+                  type: object
+                  properties:
+                    doors:
+                      type: string
+                    seats:
+                      type: string
+                    structure:
+                      type: object
+                      properties:
+                        description:
+                          type: string
+                        type:
+                          type: string
+                    trunk:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            max:
+                              type: string
+                            standard:
+                              type: string
+                dimensions:
+                  type: object
+                  properties:
+                    height:
+                      type: string
+                    length:
+                      type: string
+                    wheelbase:
+                      type: string
+                    width:
+                      type: object
+                      properties:
+                        mirrors:
+                          type: string
+                        standard:
+                          type: string
+                drivetrain:
+                  type: object
+                  properties:
+                    axles:
+                      type: object
+                      properties:
+                        driven:
+                          type: string
+                        total:
+                          type: string
+                    code:
+                      type: string
+                    transmission:
+                      type: object
+                      properties:
+                        gears:
+                          type: string
+                        type:
+                          type: string
+                    type:
+                      type: string
+                emissions:
+                  type: object
+                  properties:
+                    class:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        description:
+                          type: string
+                        efficiency:
+                          type: object
+                          properties:
+                            nedc:
+                              type: string
+                    co2:
+                      type: object
+                      properties:
+                        nedc:
+                          type: string
+                    pricing:
+                      type: object
+                      properties:
+                        per_ton:
+                          type: object
+                          properties:
+                            high:
+                              type: string
+                            low:
+                              type: string
+                            medium:
+                              type: string
+                        range:
+                          type: object
+                          properties:
+                            end_year:
+                              type: string
+                            start_year:
+                              type: string
+                engine:
+                  type: object
+                  properties:
+                    construction:
+                      type: object
+                      properties:
+                        capacity:
+                          type: string
+                        cycle:
+                          type: string
+                        cylinders:
+                          type: object
+                          properties:
+                            arrangement:
+                              type: string
+                            count:
+                              type: string
+                    output:
+                      type: object
+                      properties:
+                        power:
+                          type: object
+                          properties:
+                            hp:
+                              type: string
+                            kw:
+                              type: string
+                            max:
+                              type: object
+                              properties:
+                                at_rpm:
+                                  type: string
+                        torque:
+                          type: object
+                          properties:
+                            max:
+                              type: object
+                              properties:
+                                at_rpm:
+                                  type: string
+                            nm:
+                              type: string
+                fuel:
+                  type: object
+                  properties:
+                    average_price:
+                      type: object
+                      properties:
+                        electricity:
+                          type: string
+                        fuel:
+                          type: string
+                        year:
+                          type: string
+                    capacity:
+                      type: string
+                    consumption:
+                      type: object
+                      properties:
+                        nedc:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                            combined:
+                              type: string
+                            highway:
+                              type: string
+                        wltp:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                            combined:
+                              type: string
+                            motorway:
+                              type: string
+                            petrol_equivalent:
+                              type: string
+                            rural:
+                              type: string
+                            town:
+                              type: string
+                    type:
+                      type: object
+                      properties:
+                        category:
+                          type: string
+                        code:
+                          type: string
+                        name:
+                          type: string
+                insurance_class:
+                  type: object
+                  properties:
+                    casco:
+                      type: object
+                      properties:
+                        complete:
+                          type: string
+                        partial:
+                          type: string
+                    liability:
+                      type: string
+                performance:
+                  type: object
+                  properties:
+                    acceleration:
+                      type: string
+                    max_speed:
+                      type: string
+                weight:
+                  type: object
+                  properties:
+                    limits:
+                      type: object
+                      properties:
+                        payload:
+                          type: string
+                        roof:
+                          type: string
+                        trailer:
+                          type: object
+                          properties:
+                            braked:
+                              type: string
+                            unbraked:
+                              type: string
+                    total:
+                      type: string
+                    unloaded:
+                      type: string
+                wheels:
+                  type: object
+                  properties:
+                    tires:
+                      type: object
+                      properties:
+                        size:
+                          type: object
+                          properties:
+                            front:
+                              type: string
+                            rear:
+                              type: string
+            valuation:
+              type: object
+              properties:
+                price:
+                  type: object
+                  properties:
+                    original:
+                      type: object
+                      properties:
+                        gross:
+                          type: string
+                        net:
+                          type: string
+                        vat_rate:
+                          type: string
+      title: VehicleStaticDataDataResponse
   securitySchemes:
     VehicleStaticDataAuth:
       flows:
