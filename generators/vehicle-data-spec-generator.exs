@@ -187,6 +187,7 @@ defmodule Loader do
           "dodge",
           "ds",
           "fiat",
+          "lancia",
           "ford",
           "honda",
           "hyundai",
