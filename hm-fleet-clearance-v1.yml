@@ -586,6 +586,7 @@ components:
             - seat
             - cupra
             - polestar
+            - nissan
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -737,6 +738,7 @@ components:
             - seat
             - cupra
             - polestar
+            - nissan
             - sandbox
         changelog:
            type: array
