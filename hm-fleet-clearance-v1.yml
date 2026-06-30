@@ -587,6 +587,7 @@ components:
             - cupra
             - polestar
             - nissan
+            - hyundai
             - sandbox
           description: Vehicle Brand
         control_measures:
@@ -739,6 +740,7 @@ components:
             - cupra
             - polestar
             - nissan
+            - hyundai
             - sandbox
         changelog:
            type: array
