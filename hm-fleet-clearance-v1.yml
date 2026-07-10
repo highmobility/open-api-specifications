@@ -569,6 +569,7 @@ components:
             - vauxhall
             - jeep
             - fiat
+            - lancia
             - alfaromeo
             - ford
             - renault
@@ -722,6 +723,7 @@ components:
             - vauxhall
             - jeep
             - fiat
+            - lancia
             - alfaromeo
             - ford
             - renault

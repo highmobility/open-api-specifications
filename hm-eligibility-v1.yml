@@ -121,6 +121,7 @@ components:
             - ds
             - jeep
             - fiat
+            - lancia
             - alfaromeo
             - renault
             - toyota
